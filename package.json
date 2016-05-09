@@ -18,6 +18,7 @@
   },
   "description": "An API for building and moving SVG's",
   "devDependencies": {
+    "babel-core": "^6.8.0",
     "commitizen": "^2.8.1",
     "cz-conventional-changelog": "^1.1.6",
     "expect": "^1.20.1",
