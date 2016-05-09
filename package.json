@@ -12,6 +12,10 @@
       "path": "node_modules/cz-conventional-changelog"
     }
   },
+  "dependencies": {
+    "points": "^1.7.0",
+    "svg-points": "^1.2.4"
+  },
   "description": "An API for building and moving SVG's",
   "devDependencies": {
     "commitizen": "^2.8.1",
@@ -33,9 +37,5 @@
     "test": "mocha --compilers js:babel-core/register test/*.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "version": "0.0.0-semantically-released",
-  "dependencies": {
-    "points": "^1.7.0",
-    "svg-points": "^1.2.4"
-  }
+  "version": "0.0.0-semantically-released"
 }
