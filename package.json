@@ -16,6 +16,8 @@
   "devDependencies": {
     "commitizen": "^2.8.1",
     "cz-conventional-changelog": "^1.1.6",
+    "expect": "^1.20.1",
+    "mocha": "^2.4.5",
     "semantic-release": "^4.3.5"
   },
   "homepage": "https://github.com/colinmeinke/wilderness#readme",
@@ -28,7 +30,7 @@
   },
   "scripts": {
     "commit": "git-cz",
-    "test": "npm test",
+    "test": "mocha --compilers js:babel-core/register test/*.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "version": "0.0.0-semantically-released"
