@@ -1,0 +1,35 @@
+{
+  "author": {
+    "name": "Colin Meinke",
+    "email": "hello@colinmeinke.com",
+    "url": "www.colinmeinke.com"
+  },
+  "bugs": {
+    "url": "https://github.com/colinmeinke/wilderness/issues"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "description": "An API for building and moving SVG's",
+  "devDependencies": {
+    "commitizen": "^2.8.1",
+    "cz-conventional-changelog": "^1.1.6",
+    "semantic-release": "^4.3.5"
+  },
+  "homepage": "https://github.com/colinmeinke/wilderness#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "name": "wilderness",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/colinmeinke/wilderness.git"
+  },
+  "scripts": {
+    "commit": "git-cz",
+    "test": "npm test",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "version": "0.0.0-semantically-released"
+}
