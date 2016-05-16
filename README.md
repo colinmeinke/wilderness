@@ -288,8 +288,8 @@ properties, as defined by
   attribute
 - `x` is a *number* that defines the rect's 'x' attribute
 - `y` is a *number* that defines the rect's 'y' attribute
-- `rx` is a *number* thatdefines the rect's 'rx' attribute
-- `ry` is a *number* thatdefines the rect's 'ry' attribute
+- `rx` is a *number* that defines the rect's 'rx' attribute
+- `ry` is a *number* that defines the rect's 'ry' attribute
 
 ##### Shape manipulation properties
 
@@ -299,10 +299,28 @@ with a few handy functions taken from
 
 The functions are defined as the following properties.
 
-- `moveIndex` is a *number* that ...
-- `offset` is an *array* that ...
-- `reverse` is a *boolean* that ...
-- `scale` is a *number* or *array* that ...
+- `moveIndex` is a *number* that defines the amount of points
+  to offset the index
+- `offset` is an *array* that includes:
+  - a *number* that defines the amount to offset horizontally
+  - a *number* that defines the amount to offset vertically
+- `reverse` is a *boolean* that when:
+  - `true` reverses the order of points
+  - `false` has no effect
+- `scale` is either:
+  - a *number* that defines the scale factor, or
+  - an *array* that includes:
+    - a *number* that defines the scale factor
+    - a *string* that defines the anchor point, one of:
+      - `center`
+      - `topLeft`
+      - `topRight`
+      - `bottomRight`
+      - `bottomLeft`
+
+When [morphing shapes](#morph-a-shape) playing about with a
+combination of `moveIndex` and `reverse` can be handy to
+create a more natural transition.
 
 ##### Style properties
 
@@ -310,13 +328,28 @@ On top of defining shape structure, Wilderness also cares
 about how a shape is styled. Therefore a plain shape object
 can also have any of the following optional style properties.
 
-- `fill` is a *string* that ...
-- `fillRule` is a *string* that ...
-- `stroke` is a *string* that ...
-- `strokeDasharray` is a *string* that ...
-- `strokeDashoffset` is a *string* that ...
-- `strokeWidth` is a *number* that ...
-- `vectorEffect` is a *string* that ...
+- `fill` is a *string* that defines the shape's `fill`
+  attribute
+- `fillOpactity` is a *number* that defines the shape's
+  `fill-opacity` attribute
+- `fillRule` is a *string* that defines the shape's
+  `fill-rule` attribute
+- `stroke` is a *string* that defines the shape's `stroke`
+  attribute
+- `strokeDasharray` is a *string* that defines the shape's
+  `stroke-dasharray` attribute
+- `strokeDashoffset` is a *string* that defines the shape's
+  `stroke-dashoffset` attribute
+- `strokeLinecap` is a *string* that defines the shape's
+  `stroke-linecap` attribute
+- `strokeLinejoin` is a *string* that defines the shape's
+  `stroke-linejoin` attribute
+- `strokeOpactity` is a *number* that defines the shape's
+  `stroke-opacity` attribute
+- `strokeWidth` is a *number* that defines the shape's
+  `stroke-width` attribute
+- `vectorEffect` is a *string* that defines the shape's
+  `vector-effect` attribute
 
 ##### Animation properties
 
@@ -324,24 +357,70 @@ When multiple plain shape objects are passed to the
 [`shape()` function](#shape-function) to create a
 [shape](#shape), all but the initial object can take animation
 properties. Animation properties define the transition from
-one shape to the next over time.
+one shape to the next.
 
-- `delay` is a *number* that ...
-- `duration` is a *number* that ...
-- `easing` is a *string* or *function* that ...
-- `finish` is a *function* that is called when this
-  animation finishes
-- `motionPath` is a *shape* or an *array* that ...
-- `name` is a *string* that can be referenced by objects in
-  a [`timeline()` function](#timeline-function)
-- `start` is a *function* that is called when this
-  animation starts
+- `delay` is a *number* that defines how many milliseconds to
+  wait before the animation starts
+- `duration` is a *number* that defines how many milliseconds
+  the animation lasts
+- `easing` is either:
+  - a *string* that defines one of the predefined easing
+    functions, one of:
+    - `linear`
+    - `easeInQuad`
+    - `easeOutQuad`
+    - `easeInOutQuad`
+    - `easeInCubic`
+    - `easeOutCubic`
+    - `easeInOutCubic`
+    - `easeInQuart`
+    - `easeOutQuart`
+    - `easeInOutQuart`
+    - `easeInQuint`
+    - `easeOutQuint`
+    - `easeInOutQuint`
+    - `easeInSine`
+    - `easeOutSine`
+    - `easeInOutSine`
+    - `easeInExpo`
+    - `easeOutExpo`
+    - `easeInOutExpo`
+    - `easeInCirc`
+    - `easeOutCirc`
+    - `easeInOutCirc`
+    - `easeInElastic`
+    - `easeOutElastic`
+    - `easeInOutElastic`
+    - `easeInBack`
+    - `easeOutBack`
+    - `easeInOutBack`
+    - `easeInBounce`
+    - `easeOutBounce`
+    - `easeInOutBounce`
+  - a *function* that returns a *number* when given the
+    arguments:
+    - a *number* that defines how many milliseconds have
+      passed since the animation started
+    - a *number* that defines the start position
+    - a *number* that defines the end position
+    - a *number* that defines the total number of milliseconds
+      in the animation
+- `finish` is a *function* that is called when the animation
+  finishes
+- `motionPath` is a *plain shape object* that defines the
+  motion path of the animation
+- `name` is a *string* that can be used to reference this
+  animation by objects in a
+  [`timeline()` function](#timeline-function)
+- `start` is a *function* that is called when the animation
+  starts
 
 ##### Retrieving properties from the DOM
 
 - `selector` is a *string* that will be passed to
   [querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll)
-  to retrieve an existing SVG element from the DOM
+  to get an existing SVG element from the DOM from which all
+  valid plain shape object properties will be retrieved
 
 #### Shape
 
@@ -353,8 +432,7 @@ A shape is created by passing one or more
 passed to the `shape()` function have
 [animation properties](#animation-properties).
 
-Multiple shapes can be queued to to make
-[timelines](#timeline) using the
+Shapes are *queueable* and can be passed into the
 [`timeline()` function](#timeline-function).
 
 Shapes are *playable* and can be passed into the
@@ -410,7 +488,7 @@ timeline(
 
 ### `shape()` function
 
-Creates a new [shape](#shape).
+Creates and returns a new [shape](#shape).
 
 #### Syntax
 
@@ -420,11 +498,14 @@ shape( shape1[, shape2[, ..., shapeN ]]);
 
 Where:
 
-- `shapeN` is a [plain shape object](#plain-shape-object)
+- `shape1` is a *[plain shape object](#plain-shape-object)*
+  that represents the initial state of a shape
+- `shapeN` is a *plain shape object* that represents the state
+  of a shape at a specific point in time
 
 ### `timeline()` function
 
-Creates a new [timeline](#timeline).
+Creates and returns a new [timeline](#timeline).
 
 #### Syntax
 
@@ -434,17 +515,33 @@ timeline( queueable1[, queueable2[, ..., queueableN ]]);
 
 Where:
 
-- `queueableN` is a *[shape](#shape)* or an *object*, with the
-  properties:
-    - `shape` is a *shape*
-    - `name` is a *string* that ...
-    - `queue` is a *string* or a *number* or an *array* that
-      ...
+- `queueableN` is either:
+ - a *[shape](#shape)* that will be queued on the timeline, or
+ - an *object* that includes:
+    - `shape` is a *shape* that will be queued on the timeline
+    - `name` is a *string* that can be used to reference this
+      animation by other objects in this timeline
+    - `queue` is either:
+      - a *string* that references a point to queue this
+        animation after. It can either be the name of another
+        shape in this timeline, or a specific animation within
+        another shape
+      - a *number* that defines how many milliseconds to
+        offset the start of this animation
+      - an *array* that includes:
+        - a *string* that references a point to queue this
+          animation after. It can either be the name of another
+          shape in this timeline, or a specific animation within
+          another shape
+        - a *number* that defines how many milliseconds to
+          offset the start of this animation
 
 ### `render()` function
 
-Renders [shapes](#shape) and [timelines](#timeline) to the
-DOM.
+Finds or creates an
+[svg element](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg)
+in the DOM, and appends [shape's](#shape) and
+[timeline's](#timeline) DOM nodes to it.
 
 #### Syntax
 
@@ -454,13 +551,27 @@ render( target, playable1[, playable2[, ..., playableN ]]);
 
 Where:
 
-- `target` is an *object*, with the properties:
-    - `height` is a *number* that ...
-    - `preserveAspectRatio` is a *string* that ...
-    - `selector` is a *string* that ...
-    - `viewBox` is a *string* that ...
-    - `width` is a *number* that ...
-- `playableN` is a *shape* or a *timeline*
+- `target` is an *object* that includes:
+    - `height` is a *number* that defines the `height`
+      attribute of the svg element
+    - `preserveAspectRatio` is a *string* that defines the
+      `preserveAspectRatio` attribute of the svg element
+    - `selector` is a *string* that will be passed to
+      [querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll)
+      to get an existing element from the DOM. If the element
+      retrieved is an svg element it will used as the DOM
+      element to append shapes to. If the element retrieved is
+      *not* an svg element, a new one will be created and
+      appended to the retrieved element
+    - `viewBox` is a *string* that defines the `viewBox`
+      attribute of the svg element
+    - `width` is a *number* that defines the `width`
+      attribute of the svg element
+- `playableN` is either:
+  - a *shape* whose DOM node will be appended to the the svg
+    element, or
+  - a *timeline* whose shape's DOM nodes will be appended to
+    the the svg element
 
 ### `play()` function
 
@@ -475,14 +586,28 @@ play( playable[, options ]);
 
 Where:
 
-- `playable` is a *shape* or a *timeline*
+- `playable` is either:
+  - a *shape* to play, or
+  - a *timeline* to play
 - `options` is an *object*, with the properties:
-    - `delay` is a *number* that ...
-    - `direction` is a *string* that ...
-    - `duration` is a *number* that ...
-    - `iterations` is a *number* that ...
-    - `progress` is a *number* that ...
-    - `rate` is a *number* that ...
+  - `delay` is a *number* that defines how many milliseconds
+    to wait before the animation starts
+  - `direction` is a *string* that defines the direction of
+    playback, one of:
+    - `forwards` is from start to finish
+    - `backwards` is from finish to start
+    - `alternate` is from start to finish and then finish to
+      start
+    - `alternate-backwards` is from finish to start and then
+      start to finish
+  - `duration` is a *number* that defines how many
+    milliseconds the animation lasts
+  - `progress` is a *number* between 0 and 1 that defines
+    the current point on the timeline
+  - `repeat` is a *number* that defines how many times the
+    animation will repeat
+  - `rate` is a *number* that defines the playback rate of the
+    animation
 
 ### `pause()` function
 
@@ -497,7 +622,9 @@ pause( playable );
 
 Where:
 
-- `playable` is a *shape* or a *timeline*
+- `playable` is either:
+  - a *shape* to pause, or
+  - a *timeline* to pause
 
 ### react-wilderness
 
@@ -539,6 +666,50 @@ Where:
     </Shape>
   </Play>
 </SVG>
+```
+
+#### Morph example
+
+```jsx
+import { SVG, Play, Shape } from 'react-wilderness';
+
+const Triangle = () => (
+  <Shape
+    type="path"
+    d="M40,90l30,20h-60z"
+    fill="#E54"
+  />
+);
+
+const Square = () => (
+  <Shape
+    type="rect"
+    x={ 400 }
+    y={ 100 }
+    width={ 50 }
+    height={ 50 }
+    fill="#0FA"
+  />
+);
+
+const Animation = () => (
+  <Triangle>
+    <Square />
+  </Triangle>
+);
+
+const Morph = () => (
+  <SVG>
+    <Play
+      duration={ 1800 }
+      playing={ true }
+    >
+      <Animation />
+    </Play>
+  </SVG>
+);
+
+export default Morph;
 ```
 
 ## Help make this better
