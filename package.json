@@ -16,7 +16,7 @@
     "points": "^1.7.0",
     "svg-points": "^1.2.4"
   },
-  "description": "An API for building and moving SVG",
+  "description": "A Javascript API for building and animating SVG",
   "devDependencies": {
     "babel-core": "^6.8.0",
     "commitizen": "^2.8.1",
