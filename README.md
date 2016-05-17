@@ -594,11 +594,11 @@ Where:
     to wait before the animation starts
   - `direction` is a *string* that defines the direction of
     playback, one of:
-    - `forwards` is from start to finish
-    - `backwards` is from finish to start
+    - `normal` is from start to finish
+    - `reverse` is from finish to start
     - `alternate` is from start to finish and then finish to
       start
-    - `alternate-backwards` is from finish to start and then
+    - `alternateReverse` is from finish to start and then
       start to finish
   - `duration` is a *number* that defines how many
     milliseconds the animation lasts
