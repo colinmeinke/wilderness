@@ -108,18 +108,18 @@ play( animation, { duration: 1800 });
 ```js
 import { shape, timeline, render, play } from 'wilderness';
 
-const shape1Position1 = { type: 'path', d: '...' };
-const shape1Position2 = { d: '...' };
+const shape1PositionA = { type: 'path', d: '...' };
+const shape1PositionB = { d: '...' };
 
-const shape2Position1 = { type: 'path', d: '...' };
-const shape2Position2 = { d: '...' };
+const shape2PositionA = { type: 'path', d: '...' };
+const shape2PositionB = { d: '...' };
 
-const shape3Position1 = { type: 'path', d: '...' };
-const shape3Position2 = { d: '...' };
+const shape3PositionA = { type: 'path', d: '...' };
+const shape3PositionB = { d: '...' };
 
-const shape1 = shape( shape1Position1, shape1Position2 );
-const shape2 = shape( shape2Position1, shape2Position2 );
-const shape3 = shape( shape3Position1, shape3Position2 );
+const shape1 = shape( shape1PositionA, shape1PositionB );
+const shape2 = shape( shape2PositionA, shape2PositionB );
+const shape3 = shape( shape3PositionA, shape3PositionB );
 
 const animation = timeline( shape1, shape2, shape3 );
 
@@ -131,9 +131,9 @@ play( animation, { duration: 1800 });
 Timeline:
 
 ```
-shape1------
-shape2      ------
-shape3            ------
+shape1 A----B
+shape2       A----B
+shape3             A----B
 ```
 
 ### Overlap multiple animations on a timeline
@@ -141,18 +141,18 @@ shape3            ------
 ```js
 import { shape, timeline, render, play } from 'wilderness';
 
-const shape1Position1 = { type: 'path', d: '...' };
-const shape1Position2 = { d: '...' };
+const shape1PositionA = { type: 'path', d: '...' };
+const shape1PositionB = { d: '...' };
 
-const shape2Position1 = { type: 'path', d: '...' };
-const shape2Position2 = { d: '...' };
+const shape2PositionA = { type: 'path', d: '...' };
+const shape2PositionB = { d: '...' };
 
-const shape3Position1 = { type: 'path', d: '...' };
-const shape3Position2 = { d: '...' };
+const shape3PositionA = { type: 'path', d: '...' };
+const shape3PositionB = { d: '...' };
 
-const shape1 = shape( shape1Position1, shape1Position2 );
-const shape2 = shape( shape2Position1, shape2Position2 );
-const shape3 = shape( shape3Position1, shape3Position2 );
+const shape1 = shape( shape1PositionA, shape1PositionB );
+const shape2 = shape( shape2PositionA, shape2PositionB );
+const shape3 = shape( shape3PositionA, shape3PositionB );
 
 const animation = timeline(
   { shape: shape1, name: 'FIRST_ANIMATION' },
@@ -169,9 +169,9 @@ Timeline:
 
 
 ```
-shape1--------
-shape2          --------
-shape3      --------
+shape1 A------B
+shape2           A------B
+shape3       A------B
 ```
 
 ### Animate along a motion path
