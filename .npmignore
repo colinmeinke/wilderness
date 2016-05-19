@@ -1,2 +1,5 @@
 .gitignore
 .travis.yml
+examples/
+src/
+test/
