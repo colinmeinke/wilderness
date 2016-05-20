@@ -2,8 +2,8 @@ import { shape, render } from '../../src';
 
 const circle = shape({
   type: 'circle',
-  cx: 100,
-  cy: 150,
+  cx: 50,
+  cy: 50,
   r: 25,
   fill: '#E54',
 });
