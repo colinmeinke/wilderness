@@ -208,7 +208,7 @@ render({ selector: '.svg' }, animation );
 play( animation, { duration: 1800 });
 ```
 
-## CommonJS
+### CommonJS
 
 This is how you get to the good stuff if you're using
 `require`.
@@ -222,7 +222,7 @@ const play = Wilderness.play;
 const pause = Wilderness.pause;
 ```
 
-## UMD
+### UMD
 
 And if you just want to smash in a Javascript file you're
 also covered. Drop this in place ...
