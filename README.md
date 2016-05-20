@@ -12,6 +12,12 @@ Currently in development ...
 - [Animate along a motion path](#animate-along-a-motion-path)
 - [React integration](#react-wilderness)
 
+## Installation
+
+```
+npm install --save wilderness
+```
+
 ## Usage
 
 ### Create a shape
@@ -200,6 +206,37 @@ const animation = shape( circle, { motionPath });
 render({ selector: '.svg' }, animation );
 
 play( animation, { duration: 1800 });
+```
+
+## CommonJS
+
+This is how you get to the good stuff if you're using
+`require`.
+
+```js
+const Wilderness = require( 'wilderness' );
+const shape = Wilderness.shape;
+const timeline = Wilderness.timeline;
+const render = Wilderness.render;
+const play = Wilderness.play;
+const pause = Wilderness.pause;
+```
+
+## UMD
+
+And if you just want to smash in a Javascript file you're
+also covered. Drop this in place ...
+
+[https://npmcdn.com/wilderness/dist/wilderness.min.js](https://npmcdn.com/wilderness/dist/wilderness.min.js)
+
+Then access it on the `Wilderness` global variable.
+
+```js
+const shape = Wilderness.shape;
+const timeline = Wilderness.timeline;
+const render = Wilderness.render;
+const play = Wilderness.play;
+const pause = Wilderness.pause;
 ```
 
 ## API
@@ -710,37 +747,6 @@ const Morph = () => (
 );
 
 export default Morph;
-```
-
-## CommonJS
-
-This is how you get to the good stuff if you're using
-`require`.
-
-```js
-const Wilderness = require( 'wilderness' );
-const shape = Wilderness.shape;
-const timeline = Wilderness.timeline;
-const render = Wilderness.render;
-const play = Wilderness.play;
-const pause = Wilderness.pause;
-```
-
-## UMD
-
-And if you just want to smash in a Javascript file you're
-also covered. Drop this in place ...
-
-[https://npmcdn.com/wilderness/dist/wilderness.min.js](https://npmcdn.com/wilderness/dist/wilderness.min.js)
-
-Then access it on the `Wilderness` global variable.
-
-```js
-const shape = Wilderness.shape;
-const timeline = Wilderness.timeline;
-const render = Wilderness.render;
-const play = Wilderness.play;
-const pause = Wilderness.pause;
 ```
 
 ## Help make this better
