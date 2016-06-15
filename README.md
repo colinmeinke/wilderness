@@ -627,24 +627,28 @@ Where:
   - a *shape* to play, or
   - a *timeline* to play
 - `options` is an *object*, with the properties:
+  - `alternate` is a *boolean* that when:
+    - `true` will alternate playback direction on each iteration
+    - `false` will playback in the same direction on each iteration
   - `delay` is a *number* that defines how many milliseconds
     to wait before the animation starts
-  - `direction` is a *string* that defines the direction of
-    playback, one of:
-    - `normal` is from start to finish
-    - `reverse` is from finish to start
-    - `alternate` is from start to finish and then finish to
-      start
-    - `alternateReverse` is from finish to start and then
-      start to finish
   - `duration` is a *number* that defines how many
     milliseconds the animation lasts
-  - `progress` is a *number* between 0 and 1 that defines
-    the current point on the timeline
-  - `repeat` is a *number* that defines how many times the
-    animation will repeat
+  - `initialProgress` is a *number* between `0` and `1` that defines
+    the starting point for playback. It is relative to the starting
+    direction defined by the `reverse` argument – an `initialProgress`
+    of `0.8` and `reverse` of `false` will start the animation at the
+    same point in an animation as an `initialProgress` of `0.2` and
+    `reverse` of `true`.
+  - `iterations` is a *number* that defines how many times the
+    animation will run. It is relative to `initialProgress` - an
+    `initialProgress` of `0.3` and `iterations` of `2.5` will end
+    the animation a `0.8` on the third iteration.
   - `rate` is a *number* that defines the playback rate of the
     animation
+  - `reverse` is a *boolean* that when:
+    - `true` starts animation playing in reverse
+    - `false` starts animation playing from the start
 
 ### `pause()` function
 
