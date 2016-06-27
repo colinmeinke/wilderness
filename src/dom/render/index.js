@@ -8,7 +8,7 @@ const svgAttrs = [
 const render = ( target, ...playable ) => {
   const { selector, ...attrs } = target;
 
-  const container = document.querySelectorAll( selector )[ 0 ];
+  const container = document.querySelector( selector );
 
   let svg;
 
@@ -21,12 +21,12 @@ const render = ( target, ...playable ) => {
       .filter( attr => svgAttrs.indexOf( attr ) !== -1 )
       .forEach( attr => {
         svg.setAttribute( attr, attrs[ attr ]);
-      })
+      });
 
     container.appendChild( svg );
   }
 
-  playable.forEach(({ node }) => svg.appendChild( node ));
+  playable.forEach(({ state }) => svg.appendChild( state.node ));
 }
 
 export default render;

@@ -1,3 +1,9 @@
+const animationDefaults = {
+  delay: 0,
+  duration: 250,
+  easing: 'easeInOutQuad',
+};
+
 const animationProps = [
   'delay',
   'duration',
@@ -35,23 +41,27 @@ const shapeProps = [
   'y2',
 ];
 
-const styleProps = [
-  'fill',
-  'fillOpactity',
-  'fillRule',
-  'stroke',
-  'strokeDasharray',
-  'strokeDashoffset',
-  'strokeLinecap',
-  'strokeLinejoin',
-  'strokeOpactity',
-  'strokeWidth',
-  'vectorEffect',
-];
+const stylePropAttrMap = {
+  fill: 'fill',
+  fillOpactity: 'fill-opacity',
+  fillRule: 'fill-rule',
+  stroke: 'stroke',
+  strokeDasharray: 'stroke-dasharray',
+  strokeDashoffset: 'stroke-dashoffset',
+  strokeLinecap: 'stroke-linecap',
+  strokeLinejoin: 'stroke-linejoin',
+  strokeOpactity: 'stroke-opacity',
+  strokeWidth: 'stroke-width',
+  vectorEffect: 'vector-effect',
+};
+
+const styleProps = Object.keys( stylePropAttrMap );
 
 export {
+  animationDefaults,
   animationProps,
   manipulationProps,
   shapeProps,
+  stylePropAttrMap,
   styleProps,
 };

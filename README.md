@@ -41,7 +41,7 @@ render({ selector: '.svg' }, circle );
 ```js
 import { shape, render, play } from 'wilderness';
 
-const position1 = {
+const positionA = {
   type: 'circle',
   cx: 100,
   cy: 150,
@@ -49,9 +49,9 @@ const position1 = {
   fill: '#E54',
 };
 
-const position2 = { cx: 50, cy: 200 };
+const positionB = { cx: 50, cy: 200 };
 
-const animation = shape( position1, position2 );
+const animation = shape( positionA, positionB );
 
 render({ selector: '.svg' }, animation );
 
@@ -63,7 +63,7 @@ play( animation, { duration: 1800 });
 ```js
 import { shape, render, play } from 'wilderness';
 
-const position1 = {
+const positionA = {
   type: 'circle',
   cx: 100,
   cy: 150,
@@ -71,11 +71,11 @@ const position1 = {
   fill: '#E54',
 };
 
-const position2 = { cx: 50, cy: 200 };
-const position3 = { cx: 65, cy: 100 };
-const position4 = { cx: 200, cy: 50 };
+const positionB = { cx: 50, cy: 200 };
+const positionC = { cx: 65, cy: 100 };
+const positionD = { cx: 200, cy: 50 };
 
-const animation = shape( position1, position2, position3, position4 );
+const animation = shape( positionA, positionB, positionC, positionD );
 
 render({ selector: '.svg' }, animation );
 
@@ -455,7 +455,7 @@ one shape to the next.
 ##### Retrieving properties from the DOM
 
 - `selector` is a *string* that will be passed to
-  [querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll)
+  [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
   to get an existing SVG element from the DOM from which all
   valid plain shape object properties will be retrieved
 
@@ -469,11 +469,13 @@ A shape is created by passing one or more
 passed to the `shape()` function have
 [animation properties](#animation-properties).
 
+Shapes are *renderable* and can be passed into the
+[`render()` function](#render-function).
+
 Shapes are *queueable* and can be passed into the
 [`timeline()` function](#timeline-function).
 
 Shapes are *playable* and can be passed into the
-[`render()` function](#render-function),
 [`play()` function](#play-function) and
 [`pause()` function](#play-function).
 
@@ -489,10 +491,10 @@ shape(
   {
     cx: 100,
     cy: 50,
-    fill: '#E76',
   }
 );
 ```
+
 ##### Property inheritance
 
 When creating shapes with the `shape()` function, it is useful
@@ -510,8 +512,10 @@ time.
 A timeline is created by passing one or more *queueable* into
 the [`timeline()` function](#timeline-function).
 
+Timelines are *renderable* and can be passed into the
+[`render()` function](#render-function).
+
 Timelines are *playable* and can be passed into the
-[`render()` function](#render-function),
 [`play()` function](#play-function) and
 [`pause()` function](#play-function).
 
@@ -583,7 +587,7 @@ in the DOM, and appends [shape's](#shape) and
 #### Syntax
 
 ```js
-render( target, playable1[, playable2[, ..., playableN ]]);
+render( target, renderable1[, renderable2[, ..., renderableN ]]);
 ```
 
 Where:
@@ -594,7 +598,7 @@ Where:
     - `preserveAspectRatio` is a *string* that defines the
       `preserveAspectRatio` attribute of the svg element
     - `selector` is a *string* that will be passed to
-      [querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll)
+      [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
       to get an existing element from the DOM. If the element
       retrieved is an svg element it will used as the DOM
       element to append shapes to. If the element retrieved is
@@ -604,7 +608,7 @@ Where:
       attribute of the svg element
     - `width` is a *number* that defines the `width`
       attribute of the svg element
-- `playableN` is either:
+- `renderableN` is either:
   - a *shape* whose DOM node will be appended to the the svg
     element, or
   - a *timeline* whose shape's DOM nodes will be appended to

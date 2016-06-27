@@ -1,10 +1,5 @@
 # Wilderness basic example
 
-Wilderness currently only renders an initial shape to
-the DOM.
-
-This proves that.
-
 ## Usage
 
 ```

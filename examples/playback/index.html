@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Wilderness playback controls example</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        margin: 0;
+      }
+
+      button,
+      h1,
+      h2,
+      input,
+      select {
+        font-size: inherit;
+      }
+
+      .svg {
+        flex-grow: 1;
+        width: 100%;
+      }
+
+      .controls {
+        background: rgb(25,25,25);
+        box-shadow: 0 -1px rgb(75,75,75);
+        box-sizing: border-box;
+        padding: 20px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .button {
+        background: transparent;
+        border: none;
+        color: rgb(245,245,245);
+        cursor: pointer;
+        height: 40px;
+        line-height: 40px;
+        padding: 0;
+      }
+
+      .button--block {
+        background: rgb(55,55,55);
+        border-radius: 3px;
+        box-shadow: 0 2px rgb(5,5,5), 0 -1px rgb(75,75,75);
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .button--icon {
+        overflow: hidden;
+        padding-left: 0;
+        padding-right: 0;
+        position: relative;
+        text-indent: 100%;
+        width: 40px;
+      }
+
+      .button--block:focus,
+      .button--block:hover {
+        background: rgb(255,255,255);
+        box-shadow: inset 0 2px rgb(205,205,205);
+        color: rgb(55,55,55);
+        outline: none;
+      }
+
+      .icon {
+        left: 0;
+        position: absolute;
+        top: 0;
+      }
+
+      .icon__fill {
+        fill: rgb(255,255,255);
+      }
+
+      .button--icon:focus .icon__fill,
+      .button--icon:hover .icon__fill {
+        fill: rgb(55,55,55);
+      }
+
+      .button:not(.button--active) .icon--pause {
+        display: none;
+      }
+
+      .button--active .icon--play {
+        display: none;
+      }
+
+      .options--show {
+        align-items: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-bottom: 10px;
+        padding-top: 10px;
+      }
+
+      .options:not(.options--show) {
+        display: none;
+      }
+
+      .option {
+        display: inline-block;
+        padding: 10px;
+      }
+
+      .label {
+        color: rgb(255,255,255);
+        display: block;
+        font-weight: normal;
+        margin-bottom: 0;
+        margin-top: 0;
+        text-align: left;
+        width: 100%;
+      }
+
+      .input--text {
+        background: rgb(25,25,25);
+        border: 1px solid rgb(55,55,55);
+        box-shadow: inset 0 2px rgb(0,0,0);
+        box-sizing: border-box;
+        color: rgb(255,255,255);
+        padding: 10px;
+        width: 80px;
+      }
+
+      .input--text:focus,
+      .input--text:hover {
+        border: 1px solid rgb(75,75,75);
+        outline: none;
+      }
+
+      .label--text {
+        width: 80px;
+      }
+
+      .select {
+        position: relative;
+      }
+
+      .select__bg {
+        border: 1px solid rgb(55,55,55);
+        bottom: 0;
+        box-shadow: inset 0 2px rgb(0,0,0);
+        cursor: pointer;
+        left: 0;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+      .select__box {
+        background: transparent;
+        border: none;
+        color: rgb(255,255,255);
+        cursor: pointer;
+        height: 38px;
+      }
+
+      .select__box:focus,
+      .select__box:hover {
+        outline: none;
+      }
+
+      .select__box:focus + .select__bg,
+      .select__box:hover + .select__bg {
+        border: 1px solid rgb(75,75,75);
+      }
+
+      .select,
+      .input--text {
+        margin-top: 5px;
+      }
+
+      .options .button {
+        margin: 31.8px 10px 10px 10px;
+      }
+
+      .switch__label {
+        background: rgb(25,25,25);
+        border: 1px solid rgb(55,55,55);
+        border-radius: 15px;
+        cursor: pointer;
+        display: inline-block;
+        height: 30px;
+        margin-top: 8px;
+        overflow: hidden;
+        position: relative;
+        text-indent: 100%;
+        width: 50px;
+      }
+
+      .switch__label::before {
+        background: rgb(55,55,55);
+        border-radius: 15px;
+        box-shadow: 2px 2px 2px rgb(0,0,0);
+        content: "";
+        height: 30px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        transition: all 0.1s ease;
+        width: 30px;
+      }
+
+      .switch__label:hover,
+      .switch__input:focus + .switch__label {
+        border: 1px solid rgb(75,75,75);
+      }
+
+      .switch__input:checked + .switch__label::before {
+        background: rgb(255,255,255);
+        box-shadow: -2px 2px 2px rgb(0,0,0);
+        left: 20px;
+      }
+
+      .switch__input {
+        appearance: none;
+        position: absolute;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+      }
+
+    </style>
+  </head>
+  <body>
+    <svg
+      class="svg"
+      height="100"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 100 100"
+      width="100"
+    >
+    </svg>
+
+    <section class="controls">
+      <button
+        class="button button--block button--icon button--play"
+        type="button"
+      >
+        <svg
+          class="icon icon--play"
+          height="40"
+          width="40"
+          viewBox="0 0 40 40"
+        >
+          <path class="icon__fill" d="M15,12l14,8l-14,8z"></path>
+        </svg>
+        <svg
+          class="icon icon--pause"
+          height="40"
+          width="40"
+          viewBox="0 0 40 40"
+        >
+          <path class="icon__fill" d="M13,12h6v16h-6zM21,12h6v16h-6z"></path>
+        </svg>
+        Play
+      </button>
+
+      <button class="button button--block button--options" type="button">
+        Options
+      </button>
+
+      <section class="options">
+        <div class="option option--bool option--reverse">
+          <label class="label" for="reverse">
+            Reverse
+          </label>
+          <div class="switch">
+            <input
+              class="switch__input"
+              id="reverse"
+              name="reverse"
+              type="checkbox"
+              value="true"
+            />
+            <label class="switch__label" for="reverse">
+              Reverse
+            </label>
+          </div>
+        </div>
+
+        <div class="option option--bool option--alternate">
+          <label class="label" for="alternate">
+            Alternate
+          </label>
+          <div class="switch">
+            <input
+              checked
+              class="switch__input"
+              id="alternate"
+              name="alternate"
+              type="checkbox"
+              value="true"
+            />
+            <label class="switch__label" for="alternate">
+              Alternate
+            </label>
+          </div>
+        </div>
+
+        <div class="option option--progress">
+          <label class="label label--text" for="progress">
+            Progress
+            <input
+              class="input input--text"
+              id="progress"
+              max="1"
+              min="0"
+              name="progress"
+              step="0.1"
+              type="number"
+              value="0"
+            />
+          </label>
+        </div>
+
+        <div class="option option--delay">
+          <label class="label label--text" for="delay">
+            Delay
+            <input
+              class="input input--text"
+              id="delay"
+              min="0"
+              name="delay"
+              step="250"
+              type="number"
+              value="0"
+            />
+          </label>
+        </div>
+
+        <div class="option option--duration">
+          <label class="label label--text" for="duration">
+            Duration
+            <input
+              class="input input--text"
+              id="duration"
+              min="0"
+              name="duration"
+              step="250"
+              type="number"
+              value="3000"
+            />
+          </label>
+        </div>
+
+        <div class="option option--rate">
+          <label class="label label--text" for="rate">
+            Rate
+            <input
+              class="input input--text"
+              id="rate"
+              min="0"
+              name="rate"
+              step="0.25"
+              type="number"
+              value="1"
+            />
+          </label>
+        </div>
+
+        <div class="option option--easing option--select">
+          <label class="label" for="easing">
+            Easing
+          </label>
+          <div class="select">
+            <select class="select__box" name="easing" id="easing">
+              <option value="linear">
+                linear
+              </option>
+              <option value="easeInQuad">
+                easeInQuad
+              </option>
+              <option value="easeOutQuad">
+                easeOutQuad
+              </option>
+              <option value="easeInOutQuad" selected>
+                easeInOutQuad
+              </option>
+              <option value="easeInCubic">
+                easeInCubic
+              </option>
+              <option value="easeOutCubic">
+                easeOutCubic
+              </option>
+              <option value="easeInOutCubic">
+                easeInOutCubic
+              </option>
+              <option value="easeInQuart">
+                easeInQuart
+              </option>
+              <option value="easeOutQuart">
+                easeOutQuart
+              </option>
+              <option value="easeInOutQuart">
+                easeInOutQuart
+              </option>
+              <option value="easeInQuint">
+                easeInQuint
+              </option>
+              <option value="easeOutQuint">
+                easeOutQuint
+              </option>
+              <option value="easeInOutQuint">
+                easeInOutQuint
+              </option>
+              <option value="easeInSine">
+                easeInSine
+              </option>
+              <option value="easeOutSine">
+                easeOutSine
+              </option>
+              <option value="easeInOutSine">
+                easeInOutSine
+              </option>
+              <option value="easeInExpo">
+                easeInExpo
+              </option>
+              <option value="easeOutExpo">
+                easeOutExpo
+              </option>
+              <option value="easeInOutExpo">
+                easeInOutExpo
+              </option>
+              <option value="easeInCirc">
+                easeInCirc
+              </option>
+              <option value="easeOutCirc">
+                easeOutCirc
+              </option>
+              <option value="easeInOutCirc">
+                easeInOutCirc
+              </option>
+              <option value="easeInElastic">
+                easeInElastic
+              </option>
+              <option value="easeOutElastic">
+                easeOutElastic
+              </option>
+              <option value="easeInOutElastic">
+                easeInOutElastic
+              </option>
+              <option value="easeInBack">
+                easeInBack
+              </option>
+              <option value="easeOutBack">
+                easeOutBack
+              </option>
+              <option value="easeInOutBack">
+                easeInOutBack
+              </option>
+              <option value="easeInBounce">
+                easeInBounce
+              </option>
+              <option value="easeOutBounce">
+                easeOutBounce
+              </option>
+              <option value="easeInOutBounce">
+                easeInOutBounce
+              </option>
+            </select>
+            <div class="select__bg"></div>
+          </div>
+        </div>
+
+        <div class="option option--iterations">
+          <label class="label label--text" for="iterations">
+            Iterations
+            <input
+              class="input input--text"
+              id="iterations"
+              min="0"
+              name="iterations"
+              type="number"
+              value="0"
+            />
+          </label>
+        </div>
+
+        <button class="button button--block button--play-with-options" type="button">
+          Play with new options
+        </button>
+      </section>
+    </section>
+
+    <script src="./client.dist.js"></script>
+  </body>
+</html>

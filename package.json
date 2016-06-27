@@ -22,7 +22,8 @@
   },
   "dependencies": {
     "points": "^1.7.1",
-    "svg-points": "^2.0.1"
+    "svg-points": "^2.0.1",
+    "tween-functions": "^1.2.0"
   },
   "description": "A Javascript API for building and animating SVG",
   "devDependencies": {
