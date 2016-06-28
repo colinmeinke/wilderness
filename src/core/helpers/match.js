@@ -15,11 +15,9 @@ const match = ( a, b, f ) => {
     }
 
     return result;
-  } else if ( typeof a === 'number' && typeof b === 'number' ) {
-    return f( a, b );
   }
 
-  return a;
+  return f( a, b );
 }
 
 export default match;

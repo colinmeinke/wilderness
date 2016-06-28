@@ -1,4 +1,4 @@
-import { currentState, easingFunc, match, normalise } from '../helpers';
+import { currentState, easingFunc, normalise, tween } from '../helpers';
 import { stylePropAttrMap } from './props';
 import { toPath } from 'svg-points';
 
@@ -19,7 +19,6 @@ const currentAttributes = shape => {
 
 const currentShape = ({ shapes, state, timeline }) => {
   const { animation = {}, progress } = state;
-  const { duration } = animation;
   const shapesLength = shapes.length;
 
   if ( progress === 0 || shapesLength === 1 ) {
@@ -28,20 +27,21 @@ const currentShape = ({ shapes, state, timeline }) => {
     return shapes[ shapesLength - 1 ];
   }
 
-  const shape1Index = timeline.reduce(( a, b, i ) => progress >= b ? i : a, 0 );
-  const shape2Index = shape1Index + 1;
-  const shape1 = shapes[ shape1Index ];
-  const shape2 = shapes[ shape2Index ];
+  const s1Index = timeline.reduce(( a, b, i ) => progress >= b ? i : a, 0 );
+  const s2Index = s1Index + 1;
+  const s1 = shapes[ s1Index ];
+  const s2 = shapes[ s2Index ];
+  const [ shape1, shape2 ] = normalise( s1, s2 );
+
+  const scale = timeline[ s2Index ] - timeline[ s1Index ];
+  const offset = progress - timeline[ s1Index ];
+  const duration = animation.duration * scale;
+  const time = duration * offset / scale;
+
   const easing = animation.easing || shape2.animation.easing;
-  const scale = timeline[ shape2Index ] - timeline[ shape1Index ];
-  const offset = progress - timeline[ shape1Index ];
-  const d = duration * scale;
-  const t = d * offset / scale;
   const ease = typeof easing === 'function' ? easing : easingFunc( easing );
 
-  const [ s1, s2 ] = normalise( shape1, shape2 );
-
-  return match( s1, s2, ( b, e ) => b === e ? b : ease( t, b, e, d ));
+  return tween( shape1, shape2, time, duration, ease );
 };
 
 const update = shape => {
