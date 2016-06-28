@@ -50,7 +50,7 @@ const play = ( playable, options = {}) => {
     initialProgress = options.initialProgress;
   }
 
-  let iterations = 1 - initialProgress;
+  let iterations = reverse ? initialProgress : 1 - initialProgress;
 
   if ( animation ) {
     iterations = animation.iterations - iterationsComplete;
