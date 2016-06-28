@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/colinmeinke/wilderness/issues"
   },
-  "description": "Wilderness playback example",
+  "description": "Wilderness morph example",
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-preset-es2015": "^6.9.0",

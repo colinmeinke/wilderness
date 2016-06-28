@@ -1,4 +1,4 @@
-import { currentState, easingFunc, match } from '../helpers';
+import { currentState, easingFunc, match, normalise } from '../helpers';
 import { stylePropAttrMap } from './props';
 import { toPath } from 'svg-points';
 
@@ -39,7 +39,9 @@ const currentShape = ({ shapes, state, timeline }) => {
   const t = d * offset / scale;
   const ease = typeof easing === 'function' ? easing : easingFunc( easing );
 
-  return match( shape1, shape2, ( b, e ) => b === e ? b : ease( t, b, e, d ));
+  const [ s1, s2 ] = normalise( shape1, shape2 );
+
+  return match( s1, s2, ( b, e ) => b === e ? b : ease( t, b, e, d ));
 };
 
 const update = shape => {

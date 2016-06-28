@@ -11,6 +11,7 @@ import {
 
 import { filter } from './misc';
 import match from './match';
+import normalise from './points';
 
 export {
   currentIteration,
@@ -21,6 +22,7 @@ export {
   finished,
   iterationsComplete,
   match,
+  normalise,
   paused,
   previousIteration,
 };
