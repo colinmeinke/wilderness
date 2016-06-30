@@ -2,7 +2,13 @@
 
 A Javascript API for building and animating SVG.
 
-Currently in development ...
+**Currently in development**. Basic functionality is working
+but it is not ready for production use.
+
+These docs were written before a single line of code was
+written, so not everything has been implemented yet. Please
+check out [issues](https://github.com/colinmeinke/wilderness/issues)
+to get a better idea of what's left to do.
 
 ## Features
 
