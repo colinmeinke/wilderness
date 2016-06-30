@@ -6,9 +6,7 @@ const svgAttrs = [
 ];
 
 const render = ( target, ...playable ) => {
-  const { selector, ...attrs } = target;
-
-  const container = document.querySelector( selector );
+  const container = document.querySelector( target.selector );
 
   let svg;
 
@@ -17,16 +15,26 @@ const render = ( target, ...playable ) => {
   } else {
     svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
 
-    Object.keys( attrs )
+    Object.keys( target )
       .filter( attr => svgAttrs.indexOf( attr ) !== -1 )
       .forEach( attr => {
-        svg.setAttribute( attr, attrs[ attr ]);
+        svg.setAttribute( attr, target[ attr ]);
       });
 
     container.appendChild( svg );
   }
 
-  playable.forEach(({ state }) => svg.appendChild( state.node ));
+  playable.map(({ selector, state }) => {
+    if ( selector ) {
+      const el = svg.querySelector( selector );
+
+      if ( el ) {
+        return el.parentNode.replaceChild( state.node, el );
+      }
+    }
+
+    return svg.appendChild( state.node );
+  });
 }
 
 export default render;

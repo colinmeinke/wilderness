@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Wilderness multi example</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      .svg {
+        height: 100%;
+        width: 100%;
+      }
+
+      .hide {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <svg
+      class="svg"
+      height="100"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 100 100"
+      width="100"
+    >
+      <circle class="positionA" cx="70" cy="80" r="10" fill="#E54"></circle>
+      <rect class="positionB hide" x="10" y="10" width="50" height="30" fill="#0FA"></rect>
+      <path class="positionC hide" d="M25,55l20,15h-30z" fill="#E54"></path>
+      <path class="positionD hide" d="M70,35h10l5,-5,5,5v10l5,5-5,5h-10l-5,5,-5,-5v-10l-5,-5z" fill="#0FA"></path>
+    </svg>
+    <script src="./client.dist.js"></script>
+  </body>
+</html>

@@ -10,9 +10,12 @@ export default ( shape1, shape2, time, duration, ease ) => {
     if ( typeof from === 'number' && typeof to === 'number' ) {
       return ease( time, from, to, duration );
     } else if ( typeof from === 'string' && typeof to === 'string' ) {
-      return colorOut(
-        match( colorIn( from ), colorIn( to ), tween )
-      );
+      const f = colorIn( from );
+      const t = colorIn( to );
+
+      if ( typeof f === 'object' && typeof t === 'object' ) {
+        return colorOut( match( f, t, tween ));
+      }
     }
 
     return from;

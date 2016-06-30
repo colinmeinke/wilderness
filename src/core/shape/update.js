@@ -38,7 +38,7 @@ const currentShape = ({ shapes, state, timeline }) => {
   const duration = animation.duration * scale;
   const time = duration * offset / scale;
 
-  const easing = animation.easing || shape2.animation.easing;
+  const easing = shape2.animation.easing || animation.easing;
   const ease = typeof easing === 'function' ? easing : easingFunc( easing );
 
   return tween( shape1, shape2, time, duration, ease );

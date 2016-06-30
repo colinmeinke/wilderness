@@ -470,9 +470,9 @@ one shape to the next.
 A **shape** represents a shape over time.
 
 A shape is created by passing one or more
-[plain shape object](#plain-shape-object) into the
+[plain shape objects](#plain-shape-object) into the
 [`shape()` function](#shape-function). Plain shape objects
-passed to the `shape()` function have
+passed to the `shape()` function may have
 [animation properties](#animation-properties).
 
 Shapes are *renderable* and can be passed into the
@@ -545,10 +545,24 @@ shape( shape1[, shape2[, ..., shapeN ]]);
 
 Where:
 
-- `shape1` is a *[plain shape object](#plain-shape-object)*
-  that represents the initial state of a shape
-- `shapeN` is a *plain shape object* that represents the state
-  of a shape at a specific point in time
+- `shape1` is either:
+  - a *[plain shape object](#plain-shape-object)* that
+    represents the initial state of a shape
+  - an *object* that includes:
+    - `selector` is a *string* that will be passed to
+      [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
+      to get an existing element from the DOM. This must
+      return an SVG shape that will be used to create a plain
+      shape object
+- `shapeN` is either:
+  - a *plain shape object* that represents the state of a
+    shape at a specific point in time
+  - an *object* that includes:
+    - `selector` is a *string* that will be passed to
+      [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
+      to get an existing element from the DOM. This must
+      return an SVG shape that will be used to create a plain
+      shape object
 
 ### `timeline()` function
 
