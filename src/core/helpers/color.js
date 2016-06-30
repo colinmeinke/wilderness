@@ -1,3 +1,5 @@
+const range = ( value, min, max ) => Math.max( min, Math.min( max, value ));
+
 const isHexStr = v => v.match( /^#(?:[0-9a-f]{3}){1,2}$/i ) !== null;
 const isRgbStr = v => v.startsWith( 'rgb(' );
 const isRgbaStr = v => v.startsWith( 'rgba(' );
@@ -51,9 +53,9 @@ const rgbaToObj = v => {
 };
 
 const objToHex = obj => {
-  let r = Math.ceil( obj.r ).toString( 16 );
-  let g = Math.ceil( obj.g ).toString( 16 );
-  let b = Math.ceil( obj.b ).toString( 16 );
+  let r = Math.ceil( range( obj.r, 0, 255 )).toString( 16 );
+  let g = Math.ceil( range( obj.g, 0, 255 )).toString( 16 );
+  let b = Math.ceil( range( obj.b, 0, 255 )).toString( 16 );
 
   r = r.length === 1 ? `0${ r }` : r;
   g = g.length === 1 ? `0${ g }` : g;
@@ -62,9 +64,9 @@ const objToHex = obj => {
   return `#${ r }${ g }${ b }`;
 }
 
-const objToRgb = ({ r, g, b }) => `rgb(${ r },${ g },${ b })`;
+const objToRgb = ({ r, g, b }) => `rgb(${ range( r, 0, 255 )},${ range( g, 0, 255 )},${ range( b, 0, 255 )})`;
 
-const objToRgba = ({ r, g, b, a }) => `rgba(${ r },${ g },${ b },${ a })`;
+const objToRgba = ({ r, g, b, a }) => `rgba(${ range( r, 0, 255 )},${ range( g, 0, 255 )},${ range( b, 0, 255 )},${ range( a, 0, 1 )})`;
 
 const colorIn = v => {
   if ( isHexStr( v )) {
