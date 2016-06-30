@@ -1,7 +1,6 @@
 const animationDefaults = {
   delay: 0,
   duration: 250,
-  easing: 'easeInOutQuad',
 };
 
 const animationProps = [
