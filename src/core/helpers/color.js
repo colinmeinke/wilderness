@@ -4,10 +4,6 @@ const isHexStr = v => v.match( /^#(?:[0-9a-f]{3}){1,2}$/i ) !== null;
 const isRgbStr = v => v.startsWith( 'rgb(' );
 const isRgbaStr = v => v.startsWith( 'rgba(' );
 
-const isHexObj = v => typeof v === 'object' && v.colorType === 'hex';
-const isRgbObj = v => typeof v === 'object' && v.colorType === 'rgb';
-const isRgbaObj = v => typeof v === 'object' && v.colorType === 'rgba';
-
 const hexToObj = hex => {
   let value = hex.replace( '#', '' );
 
@@ -16,6 +12,7 @@ const hexToObj = hex => {
   }
 
   return {
+    middleware: 'color',
     colorType: 'hex',
     r: parseInt( value.slice( 0, 2 ), 16 ),
     g: parseInt( value.slice( 2, 4 ), 16 ),
@@ -30,6 +27,7 @@ const rgbToObj = v => {
   const [ r, g, b ] = rgb.substring( 4, rgb.length - 1 ).split( ',' );
 
   return {
+    middleware: 'color',
     colorType: 'rgb',
     r: parseFloat( r ),
     g: parseFloat( g ),
@@ -44,6 +42,7 @@ const rgbaToObj = v => {
   const [ r, g, b, a ] = rgba.substring( 5, rgba.length - 1 ).split( ',' );
 
   return {
+    middleware: 'color',
     colorType: 'rgba',
     r: parseFloat( r ),
     g: parseFloat( g ),
@@ -81,12 +80,17 @@ const colorIn = v => {
 };
 
 const colorOut = v => {
-  if ( isRgbaObj( v )) {
-    return objToRgba( v );
-  } else if ( isHexObj( v )) {
-    return objToHex( v );
-  } else if ( isRgbObj( v )) {
-    return objToRgb( v );
+  const { colorType, middleware } = v;
+
+  if ( middleware === 'color' ) {
+    switch ( colorType ) {
+      case 'rgba':
+        return objToRgba( v );
+      case 'rgb':
+        return objToRgb( v );
+      case 'hex':
+        return objToHex( v );
+    }
   }
 
   return v;

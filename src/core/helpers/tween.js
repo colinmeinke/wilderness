@@ -1,5 +1,11 @@
 import { colorIn, colorOut } from './color';
 import match from './match';
+import { unitsIn, unitsOut } from './units';
+
+const middleware = [
+  { name: 'color', i: colorIn, o: colorOut },
+  { name: 'units', i: unitsIn, o: unitsOut },
+];
 
 export default ( shape1, shape2, time, duration, ease ) => {
   const tween = ( from, to ) => {
@@ -9,12 +15,25 @@ export default ( shape1, shape2, time, duration, ease ) => {
 
     if ( typeof from === 'number' && typeof to === 'number' ) {
       return ease( time, from, to, duration );
-    } else if ( typeof from === 'string' && typeof to === 'string' ) {
-      const f = colorIn( from );
-      const t = colorIn( to );
+    }
 
-      if ( typeof f === 'object' && typeof t === 'object' ) {
-        return colorOut( match( f, t, tween ));
+    let f = from;
+    let t = to;
+
+    middleware.map(({ i }) => {
+      if ( typeof f === 'string' && typeof t === 'string' ) {
+        f = i( f );
+        t = i( t );
+      }
+    });
+
+    if ( typeof f === 'object' && typeof t === 'object' ) {
+      for ( let i in middleware ) {
+        const { name, o } = middleware[ i ];
+
+        if ( name === f.middleware && name === t.middleware ) {
+          return o( match( f, t, tween ));
+        }
       }
     }
 
