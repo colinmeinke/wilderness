@@ -5,36 +5,52 @@ const svgAttrs = [
   'width',
 ];
 
-const render = ( target, ...playable ) => {
-  const container = document.querySelector( target.selector );
+const svg = target => {
+  const { selector, ...el } = target;
 
-  let svg;
-
-  if ( container.nodeName === 'svg' ) {
-    svg = container;
-  } else {
-    svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
-
-    Object.keys( target )
-      .filter( attr => svgAttrs.indexOf( attr ) !== -1 )
-      .forEach( attr => {
-        svg.setAttribute( attr, target[ attr ]);
-      });
-
-    container.appendChild( svg );
+  if ( !selector ) {
+    return el;
   }
+
+  const outer = document.querySelector( selector );
+
+  if ( outer.nodeName === 'svg' ) {
+    return outer;
+  }
+
+  const inner = outer.querySelector( 'svg' );
+
+  if ( inner.nodeName === 'svg' ) {
+    return inner;
+  }
+
+  const s = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
+
+  Object.keys( target )
+    .filter( attr => svgAttrs.indexOf( attr ) !== -1 )
+    .forEach( attr => {
+      s.setAttribute( attr, target[ attr ]);
+    });
+
+  outer.appendChild( s );
+
+  return s;
+};
+
+const render = ( target, ...playable ) => {
+  const container = svg( target );
 
   playable.map(({ selector, state }) => {
     if ( selector ) {
-      const el = svg.querySelector( selector );
+      const el = container.querySelector( selector );
 
       if ( el ) {
         return el.parentNode.replaceChild( state.node, el );
       }
     }
 
-    return svg.appendChild( state.node );
+    return container.appendChild( state.node );
   });
-}
+};
 
 export default render;
