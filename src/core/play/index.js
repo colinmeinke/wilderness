@@ -8,8 +8,9 @@ const optionDefaults = {
 };
 
 const play = ( playable, options = {}) => {
-  const { duration: durationDefault, state } = playable;
-  const { animation } = state;
+  const { timeline, state } = playable;
+  const { duration: durationDefault, keyframes } = timeline;
+
   const now = Date.now();
 
   const {
@@ -20,25 +21,17 @@ const play = ( playable, options = {}) => {
     rate,
   } = {
     ...optionDefaults,
-    ...animation || {},
     ...options,
   };
 
-  const {
-    currentProgress = 0,
-    currentReverse = false,
-    iterationsComplete = 0,
-  } = animation ? currentState( animation ) : {};
+  const { currentProgress, currentReverse, iterationsComplete } = currentState( playable );
 
   let reverse = currentReverse;
   let reverseChanged = false;
 
   if ( typeof options.reverse !== 'undefined' ) {
     reverse = options.reverse;
-
-    if ( animation ) {
-      reverseChanged = options.reverse !== currentReverse;
-    }
+    reverseChanged = options.reverse !== currentReverse;
   }
 
   let initialProgress =
@@ -52,8 +45,8 @@ const play = ( playable, options = {}) => {
 
   let iterations = reverse ? initialProgress : 1 - initialProgress;
 
-  if ( animation ) {
-    iterations = animation.iterations - iterationsComplete;
+  if ( state.animation.started ) {
+    iterations = state.animation.iterations - iterationsComplete;
   }
 
   if ( typeof options.iterations !== 'undefined' ) {
@@ -62,13 +55,21 @@ const play = ( playable, options = {}) => {
 
   state.animation = {
     alternate,
+    currentProgress,
+    currentReverse,
     duration: duration / rate,
     easing,
+    finished: false,
     initialProgress,
     iterations,
-    pause: false,
+    iterationsComplete,
+    keyframes: keyframes.map(() => ({
+      finished: false,
+      started: false,
+    })),
     play: now + delay,
     reverse,
+    started: true,
   };
 };
 

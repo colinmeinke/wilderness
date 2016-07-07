@@ -2,60 +2,79 @@ import { currentState, easingFunc, normalise, tween } from '../helpers';
 import { stylePropAttrMap } from './props';
 import { toPath } from 'svg-points';
 
-const currentAttributes = shape => {
-  const { points, styles } = shape;
-  const a = { d: toPath( points )};
+const frame = ({ state, timeline }) => {
+  const { animation } = state;
+  const { currentProgress } = animation;
+  const { keyframes, timing } = timeline;
 
-  Object.keys( styles ).forEach( prop => {
+  const keyframesLength = keyframes.length;
+
+  if ( currentProgress === 0 || keyframesLength === 1 ) {
+    return keyframes[ 0 ].shapes;
+  } else if ( currentProgress === 1 ) {
+    return keyframes[ keyframesLength - 1 ].shapes;
+  }
+
+  const keyframe1 = timing.reduce(( a, b, i ) => currentProgress >= b ? i : a, 0 );
+  const keyframe2 = keyframe1 + 1;
+
+  const s1 = keyframes[ keyframe1 ];
+  const s2 = keyframes[ keyframe2 ];
+
+  const shapes1 = [];
+  const shapes2 = [];
+
+  s1.shapes.map(( s, i ) => {
+    const [ shape1, shape2 ] =
+      s.points ? normalise( s, s2.shapes[ i ]) : [ s, s2.shapes[ i ]];
+
+    shapes1.push( shape1 );
+    shapes2.push( shape2 );
+  });
+
+  const scale = timing[ keyframe2 ] - timing[ keyframe1 ];
+  const offset = currentProgress - timing[ keyframe1 ];
+  const duration = animation.duration * scale;
+  const time = duration * offset / scale;
+  const easing = s2.animation.easing || animation.easing;
+  const ease = typeof easing === 'function' ? easing : easingFunc( easing );
+
+  return shapes1.map(( s, i ) => (
+    tween( s, shapes2[ i ], time, duration, ease )
+  ));
+};
+
+const shapeAttributes = ({ points, styles }) => {
+  const attributes = styleAttributes( styles );
+
+  if ( points ) {
+    attributes.d = toPath( points );
+  }
+
+  return attributes;
+};
+
+const styleAttributes = styles => {
+  const s = {};
+
+  Object.keys( styles ).map( prop => {
     const attr = stylePropAttrMap[ prop ];
 
     if ( attr ) {
-      a[ attr ] = styles[ prop ];
+      s[ attr ] = styles[ prop ];
     }
   });
 
-  return a;
-};
-
-const currentShape = ({ shapes, state, timeline }) => {
-  const { animation = {}, progress } = state;
-  const shapesLength = shapes.length;
-
-  if ( progress === 0 || shapesLength === 1 ) {
-    return shapes[ 0 ];
-  } else if ( progress === 1 ) {
-    return shapes[ shapesLength - 1 ];
-  }
-
-  const s1Index = timeline.reduce(( a, b, i ) => progress >= b ? i : a, 0 );
-  const s2Index = s1Index + 1;
-  const s1 = shapes[ s1Index ];
-  const s2 = shapes[ s2Index ];
-  const [ shape1, shape2 ] = normalise( s1, s2 );
-
-  const scale = timeline[ s2Index ] - timeline[ s1Index ];
-  const offset = progress - timeline[ s1Index ];
-  const duration = animation.duration * scale;
-  const time = duration * offset / scale;
-
-  const easing = shape2.animation.easing || animation.easing;
-  const ease = typeof easing === 'function' ? easing : easingFunc( easing );
-
-  return tween( shape1, shape2, time, duration, ease );
+  return s;
 };
 
 const update = shape => {
-  shape.state = shape.state || {};
-
-  if ( shape.state.animation ) {
-    const { currentProgress } = currentState( shape.state.animation );
-    shape.state.progress = currentProgress;
-  } else {
-    shape.state.progress = 0;
-  }
-
-  shape.state.attributes = currentAttributes( currentShape( shape ));
+  const { state } = shape;
+  const animation = currentState( state.animation );
+  state.animation = { ...state.animation, ...animation };
+  state.shapes = frame( shape ).map( shapeAttributes );
+  return shape;
 };
 
-export { currentAttributes, currentShape };
+export { frame, shapeAttributes, styleAttributes };
 export default update;

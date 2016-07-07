@@ -5,9 +5,14 @@ const currentIteration = totalIterations => (
 );
 
 const currentState = animation => {
-  const { alternate, initialProgress, reverse } = animation;
+  const {
+    alternate = false,
+    initialProgress = 0,
+    reverse = false,
+    started = false,
+  } = animation;
 
-  const iterations = iterationsComplete( animation );
+  const iterations = started ? iterationsComplete( animation ) : 0;
   const totalIterations = iterations + initialProgress;
   const i = currentIteration( totalIterations );
   const r = currentReverse( alternate, i, reverse );

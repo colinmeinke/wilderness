@@ -38,18 +38,23 @@ const svg = target => {
 };
 
 const render = ( target, ...playable ) => {
-  const container = svg( target );
+  let container = svg( target );
 
   playable.map(({ selector, state }) => {
-    if ( selector ) {
-      const el = container.querySelector( selector );
+    const { nodes, shapes } = state;
 
-      if ( el ) {
-        return el.parentNode.replaceChild( state.node, el );
+    nodes.map(( n, i ) => {
+      if ( i === 0 && selector ) {
+        const el = container.querySelector( selector );
+        el.parentNode.replaceChild( n, el );
+      } else {
+        container.appendChild( n );
       }
-    }
 
-    return container.appendChild( state.node );
+      if ( !shapes[ i ].d ) {
+        container = n;
+      }
+    });
   });
 };
 

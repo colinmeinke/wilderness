@@ -23,23 +23,66 @@ const addDurations = shapes => {
   return duration;
 };
 
-const create = ( initialShape, ...animationShapes ) => {
-  const shapes = [
-    shapeObj( initialShape, { animation: false }),
-    ...animationShapes.map( s => shapeObj({ ...initialShape, ...s })),
-  ];
+const create = ( initialShape, ...additionalShapes ) => {
+  const shapes = [ initialShape ].concat(
+    additionalShapes.map( shape => {
+      const s = { ...initialShape, ...shape };
 
-  const duration = addDurations( shapes );
+      if ( initialShape.type === 'g' ) {
+        s.shapes = shape.shapes.map(( x, i ) => {
+          return { ...initialShape.shapes[ i ], ...x };
+        });
+      }
 
-  const shape = {
-    duration,
-    timeline: timeline( shapes, duration ),
-    shapes,
-  };
+      return s;
+    })
+  );
 
-  update( shape );
+  const keyframes = shapes.map( keyframe );
+  const duration = addDurations( keyframes );
 
-  return shape;
+  return update({
+    timeline: {
+      duration,
+      keyframes,
+      timing: timing( keyframes, duration ),
+    },
+    state: {
+      animation: {},
+      shapes: [],
+    },
+  });
+};
+
+const keyframe = ({ shapes, ...shape }, i ) => {
+  const s = [ shape ];
+
+  if ( shapes ) {
+    shapes.map( x => s.push( x ));
+  }
+
+  const k = { shapes: s.map( keyframeShape )};
+
+  if ( i > 0 ) {
+    k.animation = {
+      ...animationDefaults,
+      ...filter( animationProps, shape ),
+    };
+  }
+
+  return k;
+};
+
+const keyframeShape = shape => {
+  const k = { styles: filter( styleProps, shape )};
+
+  if ( shape.type !== 'g' ) {
+    const manipulations = filter( manipulationProps, shape );
+    const points = toPoints( filter( shapeProps, shape ));
+    k.points = manipulate( points, manipulations );
+  }
+
+  return k;
 };
 
 const manipulate = ( points, manipulations ) => {
@@ -78,29 +121,10 @@ const manipulate = ( points, manipulations ) => {
   return p;
 };
 
-const shapeObj = ( shape, { animation = true } = {}) => {
-  const manipulations = filter( manipulationProps, shape );
-  const points = toPoints( filter( shapeProps, shape ));
-
-  const obj = {};
-
-  obj.points = manipulate( points, manipulations );
-  obj.styles = filter( styleProps, shape );
-
-  if ( animation ) {
-    obj.animation = {
-      ...animationDefaults,
-      ...filter( animationProps, shape ),
-    };
-  }
-
-  return obj;
-};
-
-const timeline = ( shapes, duration ) => {
+const timing = ( keyframes, duration ) => {
   let currentDuration = 0;
 
-  return shapes.map(({ animation = null }) => {
+  return keyframes.map(({ animation }) => {
     if ( animation ) {
       currentDuration += animation.duration;
       return currentDuration / duration;
@@ -112,9 +136,10 @@ const timeline = ( shapes, duration ) => {
 
 export {
   addDurations,
+  keyframe,
+  keyframeShape,
   manipulate,
-  shapeObj,
-  timeline,
+  timing,
 };
 
 export default create;
