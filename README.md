@@ -214,6 +214,62 @@ render({ selector: '.svg' }, animation );
 play( animation, { duration: 1800 });
 ```
 
+### Events
+
+Both [Plain shape objects](#plain-shape-object) and the
+[`play()` function](#play-function) can take `start`,
+`update` and `finish` options. These options give you the
+power to run callbacks at an animation wide level, or at
+a specific stage of the animation.
+
+```js
+import { shape, render, play } from 'wilderness';
+
+const positionA = {
+  type: 'circle',
+  cx: 100,
+  cy: 150,
+  r: 25,
+  fill: '#E54',
+};
+
+const positionB = { cx: 50, cy: 200 };
+
+const positionC = {
+  cx: 65,
+  cy: 100,
+  start: () => console.log(
+    'Runs when the animation between positionB and postionC starts'
+  ),
+  update: () => console.log(
+    'Runs every time the animation between positionB and postionC
+     is updated'
+  ),
+  finish: () => console.log(
+    'Runs when the animation between positionB and postionC finishes'
+  ),
+};
+
+const positionD = { cx: 200, cy: 50 };
+
+const animation = shape( positionA, positionB, positionC, positionD );
+
+render({ selector: '.svg' }, animation );
+
+play( animation, {
+  duration: 1800,
+  start: () => console.log(
+    'Runs when the entire animation starts'
+  ),
+  update: () => console.log(
+    'Runs every time the entire animation is updated'
+  ),
+  finish: () => console.log(
+    'Runs when the entire animation finishes'
+  ),
+});
+```
+
 ### CommonJS
 
 This is how you get to the good stuff if you're using
@@ -457,6 +513,8 @@ one shape to the next.
   [`timeline()` function](#timeline-function)
 - `start` is a *function* that is called when the animation
   starts
+- `update` is a *function* that is called every time the
+  animation updates
 
 ##### Retrieving properties from the DOM
 
@@ -658,6 +716,8 @@ Where:
     to wait before the animation starts
   - `duration` is a *number* that defines how many
     milliseconds the animation lasts
+  - `finish` is a *function* that is called when the animation
+    finishes
   - `initialProgress` is a *number* between `0` and `1` that defines
     the starting point for playback. It is relative to the starting
     direction defined by the `reverse` argument – an `initialProgress`
@@ -673,6 +733,10 @@ Where:
   - `reverse` is a *boolean* that when:
     - `true` starts animation playing in reverse
     - `false` starts animation playing from the start
+  - `start` is a *function* that is called when the animation
+    starts
+  - `update` is a *function* that is called every time the
+    animation updates
 
 ### `pause()` function
 
