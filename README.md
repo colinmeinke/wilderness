@@ -216,7 +216,7 @@ play( animation, { duration: 1800 });
 
 ### Events
 
-Both [Plain shape objects](#plain-shape-object) and the
+Both [plain shape objects](#plain-shape-object) and the
 [`play()` function](#play-function) can take `start`,
 `update` and `finish` functions. This gives you the power
 to run callbacks at an animation wide level, as well as at
