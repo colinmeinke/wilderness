@@ -18,20 +18,27 @@ const play = ( playable, options = {}) => {
     delay,
     duration = durationDefault,
     easing,
+    finish,
     rate,
+    start,
+    update,
   } = {
     ...optionDefaults,
     ...options,
   };
 
-  const { currentProgress, currentReverse, iterationsComplete } = currentState( playable );
+  let { currentProgress, currentReverse, iterationsComplete } = currentState( playable );
 
   let reverse = currentReverse;
   let reverseChanged = false;
 
   if ( typeof options.reverse !== 'undefined' ) {
+    currentReverse = options.reverse;
     reverse = options.reverse;
-    reverseChanged = options.reverse !== currentReverse;
+
+    if ( state.animation.started ) {
+      reverseChanged = options.reverse !== currentReverse;
+    }
   }
 
   let initialProgress =
@@ -59,18 +66,26 @@ const play = ( playable, options = {}) => {
     currentReverse,
     duration: duration / rate,
     easing,
+    finish,
     finished: false,
     initialProgress,
     iterations,
     iterationsComplete,
     keyframes: keyframes.map(() => ({
       finished: false,
+      reverse: currentReverse,
       started: false,
     })),
     play: now + delay,
     reverse,
+    start,
     started: true,
+    update,
   };
+
+  if ( typeof start === 'function' ) {
+    start();
+  }
 };
 
 export default play;

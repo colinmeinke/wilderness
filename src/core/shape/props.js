@@ -11,6 +11,7 @@ const animationProps = [
   'motionPath',
   'name',
   'start',
+  'update',
 ];
 
 const manipulationProps = [

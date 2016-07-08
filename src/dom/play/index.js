@@ -6,9 +6,9 @@ const tick = playable => {
   const { state } = playable;
   const { animation } = state;
 
-  if ( !paused( animation ) && !finished( animation )) {
-    updateShape( playable );
+  updateShape( playable );
 
+  if ( !paused( animation ) && !finished( animation )) {
     window.requestAnimationFrame(() => {
       tick( playable );
     });
