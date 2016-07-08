@@ -242,8 +242,7 @@ const positionC = {
     'Runs when the animation between positionB and postionC starts'
   ),
   update: () => console.log(
-    'Runs every time the animation between positionB and postionC
-     is updated'
+    'Runs every time the animation between positionB and postionC is updated'
   ),
   finish: () => console.log(
     'Runs when the animation between positionB and postionC finishes'
