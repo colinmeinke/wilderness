@@ -218,8 +218,8 @@ play( animation, { duration: 1800 });
 
 Both [Plain shape objects](#plain-shape-object) and the
 [`play()` function](#play-function) can take `start`,
-`update` and `finish` options. These options give you the
-power to run callbacks at an animation wide level, or at
+`update` and `finish` functions. This gives you the power
+to run callbacks at an animation wide level, as well as at
 a specific stage of the animation.
 
 ```js
