@@ -281,6 +281,7 @@ const timeline = Wilderness.timeline;
 const render = Wilderness.render;
 const play = Wilderness.play;
 const pause = Wilderness.pause;
+const state = Wilderness.state;
 ```
 
 ### UMD
@@ -298,6 +299,7 @@ const timeline = Wilderness.timeline;
 const render = Wilderness.render;
 const play = Wilderness.play;
 const pause = Wilderness.pause;
+const state = Wilderness.state;
 ```
 
 ## API
@@ -753,6 +755,20 @@ Where:
 - `playable` is either:
   - a *shape* to pause, or
   - a *timeline* to pause
+
+### `state()` function
+
+Returns the current state of a [shape](#shape).
+
+#### Syntax
+
+```js
+state( shape );
+```
+
+Where:
+
+- `shape` is a *shape*
 
 ### react-wilderness
 
