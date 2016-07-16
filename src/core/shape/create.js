@@ -104,7 +104,10 @@ const manipulate = ( points, manipulations ) => {
         break;
 
       case 'reverse':
-        p = reverse( p );
+        if ( args ) {
+          p = reverse( p );
+        }
+
         break;
 
       case 'scale':
