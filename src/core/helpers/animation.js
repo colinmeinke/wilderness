@@ -4,7 +4,7 @@ const currentIteration = totalIterations => (
   Math.max( 1, Math.ceil( totalIterations ))
 );
 
-const currentState = animation => {
+const currentState = ( animation = {}) => {
   const {
     alternate = false,
     initialProgress = 0,

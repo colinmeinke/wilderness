@@ -59,11 +59,11 @@ const playAnimation = () => {
 };
 
 const removeAnimation = () => {
-  animation.state.nodes.map( n => {
+  animation.nodes.map( n => {
     n.remove();
   });
 
-  points.state.nodes.map( n => {
+  points.nodes.map( n => {
     n.remove();
   });
 

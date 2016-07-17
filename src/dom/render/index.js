@@ -1,3 +1,48 @@
+const addNodes = ( target, renderables ) => {
+  let container = svg( target );
+
+  renderables.map(({ nodes, selector, state }) => {
+    nodes.map(( n, i ) => {
+      if ( i === 0 && selector ) {
+        const el = container.querySelector( selector );
+        el.parentNode.replaceChild( n, el );
+      } else {
+        container.appendChild( n );
+      }
+
+      if ( !state.shapes[ i ].d ) {
+        container = n;
+      }
+    });
+  });
+};
+
+const createNodes = shape => {
+  shape.nodes = shape.state.shapes.map(({ d }) => {
+    if ( d ) {
+      return document.createElementNS( 'http://www.w3.org/2000/svg', 'path' );
+    }
+
+    return document.createElementNS( 'http://www.w3.org/2000/svg', 'g' );
+  });
+};
+
+const render = ( target, ...renderables ) => {
+  renderables.map( renderable => {
+    renderNodes( renderable );
+  });
+
+  addNodes( target, renderables )
+};
+
+const renderNodes = renderable => {
+  if ( !renderable.nodes ) {
+    createNodes( renderable );
+  }
+
+  updateNodes( renderable );
+};
+
 const svgAttrs = [
   'height',
   'preserveAspectRatio',
@@ -37,25 +82,15 @@ const svg = target => {
   return s;
 };
 
-const render = ( target, ...playable ) => {
-  let container = svg( target );
+const updateNodes = ({ nodes, state }) => {
+  nodes.map(( n, i ) => {
+    const shape = state.shapes[ i ];
 
-  playable.map(({ selector, state }) => {
-    const { nodes, shapes } = state;
-
-    nodes.map(( n, i ) => {
-      if ( i === 0 && selector ) {
-        const el = container.querySelector( selector );
-        el.parentNode.replaceChild( n, el );
-      } else {
-        container.appendChild( n );
-      }
-
-      if ( !shapes[ i ].d ) {
-        container = n;
-      }
+    Object.keys( shape ).forEach( key => {
+      n.setAttribute( key, shape[ key ]);
     });
   });
 };
 
+export { renderNodes };
 export default render;

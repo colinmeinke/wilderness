@@ -9,7 +9,6 @@ import {
 import { filter } from '../helpers';
 import { moveIndex, offset, reverse, scale } from 'points';
 import { toPoints } from 'svg-points';
-import update from './update';
 
 const addDurations = shapes => {
   let duration = 0;
@@ -27,17 +26,9 @@ const create = shapes => {
   const keyframes = shapes.map( keyframe );
   const duration = addDurations( keyframes );
 
-  return update({
-    timeline: {
-      duration,
-      keyframes,
-      timing: timing( keyframes, duration ),
-    },
-    state: {
-      animation: {},
-      shapes: [],
-    },
-  });
+  return {
+    timeline: { duration, keyframes, timing: timing( keyframes, duration )},
+  };
 };
 
 const keyframe = ({ shapes, ...shape }, i ) => {

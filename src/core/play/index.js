@@ -1,13 +1,7 @@
 import { currentState } from '../helpers';
+import { events, state } from '../shape';
 
-const optionDefaults = {
-  alternate: false,
-  delay: 0,
-  easing: 'easeInOutQuad',
-  rate: 1,
-};
-
-const play = ( playable, options = {}) => {
+const init = ( playable, options ) => {
   const { timeline, state } = playable;
   const { duration: durationDefault, keyframes } = timeline;
 
@@ -60,7 +54,11 @@ const play = ( playable, options = {}) => {
     iterations = options.iterations;
   }
 
-  state.animation = {
+  if ( typeof start === 'function' ) {
+    start();
+  }
+
+  playable.state.animation = {
     alternate,
     currentProgress,
     currentReverse,
@@ -82,10 +80,24 @@ const play = ( playable, options = {}) => {
     started: true,
     update,
   };
-
-  if ( typeof start === 'function' ) {
-    start();
-  }
 };
 
+const optionDefaults = {
+  alternate: false,
+  delay: 0,
+  easing: 'easeInOutQuad',
+  rate: 1,
+};
+
+const play = ( playable, options = {}, t = tick ) => {
+  init( playable, options );
+  t( playable );
+};
+
+const tick = playable => {
+  state( playable );
+  events( playable );
+};
+
+export { tick };
 export default play;

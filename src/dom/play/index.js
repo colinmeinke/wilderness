@@ -1,12 +1,12 @@
 import { finished, paused } from '../../core/helpers';
-import { play } from '../../core';
-import { update as updateShape } from '../shape';
+import { play as corePlay, tick as coreTick } from '../../core';
+import { renderNodes } from '../render';
 
 const tick = playable => {
-  const { state } = playable;
-  const { animation } = state;
+  const { animation } = playable.state;
 
-  updateShape( playable );
+  coreTick( playable );
+  renderNodes( playable );
 
   if ( !paused( animation ) && !finished( animation )) {
     window.requestAnimationFrame(() => {
@@ -15,7 +15,8 @@ const tick = playable => {
   }
 };
 
-export default ( playable, options ) => {
-  play( playable, options );
-  tick( playable );
+const play = ( playable, options ) => {
+  corePlay( playable, options, tick );
 };
+
+export default play;
