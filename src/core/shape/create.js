@@ -23,21 +23,7 @@ const addDurations = shapes => {
   return duration;
 };
 
-const create = ( initialShape, ...additionalShapes ) => {
-  const shapes = [ initialShape ].concat(
-    additionalShapes.map( shape => {
-      const s = { ...initialShape, ...shape };
-
-      if ( initialShape.type === 'g' ) {
-        s.shapes = shape.shapes.map(( x, i ) => {
-          return { ...initialShape.shapes[ i ], ...x };
-        });
-      }
-
-      return s;
-    })
-  );
-
+const create = shapes => {
   const keyframes = shapes.map( keyframe );
   const duration = addDurations( keyframes );
 

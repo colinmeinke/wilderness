@@ -55,7 +55,13 @@ const positionA = {
   fill: '#E54',
 };
 
-const positionB = { cx: 50, cy: 200 };
+const positionB = {
+  type: 'circle',
+  cx: 50,
+  cy: 200,
+  r: 25,
+  fill: '#E54',
+};
 
 const animation = shape( positionA, positionB );
 
@@ -69,17 +75,16 @@ play( animation, { duration: 1800 });
 ```js
 import { shape, render, play } from 'wilderness';
 
-const positionA = {
+const sharedProperties = {
   type: 'circle',
-  cx: 100,
-  cy: 150,
   r: 25,
   fill: '#E54',
 };
 
-const positionB = { cx: 50, cy: 200 };
-const positionC = { cx: 65, cy: 100 };
-const positionD = { cx: 200, cy: 50 };
+const positionA = { ...sharedProperties, cx: 100, cy: 150 };
+const positionB = { ...sharedProperties, cx: 50, cy: 200 };
+const positionC = { ...sharedProperties, cx: 65, cy: 100 };
+const positionD = { ...sharedProperties, cx: 200, cy: 50 };
 
 const animation = shape( positionA, positionB, positionC, positionD );
 
@@ -121,13 +126,13 @@ play( animation, { duration: 1800 });
 import { shape, timeline, render, play } from 'wilderness';
 
 const shape1PositionA = { type: 'path', d: '...' };
-const shape1PositionB = { d: '...' };
+const shape1PositionB = { type: 'path', d: '...' };
 
 const shape2PositionA = { type: 'path', d: '...' };
-const shape2PositionB = { d: '...' };
+const shape2PositionB = { type: 'path', d: '...' };
 
 const shape3PositionA = { type: 'path', d: '...' };
-const shape3PositionB = { d: '...' };
+const shape3PositionB = { type: 'path', d: '...' };
 
 const shape1 = shape( shape1PositionA, shape1PositionB );
 const shape2 = shape( shape2PositionA, shape2PositionB );
@@ -154,13 +159,13 @@ shape3             A----B
 import { shape, timeline, render, play } from 'wilderness';
 
 const shape1PositionA = { type: 'path', d: '...' };
-const shape1PositionB = { d: '...' };
+const shape1PositionB = { type: 'path', d: '...' };
 
 const shape2PositionA = { type: 'path', d: '...' };
-const shape2PositionB = { d: '...' };
+const shape2PositionB = { type: 'path', d: '...' };
 
 const shape3PositionA = { type: 'path', d: '...' };
-const shape3PositionB = { d: '...' };
+const shape3PositionB = { type: 'path', d: '...' };
 
 const shape1 = shape( shape1PositionA, shape1PositionB );
 const shape2 = shape( shape2PositionA, shape2PositionB );
@@ -225,17 +230,17 @@ a specific stage of the animation.
 ```js
 import { shape, render, play } from 'wilderness';
 
-const positionA = {
+const sharedProperties = {
   type: 'circle',
-  cx: 100,
-  cy: 150,
   r: 25,
   fill: '#E54',
 };
 
-const positionB = { cx: 50, cy: 200 };
+const positionA = { ...sharedProperties, cx: 100, cy: 150 };
+const positionB = { ...sharedProperties, cx: 50, cy: 200 };
 
 const positionC = {
+  ...sharedProperties,
   cx: 65,
   cy: 100,
   start: () => console.log(
@@ -249,7 +254,7 @@ const positionC = {
   ),
 };
 
-const positionD = { cx: 200, cy: 50 };
+const positionD = { ...sharedProperties, cx: 200, cy: 50 };
 
 const animation = shape( positionA, positionB, positionC, positionD );
 
@@ -554,20 +559,14 @@ shape(
     fill: '#E54',
   },
   {
+    type: 'circle',
     cx: 100,
     cy: 50,
+    r: 5,
+    fill: '#E54',
   }
 );
 ```
-
-##### Property inheritance
-
-When creating shapes with the `shape()` function, it is useful
-to note that additional shapes will inherit properties from
-the initial shape.
-
-In the example above the second object will inherit
-the properties `type`, `r` and `fill` from the first object.
 
 #### Timeline
 

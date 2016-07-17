@@ -8,25 +8,25 @@ const form = document.querySelector( '.form' );
 const moveIndex = form.querySelector( 'input[name="moveIndex"]' );
 const reverse = form.querySelector( 'input[name="reverse"]' );
 
-const from = {
-  type: 'path',
-  d: 'M 159.000,189.000L194.267,207.541L187.532,168.271L216.063,140.459L176.634,134.729L159.000,99.000L141.366,134.729L101.937,140.459L130.468,168.271L123.733,207.541L159.000,189.000',
+const sharedProperties = {
   fill: 'none',
   stroke: '#333',
   strokeWidth: 2,
 };
 
+const from = {
+  ...sharedProperties,
+  type: 'path',
+  d: 'M 159.000,189.000L194.267,207.541L187.532,168.271L216.063,140.459L176.634,134.729L159.000,99.000L141.366,134.729L101.937,140.459L130.468,168.271L123.733,207.541L159.000,189.000',
+};
+
 const to = {
+  ...sharedProperties,
   type: 'rect',
   width: 400,
   height: 300,
   x: 200,
   y: 150,
-  fill: 'none',
-  stroke: '#333',
-  strokeWidth: 2,
-  moveIndex: 0,
-  reverse: false,
 };
 
 const settings = {

@@ -72,7 +72,7 @@ const create = ( ...shapes ) => {
     return { ...shapeFromSelector( selector ), ...props };
   });
 
-  const shape = createShape( ...s );
+  const shape = createShape( s );
 
   if ( shapes[ 0 ].selector ) {
     shape.selector = shapes[ 0 ].selector;

@@ -1,16 +1,14 @@
 import { shape, render, play, pause } from '../../src';
 
-const positionA = {
+const sharedProperties = {
   type: 'circle',
-  cx: 15,
   cy: 50,
   r: 15,
   fill: '#E54',
 };
 
-const positionB = {
-  cx: 85,
-};
+const positionA = { ...sharedProperties, cx: 15 };
+const positionB = { ...sharedProperties, cx: 85 };
 
 const animation = shape( positionA, positionB );
 
