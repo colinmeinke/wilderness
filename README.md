@@ -2,7 +2,7 @@
 
 A Javascript API for building and animating SVG.
 
-**Only 11kb gzipped. No dependencies.**
+**Only 11kb gzipped.**
 
 Currently in development. It's almost there! Please have
 a play and let me know if anything isn't working.
