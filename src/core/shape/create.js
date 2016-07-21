@@ -23,11 +23,24 @@ const addDurations = shapes => {
 };
 
 const create = shapes => {
-  const keyframes = shapes.map( keyframe );
+  const keyframes = [];
+  const motionPaths = [];
+
+  shapes.map(({ motionPath, ...shape }, i ) => {
+    const s = shape.type ? shape : shapes[ i - 1 ];
+    keyframes.push( keyframe( s, i ));
+    motionPaths.push( motionPath );
+  });
+
   const duration = addDurations( keyframes );
 
   return {
-    timeline: { duration, keyframes, timing: timing( keyframes, duration )},
+    timeline: {
+      duration,
+      keyframes,
+      motionPaths,
+      timing: timing( keyframes, duration ),
+    },
   };
 };
 

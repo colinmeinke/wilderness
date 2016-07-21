@@ -7,14 +7,14 @@ const middleware = [
   { name: 'units', i: unitsIn, o: unitsOut },
 ];
 
-export default ( shape1, shape2, time, duration, ease ) => {
+export default ( shape1, shape2, time, duration, easing ) => {
   const tween = ( from, to ) => {
     if ( from === to ) {
       return from;
     }
 
     if ( typeof from === 'number' && typeof to === 'number' ) {
-      return ease( time, from, to, duration );
+      return easing( time, from, to, duration );
     }
 
     let f = from;

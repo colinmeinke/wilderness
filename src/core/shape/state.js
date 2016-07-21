@@ -1,6 +1,7 @@
 import { currentState, easingFunc, normalise, tween } from '../helpers';
+import { offset, position } from 'points';
 import { stylePropAttrMap } from './props';
-import { toPath } from 'svg-points';
+import { toPath, toPoints } from 'svg-points';
 
 const animationState = ( state, timeline ) => {
   const { keyframes, timing } = timeline;
@@ -23,20 +24,74 @@ const currentKeyframes = ( currentProgress, keyframes, timing ) => {
   return { keyframe1, keyframe1Index, keyframe2, keyframe2Index };
 };
 
-const currentShapes = ({
-  currentProgress,
-  duration,
-  easing,
-  shapes1,
-  shapes2,
-  time,
-}) => {
+const currentShapes = ({ duration, easing, shapes1, shapes2, time }) => {
   const [ s1, s2 ] = normalisedShapes( shapes1, shapes2 );
 
   return s1.map(( a, i ) => {
     const b = s2[ i ];
     return tween( a, b, time, duration, easing );
   });
+};
+
+const frameShapes = ( animation, timing ) => {
+  const {
+    currentProgress,
+    easing: defaultEasing,
+    keyframe1,
+    keyframe1Index,
+    keyframe2,
+    keyframe2Index,
+  } = animation;
+
+  const { shapes: shapes1 } = keyframe1;
+  const { shapes: shapes2 } = keyframe2 || {};
+
+  if ( currentProgress === 1 || !keyframe2 ) {
+    return shapes1;
+  } else if ( currentProgress === 0 ) {
+    return shapes2;
+  }
+
+  const scale = timing[ keyframe2Index ] - timing[ keyframe1Index ];
+  const offset = currentProgress - timing[ keyframe1Index ];
+  const duration = animation.duration * scale;
+  const time = duration * offset / scale;
+  const easing = easingFunc( keyframe2.animation.easing, defaultEasing );
+
+  return currentShapes({
+    currentProgress,
+    duration,
+    easing,
+    shapes1,
+    shapes2,
+    time,
+  });
+};
+
+const motionPathOffset = ( animation, motionPath ) => {
+  const { currentProgress, easing: defaultEasing } = animation;
+  const { accuracy = 1, ...motionPathShape } = motionPath;
+  const shape = toPoints( motionPathShape );
+
+  const easing = ( currentProgress > 0 && currentProgress < 1 ) ?
+    easingFunc( motionPath.easing, defaultEasing ) : null;
+
+  const interval = easing ? easing( currentProgress, 0, 1, 1 ) : currentProgress;
+
+  return position( shape, interval, accuracy );
+};
+
+const motionPathShapes = ( animation, motionPath, shapes ) => {
+  const { x, y } = motionPathOffset( animation, motionPath );
+
+  if ( x || y ) {
+    return shapes.map(({ points, ...shape }) => ({
+      ...shape,
+      points: offset( points, x, y ),
+    }));
+  }
+
+  return shapes;
 };
 
 const normalisedShapes = ( shapes1, shapes2 ) => {
@@ -81,57 +136,38 @@ const styleAttributes = styles => {
   return s;
 };
 
-const shapes = ( animation, timing ) => {
-  const {
-    currentProgress,
-    easing: defaultEasing,
-    keyframe1,
-    keyframe1Index,
-    keyframe2,
-    keyframe2Index,
-  } = animation;
+const shapeState = ( animation, motionPaths, timing ) => {
+  const { keyframe2Index } = animation;
+  const motionPath = motionPaths[ keyframe2Index ];
+  const shapes = frameShapes( animation, timing );
 
-  if ( currentProgress === 0 || !keyframe2 ) {
-    return keyframe1.shapes;
-  } else if ( currentProgress === 1 ) {
-    return keyframe2.shapes;
+  if ( motionPath ) {
+    return motionPathShapes( animation, motionPath, shapes )
+      .map( shapeAttributes );
   }
 
-  const scale = timing[ keyframe2Index ] - timing[ keyframe1Index ];
-  const offset = currentProgress - timing[ keyframe1Index ];
-  const duration = animation.duration * scale;
-  const time = duration * offset / scale;
-  const easing = keyframe2.animation.easing || defaultEasing;
-
-  return currentShapes({
-    currentProgress,
-    duration,
-    easing: typeof easing === 'function' ? easing : easingFunc( easing ),
-    shapes1: keyframe1.shapes,
-    shapes2: keyframe2.shapes,
-    time,
-  });
-};
+  return shapes.map( shapeAttributes );
+}
 
 export {
   animationState,
   currentKeyframes,
   currentShapes,
+  frameShapes,
+  motionPathOffset,
+  motionPathShapes,
   normalisedShapes,
   shapeAttributes,
-  shapes,
+  styleAttributes,
+  shapeState,
 };
 
 export default shape => {
   const { state, timeline } = shape;
-  const { timing } = timeline;
-
+  const { motionPaths, timing } = timeline;
   const animation = animationState( state, timeline );
-
-  const s = {
-    animation,
-    shapes: shapes( animation, timing ).map( shapeAttributes ),
-  };
+  const shapes = shapeState( animation, motionPaths, timing );
+  const s = { animation, shapes };
 
   shape.state = s;
 

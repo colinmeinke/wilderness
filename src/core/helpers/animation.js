@@ -29,16 +29,19 @@ const currentReverse = ( alternate, iteration, reverse ) => (
   alternate ? ( iteration % 2 === 0 ? !reverse : reverse ) : reverse
 );
 
-const easingFunc = easing => easingFunctions[ easing ];
-
-const iterationsComplete = ({ duration, iterations, play, pause }) => {
-  const time = Math.max( 0, pause ? pause - play : Date.now() - play );
-  return Math.min( iterations, time / duration );
+const easingFunc = ( easing, defaultEasing ) => {
+  const e = easing || defaultEasing;
+  return typeof e === 'function' ? e : easingFunctions[ e ];
 };
 
 const finished = animation => (
   iterationsComplete( animation ) >= animation.iterations
 );
+
+const iterationsComplete = ({ duration, iterations, play, pause }) => {
+  const time = Math.max( 0, pause ? pause - play : Date.now() - play );
+  return Math.min( iterations, time / duration );
+};
 
 const paused = ({ pause }) => Boolean( pause );
 

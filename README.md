@@ -2,13 +2,13 @@
 
 A Javascript API for building and animating SVG.
 
-**Currently in development**. Basic functionality is working
-but it is not ready for production use.
+**Only 11kb gzipped. No dependencies.**
 
-These docs were written before a single line of code was
-written, so not everything has been implemented yet. Please
-check out [issues](https://github.com/colinmeinke/wilderness/issues)
-to get a better idea of what's left to do.
+Currently in development. It's almost there! Please have
+a play and let me know if anything isn't working.
+
+The only outstanding task from the API below is to build the
+[`timeline()` function](#timeline-function).
 
 ## Features
 
@@ -206,8 +206,8 @@ const circle = {
 
 const motionPath = {
   type: 'rect',
-  x: 100,
-  y: 150,
+  x: 0,
+  y: 0,
   width: 300,
   height: 100,
 };
@@ -218,6 +218,10 @@ render({ selector: '.svg' }, animation );
 
 play( animation, { duration: 1800 });
 ```
+
+A motion path is relative to the shape being animated.
+You almost certainly want to make the starting point
+`0`, `0`.
 
 ### Events
 
