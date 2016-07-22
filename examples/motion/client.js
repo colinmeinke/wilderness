@@ -7,6 +7,7 @@ const positionB = { ...circle, fill: '#0FA', scale: 0.5 };
 const motionPath = {
   type: 'path',
   d: 'M0,0l40,80h-80l20,-40h60l-40,40l-40,-40q0-20,20-20m30,0h30',
+  easing: 'easeInOutElastic',
 };
 
 const motionPathStroke = shape({
