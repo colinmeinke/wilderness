@@ -85,10 +85,9 @@ const motionPathShapes = ( animation, motionPath, shapes ) => {
   const { x, y } = motionPathOffset( animation, motionPath );
 
   if ( x || y ) {
-    return shapes.map(({ points, ...shape }) => ({
-      ...shape,
-      points: offset( points, x, y ),
-    }));
+    return shapes.map(({ points, ...shape }) => (
+      points ? { ...shape, points: offset( points, x, y )} : shape
+    ));
   }
 
   return shapes;
