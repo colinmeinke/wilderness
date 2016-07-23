@@ -1,4 +1,4 @@
-import { shape, render, play } from '../../src';
+import { shape, render, play } from './tmp';
 
 const circle = { type: 'circle', cx: 50, cy: 10, r: 10 };
 const positionA = { ...circle, fill: '#E54' };

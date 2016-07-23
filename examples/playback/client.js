@@ -1,4 +1,4 @@
-import { shape, render, play, pause } from '../../src';
+import { shape, render, play, pause } from './tmp';
 
 const sharedProperties = {
   type: 'circle',

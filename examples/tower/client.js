@@ -1,4 +1,4 @@
-import { shape, render, play } from '../../src';
+import { shape, render, play } from './tmp';
 
 const positionA = {
   type: 'g',

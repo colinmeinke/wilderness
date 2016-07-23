@@ -1,4 +1,4 @@
-import { shape, render, play } from '../../src';
+import { shape, render, play } from './tmp';
 
 const arrow = { type: 'path', d: 'M50,5l5,10h-3l-2-1.5l-2,1.5h-3z', fill: '#E54' };
 
