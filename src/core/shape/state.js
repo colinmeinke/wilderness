@@ -1,5 +1,5 @@
 import { currentState, easingFunc, normalise, tween } from '../helpers';
-import { offset, position } from 'points';
+import { offset, position, rotate } from 'points';
 import { stylePropAttrMap } from './props';
 import { toPath, toPoints } from 'svg-points';
 
@@ -82,12 +82,23 @@ const motionPathOffset = ( animation, motionPath ) => {
 };
 
 const motionPathShapes = ( animation, motionPath, shapes ) => {
-  const { x, y } = motionPathOffset( animation, motionPath );
+  const { rotate: r = false } = motionPath;
+  const { angle, x, y } = motionPathOffset( animation, motionPath );
 
   if ( x || y ) {
-    return shapes.map(({ points, ...shape }) => (
-      points ? { ...shape, points: offset( points, x, y )} : shape
-    ));
+    return shapes.map(({ points, ...shape }) => {
+      if ( points ) {
+        let p = offset( points, x, y );
+
+        if ( r ) {
+          p = rotate( p, angle );
+        }
+
+        return { ...shape, points: p };
+      }
+
+      return shape;
+    });
   }
 
   return shapes;
