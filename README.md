@@ -517,7 +517,11 @@ one shape to the next.
 - `finish` is a *function* that is called when the animation
   finishes
 - `motionPath` is a *plain shape object* that defines the
-  motion path of the animation
+  motion path of the animation. It can also include the
+  following additional properties:
+    - `easing` is either a *string* or a *function*.
+    - `rotate` is a *boolean* that defines if the shape should
+      be rotated inline with the direction of the motion path.
 - `name` is a *string* that can be used to reference this
   animation by objects in a
   [`timeline()` function](#timeline-function)
