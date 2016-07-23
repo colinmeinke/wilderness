@@ -7,6 +7,7 @@ const motionPath = {
   cx: 0,
   cy: 40,
   r: 40,
+  accuracy: 0.1,
   easing: 'linear',
   rotate: true,
 };
@@ -23,6 +24,6 @@ const animation = shape( arrow, { motionPath });
 render({ selector: '.svg' }, motionPathStroke, animation );
 
 play( animation, {
-  duration: 3500,
+  duration: 8000,
   iterations: Infinity,
 });
