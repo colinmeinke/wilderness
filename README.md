@@ -519,6 +519,11 @@ one shape to the next.
 - `motionPath` is a *plain shape object* that defines the
   motion path of the animation. It can also include the
   following additional properties:
+    - `accuracy` is a *number* between `0` and `360` that is
+      used to calculate if a curve is *straight enough* to be
+      considered a straight line. The smaller the number, the
+      more accurate (smoother) the animation. Only relevant
+      for shapes that include curves.
     - `easing` is either a *string* or a *function*.
     - `rotate` is a *boolean* that defines if the shape should
       be rotated inline with the direction of the motion path.
