@@ -46,9 +46,9 @@ const frameShapes = ( animation, timing ) => {
   const { shapes: shapes1 } = keyframe1;
   const { shapes: shapes2 } = keyframe2 || {};
 
-  if ( currentProgress === 1 || !keyframe2 ) {
+  if ( currentProgress === 0 || !keyframe2 ) {
     return shapes1;
-  } else if ( currentProgress === 0 ) {
+  } else if ( currentProgress === 1 ) {
     return shapes2;
   }
 
