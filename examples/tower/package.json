@@ -31,7 +31,7 @@
     "url": "https://github.com/colinmeinke/wilderness.git"
   },
   "scripts": {
-    "build": "npm run copy && webpack ./client.js ./client.dist.js --config ./webpack.config.babel.js && npm run clean",
+    "build": "npm run clean && npm run copy && webpack ./client.js ./client.dist.js --config ./webpack.config.babel.js",
     "clean": "rm -rf ./tmp",
     "copy": "cp -r ../../src ./tmp"
   },
