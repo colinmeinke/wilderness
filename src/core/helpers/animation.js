@@ -13,7 +13,7 @@ const currentState = ( animation = {}) => {
   } = animation;
 
   const iterations = started ? iterationsComplete( animation ) : 0;
-  const totalIterations = iterations + ( reverse ? 1 - initialProgress : initialProgress );
+  const totalIterations = iterations + initialProgress;
   const i = currentIteration( totalIterations );
   const r = currentReverse( alternate, i, reverse );
   const progress = totalIterations - previousIteration( totalIterations );
