@@ -84,6 +84,7 @@ const motionPathOffset = ( animation, motionPath ) => {
 const motionPathShapes = ( animation, motionPath, shapes ) => {
   const { rotate: r = false } = motionPath;
   const { angle, x, y } = motionPathOffset( animation, motionPath );
+  const a = typeof r === 'number' ? ( r + angle ) % 360 : angle;
 
   if ( x || y ) {
     return shapes.map(({ points, ...shape }) => {
@@ -91,7 +92,7 @@ const motionPathShapes = ( animation, motionPath, shapes ) => {
         let p = offset( points, x, y );
 
         if ( r ) {
-          p = rotate( p, angle );
+          p = rotate( p, a );
         }
 
         return { ...shape, points: p };

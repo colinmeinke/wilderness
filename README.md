@@ -525,8 +525,11 @@ one shape to the next.
       more accurate (smoother) the animation. Only relevant
       for shapes that include curves.
     - `easing` is either a *string* or a *function*.
-    - `rotate` is a *boolean* that defines if the shape should
-      be rotated inline with the direction of the motion path.
+    - `rotate` is either:
+      - a *boolean* that defines if the shape should
+        be rotated with the angle of the motion path
+      - a *number* to offset the angle of the motion
+        path and rotate the shape
 - `name` is a *string* that can be used to reference this
   animation by objects in a
   [`timeline()` function](#timeline-function)
