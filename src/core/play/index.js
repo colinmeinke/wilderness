@@ -2,7 +2,8 @@ import { currentState } from '../helpers';
 import { events, state } from '../shape';
 
 const init = ( playable, options ) => {
-  const { timeline, state } = playable;
+  const { timeline, state = {}} = playable;
+  const { animation = {}} = state;
   const { duration: durationDefault, keyframes } = timeline;
 
   const now = Date.now();
@@ -18,11 +19,11 @@ const init = ( playable, options ) => {
     update,
   } = {
     ...optionDefaults,
+    ...animation,
     ...options,
   };
 
-  let { currentProgress, currentReverse, iterationsComplete } = currentState( playable );
-
+  let { currentProgress, currentReverse, iterationsComplete } = currentState( animation );
   let reverse = currentReverse;
   let reverseChanged = false;
 
@@ -30,7 +31,7 @@ const init = ( playable, options ) => {
     currentReverse = options.reverse;
     reverse = options.reverse;
 
-    if ( state.animation.started ) {
+    if ( animation.started ) {
       reverseChanged = options.reverse !== currentReverse;
     }
   }
@@ -46,8 +47,8 @@ const init = ( playable, options ) => {
 
   let iterations = reverse ? initialProgress : 1 - initialProgress;
 
-  if ( state.animation.started ) {
-    iterations = state.animation.iterations - iterationsComplete;
+  if ( animation.started ) {
+    iterations = animation.iterations - iterationsComplete;
   }
 
   if ( typeof options.iterations !== 'undefined' ) {
@@ -58,7 +59,7 @@ const init = ( playable, options ) => {
     start();
   }
 
-  playable.state.animation = {
+  state.animation = {
     alternate,
     currentProgress,
     currentReverse,
