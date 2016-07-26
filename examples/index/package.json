@@ -23,6 +23,7 @@
     "babel-preset-es2015-native-modules": "^6.9.2",
     "babel-preset-es2016": "^6.11.3",
     "points": "^1.12.1",
+    "rimraf": "^2.5.4",
     "svg-points": "^3.0.1",
     "tween-functions": "^1.2.0",
     "webpack": "^2.1.0-beta.20"
@@ -34,7 +35,7 @@
   },
   "scripts": {
     "build": "npm run clean && npm run copy && webpack ./client.js ./client.dist.js --config ./webpack.config.babel.js",
-    "clean": "rm -rf ./tmp",
+    "clean": "rimraf tmp",
     "copy": "cp -r ../../src ./tmp"
   },
   "version": "0.0.0-semantically-released",
