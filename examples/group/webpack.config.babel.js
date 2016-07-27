@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   module: {
     loaders: [{
       exclude: /node_modules/,
