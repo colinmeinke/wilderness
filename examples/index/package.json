@@ -35,7 +35,7 @@
   },
   "scripts": {
     "build": "npm run clean && npm run copy && webpack ./client.js ./client.dist.js --config ./webpack.config.babel.js",
-    "clean": "rimraf tmp",
+    "clean": "rimraf ./tmp",
     "copy": "cp -r ../../src ./tmp"
   },
   "version": "0.0.0-semantically-released",
