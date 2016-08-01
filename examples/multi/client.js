@@ -2,9 +2,9 @@ import { shape, render, play } from './tmp';
 
 const animation = shape(
   { selector: '.positionA' },
-  { selector: '.positionB', duration: 800, reverse: true },
-  { selector: '.positionC', duration: 1200, reverse: true, moveIndex: 2 },
-  { selector: '.positionD', duration: 2000, reverse: true, easing: 'easeOutElastic' },
+  { selector: '.positionB', duration: 800 },
+  { selector: '.positionC', duration: 1200 },
+  { selector: '.positionD', duration: 2000, easing: 'easeOutElastic' },
   { selector: '.positionA', duration: 3000, easing: 'easeInElastic' }
 );
 
