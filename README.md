@@ -298,7 +298,7 @@ const state = Wilderness.state;
 And if you just want to smash in a Javascript file you're
 also covered. Drop this in place ...
 
-[https://npmcdn.com/wilderness/dist/wilderness.min.js](https://npmcdn.com/wilderness/dist/wilderness.min.js)
+[https://unpkg.com/wilderness/dist/wilderness.min.js](https://unpkg.com/wilderness/dist/wilderness.min.js)
 
 Then access it on the `Wilderness` global variable.
 
