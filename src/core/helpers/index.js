@@ -6,13 +6,13 @@ import {
   finished,
   iterationsComplete,
   paused,
-  previousIteration,
-} from './animation';
+  previousIteration
+} from './animation'
 
-import { filter } from './misc';
-import match from './match';
-import normalise from './points';
-import tween from './tween';
+import { filter } from './misc'
+import match from './match'
+import normalise from './points'
+import tween from './tween'
 
 export {
   currentIteration,
@@ -26,5 +26,5 @@ export {
   normalise,
   paused,
   previousIteration,
-  tween,
-};
+  tween
+}

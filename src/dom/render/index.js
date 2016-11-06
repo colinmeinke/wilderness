@@ -1,96 +1,96 @@
-const addNodes = ( target, renderables ) => {
-  let container = svg( target );
+const addNodes = (target, renderables) => {
+  let container = svg(target)
 
   renderables.map(({ nodes, selector, state }) => {
-    nodes.map(( n, i ) => {
-      if ( i === 0 && selector ) {
-        const el = container.querySelector( selector );
-        el.parentNode.replaceChild( n, el );
+    nodes.map((n, i) => {
+      if (i === 0 && selector) {
+        const el = container.querySelector(selector)
+        el.parentNode.replaceChild(n, el)
       } else {
-        container.appendChild( n );
+        container.appendChild(n)
       }
 
-      if ( !state.shapes[ i ].d ) {
-        container = n;
+      if (!state.shapes[ i ].d) {
+        container = n
       }
-    });
-  });
-};
+    })
+  })
+}
 
 const createNodes = shape => {
   shape.nodes = shape.state.shapes.map(({ d }) => {
-    if ( d ) {
-      return document.createElementNS( 'http://www.w3.org/2000/svg', 'path' );
+    if (d) {
+      return document.createElementNS('http://www.w3.org/2000/svg', 'path')
     }
 
-    return document.createElementNS( 'http://www.w3.org/2000/svg', 'g' );
-  });
-};
+    return document.createElementNS('http://www.w3.org/2000/svg', 'g')
+  })
+}
 
-const render = ( target, ...renderables ) => {
-  renderables.map( renderable => {
-    renderNodes( renderable );
-  });
+const render = (target, ...renderables) => {
+  renderables.map(renderable => {
+    renderNodes(renderable)
+  })
 
-  addNodes( target, renderables )
-};
+  addNodes(target, renderables)
+}
 
 const renderNodes = renderable => {
-  if ( !renderable.nodes ) {
-    createNodes( renderable );
+  if (!renderable.nodes) {
+    createNodes(renderable)
   }
 
-  updateNodes( renderable );
-};
+  updateNodes(renderable)
+}
 
 const svgAttrs = [
   'height',
   'preserveAspectRatio',
   'viewBox',
-  'width',
-];
+  'width'
+]
 
 const svg = target => {
-  const { selector, ...el } = target;
+  const { selector, ...el } = target
 
-  if ( !selector ) {
-    return el;
+  if (!selector) {
+    return el
   }
 
-  const outer = document.querySelector( selector );
+  const outer = document.querySelector(selector)
 
-  if ( outer.nodeName === 'svg' ) {
-    return outer;
+  if (outer.nodeName === 'svg') {
+    return outer
   }
 
-  const inner = outer.querySelector( 'svg' );
+  const inner = outer.querySelector('svg')
 
-  if ( inner.nodeName === 'svg' ) {
-    return inner;
+  if (inner.nodeName === 'svg') {
+    return inner
   }
 
-  const s = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
+  const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
 
-  Object.keys( target )
-    .filter( attr => svgAttrs.indexOf( attr ) !== -1 )
-    .forEach( attr => {
-      s.setAttribute( attr, target[ attr ]);
-    });
+  Object.keys(target)
+    .filter(attr => svgAttrs.indexOf(attr) !== -1)
+    .forEach(attr => {
+      s.setAttribute(attr, target[ attr ])
+    })
 
-  outer.appendChild( s );
+  outer.appendChild(s)
 
-  return s;
-};
+  return s
+}
 
 const updateNodes = ({ nodes, state }) => {
-  nodes.map(( n, i ) => {
-    const shape = state.shapes[ i ];
+  nodes.map((n, i) => {
+    const shape = state.shapes[ i ]
 
-    Object.keys( shape ).forEach( key => {
-      n.setAttribute( key, shape[ key ]);
-    });
-  });
-};
+    Object.keys(shape).forEach(key => {
+      n.setAttribute(key, shape[ key ])
+    })
+  })
+}
 
-export { renderNodes };
-export default render;
+export { renderNodes }
+export default render

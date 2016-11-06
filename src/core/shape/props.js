@@ -1,7 +1,7 @@
 const animationDefaults = {
   delay: 0,
-  duration: 250,
-};
+  duration: 250
+}
 
 const animationProps = [
   'delay',
@@ -11,15 +11,15 @@ const animationProps = [
   'motionPath',
   'name',
   'start',
-  'update',
-];
+  'update'
+]
 
 const manipulationProps = [
   'moveIndex',
   'offset',
   'reverse',
-  'scale',
-];
+  'scale'
+]
 
 const shapeProps = [
   'cx',
@@ -38,8 +38,8 @@ const shapeProps = [
   'x2',
   'y',
   'y1',
-  'y2',
-];
+  'y2'
+]
 
 const stylePropAttrMap = {
   fill: 'fill',
@@ -52,10 +52,10 @@ const stylePropAttrMap = {
   strokeLinejoin: 'stroke-linejoin',
   strokeOpactity: 'stroke-opacity',
   strokeWidth: 'stroke-width',
-  vectorEffect: 'vector-effect',
-};
+  vectorEffect: 'vector-effect'
+}
 
-const styleProps = Object.keys( stylePropAttrMap );
+const styleProps = Object.keys(stylePropAttrMap)
 
 export {
   animationDefaults,
@@ -63,5 +63,5 @@ export {
   manipulationProps,
   shapeProps,
   stylePropAttrMap,
-  styleProps,
-};
+  styleProps
+}

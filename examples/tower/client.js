@@ -1,4 +1,4 @@
-import { shape, render, play } from './tmp';
+import { shape, render, play } from './tmp'
 
 const positionA = {
   type: 'g',
@@ -24,9 +24,9 @@ const positionA = {
     { type: 'path', d: 'M310,414.9l0,0.1l60,-30l-0.1,-0.05z', fill: 'none' },
     { type: 'path', d: 'M370,340l-0.1,0.05l0,44.9l0.1,0.05z', fill: 'none' },
     { type: 'path', d: 'M310,414.9l0,0.1l60,-30l0,-0.1z', fill: 'none' },
-    { type: 'path', d: 'M339,400.4l0,0.1l2,-1l0,-0.1z', fill: 'none' },
-  ],
-};
+    { type: 'path', d: 'M339,400.4l0,0.1l2,-1l0,-0.1z', fill: 'none' }
+  ]
+}
 
 const positionB = {
   type: 'g',
@@ -54,9 +54,9 @@ const positionB = {
     { type: 'path', d: 'M310,414.9l0,0.1l60,-30l-0.1,-0.05z', fill: 'none' },
     { type: 'path', d: 'M370,340l-0.1,0.05l0,44.9l0.1,0.05z', fill: 'none' },
     { type: 'path', d: 'M310,414.9l0,0.1l60,-30l0,-0.1z', fill: 'rgb( 70, 75, 70 )' },
-    { type: 'path', d: 'M339,400.4l0,0.1l2,-1l0,-0.1z', fill: 'rgb( 38, 39, 38 )' },
-  ],
-};
+    { type: 'path', d: 'M339,400.4l0,0.1l2,-1l0,-0.1z', fill: 'rgb( 38, 39, 38 )' }
+  ]
+}
 
 const positionC = {
   type: 'g',
@@ -84,8 +84,8 @@ const positionC = {
     { type: 'path', d: 'M310,414.9l0,0.1l60,-30l-0.1,-0.05z', fill: 'rgb( 209, 215, 209 )' },
     { type: 'path', d: 'M370,340l-0.1,0.05l0,44.9l0.1,0.05z', fill: 'rgb( 168, 173, 168 )' },
     { type: 'path', d: 'M310,370l0,45l60,-30l0,-45z', fill: 'rgb( 70, 75, 70 )' },
-    { type: 'path', d: 'M339,355.5l0,45l2,-1l0,-45z', fill: 'rgb( 38, 39, 38 )' },
-  ],
+    { type: 'path', d: 'M339,355.5l0,45l2,-1l0,-45z', fill: 'rgb( 38, 39, 38 )' }
+  ]
 }
 
 const positionD = {
@@ -114,12 +114,12 @@ const positionD = {
     { type: 'path', d: 'M310,411l0,4l60,-30l-4,-2z', fill: 'rgb( 209, 215, 209 )' },
     { type: 'path', d: 'M370,340l-4,2l0,41l4,2z', fill: 'rgb( 168, 173, 168 )' },
     { type: 'path', d: 'M310,370l0,41l56,-28l0,-41z', fill: 'rgb( 70, 75, 70 )' },
-    { type: 'path', d: 'M335,357.5l0,41l2,-1l0,-41z', fill: 'rgb( 38, 39, 38 )' },
-  ],
-};
+    { type: 'path', d: 'M335,357.5l0,41l2,-1l0,-41z', fill: 'rgb( 38, 39, 38 )' }
+  ]
+}
 
-const animation = shape( positionA, positionB, positionC, positionD );
+const animation = shape(positionA, positionB, positionC, positionD)
 
-render({ selector: '.svg' }, animation );
+render({ selector: '.svg' }, animation)
 
-play( animation, { alternate: true, iterations: Infinity });
+play(animation, { alternate: true, iterations: Infinity })

@@ -1,15 +1,15 @@
-const filter = ( props, obj ) => {
-  const filtered = {};
+const filter = (props, obj) => {
+  const filtered = {}
 
-  props.forEach( p => {
-    const value = obj[ p ];
+  props.forEach(p => {
+    const value = obj[ p ]
 
-    if ( typeof value !== 'undefined' ) {
-      filtered[ p ] = value;
+    if (typeof value !== 'undefined') {
+      filtered[ p ] = value
     }
-  });
+  })
 
-  return filtered;
-};
+  return filtered
+}
 
-export { filter };
+export { filter }

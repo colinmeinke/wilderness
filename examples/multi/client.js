@@ -1,4 +1,4 @@
-import { shape, render, play } from './tmp';
+import { shape, render, play } from './tmp'
 
 const animation = shape(
   { selector: '.positionA' },
@@ -6,11 +6,11 @@ const animation = shape(
   { selector: '.positionC', duration: 1200 },
   { selector: '.positionD', duration: 2000, easing: 'easeOutElastic' },
   { selector: '.positionA', duration: 3000, easing: 'easeInElastic' }
-);
+)
 
-render({ selector: '.svg' }, animation );
+render({ selector: '.svg' }, animation)
 
-play( animation, {
+play(animation, {
   alternate: true,
-  iterations: Infinity,
-});
+  iterations: Infinity
+})

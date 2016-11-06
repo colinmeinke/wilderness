@@ -1,17 +1,17 @@
-import { finished } from '../helpers';
+import { finished } from '../helpers'
 
-const currentKeyframeIndex = ( currentProgress, keyframe2Index ) => {
-  if ( currentProgress > 0 && currentProgress < 1 ) {
-    return keyframe2Index;
+const currentKeyframeIndex = (currentProgress, keyframe2Index) => {
+  if (currentProgress > 0 && currentProgress < 1) {
+    return keyframe2Index
   }
 
-  return null;
-};
+  return null
+}
 
 const events = playable => {
-  const { state, timeline } = playable;
-  const { animation } = state;
-  const { keyframes } = timeline;
+  const { state, timeline } = playable
+  const { animation } = state
+  const { keyframes } = timeline
 
   const {
     alternate,
@@ -20,11 +20,11 @@ const events = playable => {
     iterationsComplete,
     keyframe1Index,
     keyframe2,
-    keyframe2Index,
-  } = animation;
+    keyframe2Index
+  } = animation
 
-  if ( keyframe2 ) {
-    const c = currentKeyframeIndex( currentProgress, keyframe2Index );
+  if (keyframe2) {
+    const c = currentKeyframeIndex(currentProgress, keyframe2Index)
 
     const p = previousKeyframeIndex({
       alternate,
@@ -33,51 +33,51 @@ const events = playable => {
       iterationsComplete,
       keyframe1Index,
       keyframe2Index,
-      keyframeLength: keyframes.length,
-    });
+      keyframeLength: keyframes.length
+    })
 
-    if ( p ) {
-      if ( p !== c || animation.keyframes[ p ].reverse !== currentReverse ) {
-        if ( animation.keyframes[ p ].started && !animation.keyframes[ p ].finished ) {
-          animation.keyframes[ p ].started = false;
-          animation.keyframes[ p ].finished = true;
+    if (p) {
+      if (p !== c || animation.keyframes[ p ].reverse !== currentReverse) {
+        if (animation.keyframes[ p ].started && !animation.keyframes[ p ].finished) {
+          animation.keyframes[ p ].started = false
+          animation.keyframes[ p ].finished = true
 
-          if ( typeof keyframes[ p ].animation.finish === 'function' ) {
-            keyframes[ p ].animation.finish();
+          if (typeof keyframes[ p ].animation.finish === 'function') {
+            keyframes[ p ].animation.finish()
           }
         }
       }
     }
 
-    if ( c ) {
-      if ( !animation.keyframes[ c ].started ) {
-        animation.keyframes[ c ].started = true;
-        animation.keyframes[ c ].finished = false;
-        animation.keyframes[ c ].reverse = currentReverse;
+    if (c) {
+      if (!animation.keyframes[ c ].started) {
+        animation.keyframes[ c ].started = true
+        animation.keyframes[ c ].finished = false
+        animation.keyframes[ c ].reverse = currentReverse
 
-        if ( typeof keyframes[ c ].animation.start === 'function' ) {
-          keyframes[ c ].animation.start();
+        if (typeof keyframes[ c ].animation.start === 'function') {
+          keyframes[ c ].animation.start()
         }
       }
 
-      if ( typeof keyframes[ c ].animation.update === 'function' ) {
-        keyframes[ c ].animation.update();
+      if (typeof keyframes[ c ].animation.update === 'function') {
+        keyframes[ c ].animation.update()
       }
     }
 
-    if ( typeof animation.update === 'function' ) {
-      animation.update();
+    if (typeof animation.update === 'function') {
+      animation.update()
     }
 
-    if ( finished( animation )) {
-      animation.finished = true;
+    if (finished(animation)) {
+      animation.finished = true
 
-      if ( typeof animation.finish === 'function' ) {
-        animation.finish();
+      if (typeof animation.finish === 'function') {
+        animation.finish()
       }
     }
   }
-};
+}
 
 const previousKeyframeIndex = ({
   alternate,
@@ -86,45 +86,45 @@ const previousKeyframeIndex = ({
   iterationsComplete,
   keyframe1Index,
   keyframe2Index,
-  keyframeLength,
+  keyframeLength
 }) => {
-  if ( currentReverse ) {
-    if ( currentProgress === 0 ) {
-      return keyframe2Index;
+  if (currentReverse) {
+    if (currentProgress === 0) {
+      return keyframe2Index
     }
 
-    if ( keyframe2Index + 1 === keyframeLength ) {
-      if ( iterationsComplete > 1 ) {
-        if ( alternate ) {
-          return keyframe2Index;
+    if (keyframe2Index + 1 === keyframeLength) {
+      if (iterationsComplete > 1) {
+        if (alternate) {
+          return keyframe2Index
         }
 
-        return 1;
+        return 1
       }
 
-      return null;
+      return null
     }
 
-    return keyframe2Index + 1;
+    return keyframe2Index + 1
   }
 
-  if ( currentProgress === 1 ) {
-    return keyframe2Index;
+  if (currentProgress === 1) {
+    return keyframe2Index
   }
 
-  if ( keyframe1Index === 0 ) {
-    if ( iterationsComplete > 1 ) {
-      if ( alternate ) {
-        return 1;
+  if (keyframe1Index === 0) {
+    if (iterationsComplete > 1) {
+      if (alternate) {
+        return 1
       }
 
-      return keyframeLength - 1;
+      return keyframeLength - 1
     }
 
-    return null;
+    return null
   }
 
-  return keyframe1Index;
-};
+  return keyframe1Index
+}
 
-export default events;
+export default events

@@ -1,22 +1,22 @@
-import { finished, paused } from '../../core/helpers';
-import { play as corePlay, tick as coreTick } from '../../core';
-import { renderNodes } from '../render';
+import { finished, paused } from '../../core/helpers'
+import { play as corePlay, tick as coreTick } from '../../core'
+import { renderNodes } from '../render'
 
 const tick = playable => {
-  const { animation } = playable.state;
+  const { animation } = playable.state
 
-  coreTick( playable );
-  renderNodes( playable );
+  coreTick(playable)
+  renderNodes(playable)
 
-  if ( !paused( animation ) && !finished( animation )) {
+  if (!paused(animation) && !finished(animation)) {
     window.requestAnimationFrame(() => {
-      tick( playable );
-    });
+      tick(playable)
+    })
   }
-};
+}
 
-const play = ( playable, options ) => {
-  corePlay( playable, options, tick );
-};
+const play = (playable, options) => {
+  corePlay(playable, options, tick)
+}
 
-export default play;
+export default play

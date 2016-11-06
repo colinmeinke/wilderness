@@ -1,4 +1,8 @@
 dist/
+examples/*/client.dist.js
+examples/*/node_modules/
+examples/*/npm-debug.log
+examples/*/tmp/
 lib/
 node_modules/
 npm-debug.log

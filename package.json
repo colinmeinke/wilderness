@@ -45,6 +45,8 @@
     "mocha": "^3.1.2",
     "rimraf": "^2.5.4",
     "semantic-release": "^4.3.5",
+    "snazzy": "^5.0.0",
+    "standard": "^8.5.0",
     "webpack": "^2.1.0-beta.25"
   },
   "homepage": "https://github.com/colinmeinke/wilderness#readme",
@@ -62,6 +64,8 @@
     "build:umd:dev": "webpack ./src/index.js ./dist/wilderness.js --output-library Wilderness --output-library-target umd --config ./webpack.config.babel.js",
     "build:umd:pro": "webpack -p ./src/index.js ./dist/wilderness.min.js --output-library Wilderness --output-library-target umd --config ./webpack.config.babel.js",
     "commit": "git-cz",
+    "fix": "standard --fix",
+    "lint": "standard --verbose | snazzy",
     "prepublish": "npm run tidy && npm run build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "mocha --compilers js:babel-core/register test/*.js",

@@ -1,62 +1,62 @@
-import { currentState, easingFunc, normalise, tween } from '../helpers';
-import { offset, position, rotate } from 'points';
-import { stylePropAttrMap } from './props';
-import { toPath, toPoints } from 'svg-points';
+import { currentState, easingFunc, normalise, tween } from '../helpers'
+import { offset, position, rotate } from 'points'
+import { stylePropAttrMap } from './props'
+import { toPath, toPoints } from 'svg-points'
 
-const animationState = ( state, timeline ) => {
-  const { keyframes, timing } = timeline;
-  const currentAnimation = state && state.animation ? state.animation : {};
-  const animation = { ...currentAnimation, ...currentState( currentAnimation )};
-  const { currentProgress } = animation;
+const animationState = (state, timeline) => {
+  const { keyframes, timing } = timeline
+  const currentAnimation = state && state.animation ? state.animation : {}
+  const animation = { ...currentAnimation, ...currentState(currentAnimation) }
+  const { currentProgress } = animation
 
   return {
     ...animation,
-    ...currentKeyframes( currentProgress, keyframes, timing ),
-  };
-};
+    ...currentKeyframes(currentProgress, keyframes, timing)
+  }
+}
 
-const currentKeyframes = ( currentProgress, keyframes, timing ) => {
-  const keyframe1Index = timing.reduce(( a, b, i ) => currentProgress > b ? i : a, 0 );
-  const keyframe2Index = keyframe1Index + 1;
-  const keyframe1 = keyframes[ keyframe1Index ];
-  const keyframe2 = keyframes[ keyframe2Index ];
+const currentKeyframes = (currentProgress, keyframes, timing) => {
+  const keyframe1Index = timing.reduce((a, b, i) => currentProgress > b ? i : a, 0)
+  const keyframe2Index = keyframe1Index + 1
+  const keyframe1 = keyframes[ keyframe1Index ]
+  const keyframe2 = keyframes[ keyframe2Index ]
 
-  return { keyframe1, keyframe1Index, keyframe2, keyframe2Index };
-};
+  return { keyframe1, keyframe1Index, keyframe2, keyframe2Index }
+}
 
 const currentShapes = ({ duration, easing, shapes1, shapes2, time }) => {
-  const [ s1, s2 ] = normalisedShapes( shapes1, shapes2 );
+  const [ s1, s2 ] = normalisedShapes(shapes1, shapes2)
 
-  return s1.map(( a, i ) => {
-    const b = s2[ i ];
-    return tween( a, b, time, duration, easing );
-  });
-};
+  return s1.map((a, i) => {
+    const b = s2[ i ]
+    return tween(a, b, time, duration, easing)
+  })
+}
 
-const frameShapes = ( animation, timing ) => {
+const frameShapes = (animation, timing) => {
   const {
     currentProgress,
     easing: defaultEasing,
     keyframe1,
     keyframe1Index,
     keyframe2,
-    keyframe2Index,
-  } = animation;
+    keyframe2Index
+  } = animation
 
-  const { shapes: shapes1 } = keyframe1;
-  const { shapes: shapes2 } = keyframe2 || {};
+  const { shapes: shapes1 } = keyframe1
+  const { shapes: shapes2 } = keyframe2 || {}
 
-  if ( currentProgress === 0 || !keyframe2 ) {
-    return shapes1;
-  } else if ( currentProgress === 1 ) {
-    return shapes2;
+  if (currentProgress === 0 || !keyframe2) {
+    return shapes1
+  } else if (currentProgress === 1) {
+    return shapes2
   }
 
-  const scale = timing[ keyframe2Index ] - timing[ keyframe1Index ];
-  const offset = currentProgress - timing[ keyframe1Index ];
-  const duration = animation.duration * scale;
-  const time = duration * offset / scale;
-  const easing = easingFunc( keyframe2.animation.easing, defaultEasing );
+  const scale = timing[ keyframe2Index ] - timing[ keyframe1Index ]
+  const offset = currentProgress - timing[ keyframe1Index ]
+  const duration = animation.duration * scale
+  const time = duration * offset / scale
+  const easing = easingFunc(keyframe2.animation.easing, defaultEasing)
 
   return currentShapes({
     currentProgress,
@@ -64,100 +64,101 @@ const frameShapes = ( animation, timing ) => {
     easing,
     shapes1,
     shapes2,
-    time,
-  });
-};
+    time
+  })
+}
 
-const motionPathOffset = ( animation, motionPath ) => {
-  const { currentProgress, easing: defaultEasing } = animation;
-  const { accuracy = 1, ...motionPathShape } = motionPath;
-  const shape = toPoints( motionPathShape );
+const motionPathOffset = (animation, motionPath) => {
+  const { currentProgress, easing: defaultEasing } = animation
+  const { accuracy = 1, ...motionPathShape } = motionPath
+  const shape = toPoints(motionPathShape)
 
-  const easing = ( currentProgress > 0 && currentProgress < 1 ) ?
-    easingFunc( motionPath.easing, defaultEasing ) : null;
+  const easing = (currentProgress > 0 && currentProgress < 1)
+    ? easingFunc(motionPath.easing, defaultEasing)
+    : null
 
-  const interval = easing ? easing( currentProgress, 0, 1, 1 ) : currentProgress;
+  const interval = easing ? easing(currentProgress, 0, 1, 1) : currentProgress
 
-  return position( shape, interval, accuracy );
-};
+  return position(shape, interval, accuracy)
+}
 
-const motionPathShapes = ( animation, motionPath, shapes ) => {
-  const { rotate: r = false } = motionPath;
-  const { angle, x, y } = motionPathOffset( animation, motionPath );
-  const a = typeof r === 'number' ? ( r + angle ) % 360 : angle;
+const motionPathShapes = (animation, motionPath, shapes) => {
+  const { rotate: r = false } = motionPath
+  const { angle, x, y } = motionPathOffset(animation, motionPath)
+  const a = typeof r === 'number' ? (r + angle) % 360 : angle
 
-  if ( x || y ) {
+  if (x || y) {
     return shapes.map(({ points, ...shape }) => {
-      if ( points ) {
-        let p = offset( points, x, y );
+      if (points) {
+        let p = offset(points, x, y)
 
-        if ( r ) {
-          p = rotate( p, a );
+        if (r) {
+          p = rotate(p, a)
         }
 
-        return { ...shape, points: p };
+        return { ...shape, points: p }
       }
 
-      return shape;
-    });
+      return shape
+    })
   }
 
-  return shapes;
-};
+  return shapes
+}
 
-const normalisedShapes = ( shapes1, shapes2 ) => {
-  const a = [];
-  const b = [];
+const normalisedShapes = (shapes1, shapes2) => {
+  const a = []
+  const b = []
 
-  shapes1.map(( shape1, i ) => {
-    const shape2 = shapes2[ i ];
+  shapes1.map((shape1, i) => {
+    const shape2 = shapes2[ i ]
 
-    const [ s1, s2 ] = shape1.points ?
-      normalise( shape1, shape2 ) :
-      [ shape1, shape2 ];
+    const [ s1, s2 ] = shape1.points
+      ? normalise(shape1, shape2)
+      : [ shape1, shape2 ]
 
-    a.push( s1 );
-    b.push( s2 );
-  });
+    a.push(s1)
+    b.push(s2)
+  })
 
-  return [ a, b ];
-};
+  return [ a, b ]
+}
 
 const shapeAttributes = ({ points, styles }) => {
-  const attributes = styleAttributes( styles );
+  const attributes = styleAttributes(styles)
 
-  if ( points ) {
-    attributes.d = toPath( points );
+  if (points) {
+    attributes.d = toPath(points)
   }
 
-  return attributes;
-};
+  return attributes
+}
 
 const styleAttributes = styles => {
-  const s = {};
+  const s = {}
 
-  Object.keys( styles ).map( prop => {
-    const attr = stylePropAttrMap[ prop ];
+  Object.keys(styles).map(prop => {
+    const attr = stylePropAttrMap[ prop ]
 
-    if ( attr ) {
-      s[ attr ] = styles[ prop ];
+    if (attr) {
+      s[ attr ] = styles[ prop ]
     }
-  });
+  })
 
-  return s;
-};
+  return s
+}
 
-const shapeState = ( animation, motionPaths, timing ) => {
-  const { keyframe2Index } = animation;
-  const motionPath = motionPaths[ keyframe2Index ];
-  const shapes = frameShapes( animation, timing );
+const shapeState = (animation, motionPaths, timing) => {
+  const { keyframe2Index } = animation
+  const motionPath = motionPaths[ keyframe2Index ]
+  const shapes = frameShapes(animation, timing)
 
-  if ( motionPath ) {
-    return motionPathShapes( animation, motionPath, shapes )
-      .map( shapeAttributes );
+  if (motionPath) {
+    return motionPathShapes(animation, motionPath, shapes)
+      .map(shapeAttributes)
   }
 
-  return shapes.map( shapeAttributes );
+  return shapes.map(shapeAttributes)
 }
 
 export {
@@ -170,17 +171,17 @@ export {
   normalisedShapes,
   shapeAttributes,
   styleAttributes,
-  shapeState,
-};
+  shapeState
+}
 
 export default shape => {
-  const { state, timeline } = shape;
-  const { motionPaths, timing } = timeline;
-  const animation = animationState( state, timeline );
-  const shapes = shapeState( animation, motionPaths, timing );
-  const s = { animation, shapes };
+  const { state, timeline } = shape
+  const { motionPaths, timing } = timeline
+  const animation = animationState(state, timeline)
+  const shapes = shapeState(animation, motionPaths, timing)
+  const s = { animation, shapes }
 
-  shape.state = s;
+  shape.state = s
 
-  return s;
-};
+  return s
+}

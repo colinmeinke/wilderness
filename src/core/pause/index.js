@@ -1,11 +1,11 @@
-import { paused } from '../helpers';
+import { paused } from '../helpers'
 
 const pause = ({ state }) => {
-  const { animation } = state;
+  const { animation } = state
 
-  if ( animation && !paused( animation )) {
-    animation.pause = Date.now();
+  if (animation && !paused(animation)) {
+    animation.pause = Date.now()
   }
-};
+}
 
-export default pause;
+export default pause

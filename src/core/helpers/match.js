@@ -1,23 +1,23 @@
-const match = ( a, b, f ) => {
-  if ( Array.isArray( a ) && Array.isArray( b )) {
-    const result = [];
+const match = (a, b, f) => {
+  if (Array.isArray(a) && Array.isArray(b)) {
+    const result = []
 
-    for ( let i = 0, l = a.length; i < l; i++ ) {
-      result.push( match( a[ i ], b[ i ], f ));
+    for (let i = 0, l = a.length; i < l; i++) {
+      result.push(match(a[ i ], b[ i ], f))
     }
 
-    return result;
-  } else if ( typeof a === 'object' && typeof b === 'object' && a !== null && b !== null ) {
-    const result = {};
+    return result
+  } else if (typeof a === 'object' && typeof b === 'object' && a !== null && b !== null) {
+    const result = {}
 
-    for ( let k of Object.keys( a )) {
-      result[ k ] = match( a[ k ], b[ k ], f );
+    for (let k of Object.keys(a)) {
+      result[ k ] = match(a[ k ], b[ k ], f)
     }
 
-    return result;
+    return result
   }
 
-  return f( a, b );
+  return f(a, b)
 }
 
-export default match;
+export default match

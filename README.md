@@ -29,80 +29,80 @@ npm install --save wilderness
 ### Create a shape
 
 ```js
-import { shape, render } from 'wilderness';
+import { shape, render } from 'wilderness'
 
 const circle = shape({
   type: 'circle',
   cx: 100,
   cy: 150,
   r: 25,
-  fill: '#E54',
-});
+  fill: '#E54'
+})
 
-render({ selector: '.svg' }, circle );
+render({ selector: '.svg' }, circle)
 ```
 
 ### Move a shape
 
 ```js
-import { shape, render, play } from 'wilderness';
+import { shape, render, play } from 'wilderness'
 
 const positionA = {
   type: 'circle',
   cx: 100,
   cy: 150,
   r: 25,
-  fill: '#E54',
-};
+  fill: '#E54'
+}
 
 const positionB = {
   type: 'circle',
   cx: 50,
   cy: 200,
   r: 25,
-  fill: '#E54',
-};
+  fill: '#E54'
+}
 
-const animation = shape( positionA, positionB );
+const animation = shape(positionA, positionB)
 
-render({ selector: '.svg' }, animation );
+render({ selector: '.svg' }, animation)
 
-play( animation, { duration: 1800 });
+play(animation, { duration: 1800 })
 ```
 
 ### Move a shape (some more)
 
 ```js
-import { shape, render, play } from 'wilderness';
+import { shape, render, play } from 'wilderness'
 
 const sharedProperties = {
   type: 'circle',
   r: 25,
-  fill: '#E54',
-};
+  fill: '#E54'
+}
 
-const positionA = { ...sharedProperties, cx: 100, cy: 150 };
-const positionB = { ...sharedProperties, cx: 50, cy: 200 };
-const positionC = { ...sharedProperties, cx: 65, cy: 100 };
-const positionD = { ...sharedProperties, cx: 200, cy: 50 };
+const positionA = { ...sharedProperties, cx: 100, cy: 150 }
+const positionB = { ...sharedProperties, cx: 50, cy: 200 }
+const positionC = { ...sharedProperties, cx: 65, cy: 100 }
+const positionD = { ...sharedProperties, cx: 200, cy: 50 }
 
-const animation = shape( positionA, positionB, positionC, positionD );
+const animation = shape(positionA, positionB, positionC, positionD)
 
-render({ selector: '.svg' }, animation );
+render({ selector: '.svg' }, animation)
 
-play( animation, { duration: 1800 });
+play(animation, { duration: 1800 })
 ```
 
 ### Morph a shape
 
 ```js
-import { shape, render, play } from 'wilderness';
+import { shape, render, play } from 'wilderness'
 
 const triangle = {
   type: 'path',
   d: 'M40,90l30,20h-60z',
-  fill: '#E54',
-};
+  fill: '#E54'
+}
 
 const square = {
   type: 'rect',
@@ -110,39 +110,39 @@ const square = {
   y: 100,
   width: 50,
   height: 50,
-  fill: '#0FA',
-};
+  fill: '#0FA'
+}
 
-const animation = shape( triangle, square );
+const animation = shape(triangle, square)
 
-render({ selector: '.svg' }, animation );
+render({ selector: '.svg' }, animation)
 
-play( animation, { duration: 1800 });
+play(animation, { duration: 1800 })
 ```
 
 ### Sequence multiple animations on a timeline
 
 ```js
-import { shape, timeline, render, play } from 'wilderness';
+import { shape, timeline, render, play } from 'wilderness'
 
-const shape1PositionA = { type: 'path', d: '...' };
-const shape1PositionB = { type: 'path', d: '...' };
+const shape1PositionA = { type: 'path', d: '...' }
+const shape1PositionB = { type: 'path', d: '...' }
 
-const shape2PositionA = { type: 'path', d: '...' };
-const shape2PositionB = { type: 'path', d: '...' };
+const shape2PositionA = { type: 'path', d: '...' }
+const shape2PositionB = { type: 'path', d: '...' }
 
-const shape3PositionA = { type: 'path', d: '...' };
-const shape3PositionB = { type: 'path', d: '...' };
+const shape3PositionA = { type: 'path', d: '...' }
+const shape3PositionB = { type: 'path', d: '...' }
 
-const shape1 = shape( shape1PositionA, shape1PositionB );
-const shape2 = shape( shape2PositionA, shape2PositionB );
-const shape3 = shape( shape3PositionA, shape3PositionB );
+const shape1 = shape(shape1PositionA, shape1PositionB)
+const shape2 = shape(shape2PositionA, shape2PositionB)
+const shape3 = shape(shape3PositionA, shape3PositionB)
 
-const animation = timeline( shape1, shape2, shape3 );
+const animation = timeline(shape1, shape2, shape3)
 
-render({ selector: '.svg' }, animation );
+render({ selector: '.svg' }, animation)
 
-play( animation, { duration: 1800 });
+play(animation, { duration: 1800 })
 ```
 
 Timeline:
@@ -156,34 +156,33 @@ shape3             A----B
 ### Overlap multiple animations on a timeline
 
 ```js
-import { shape, timeline, render, play } from 'wilderness';
+import { shape, timeline, render, play } from 'wilderness'
 
-const shape1PositionA = { type: 'path', d: '...' };
-const shape1PositionB = { type: 'path', d: '...' };
+const shape1PositionA = { type: 'path', d: '...' }
+const shape1PositionB = { type: 'path', d: '...' }
 
-const shape2PositionA = { type: 'path', d: '...' };
-const shape2PositionB = { type: 'path', d: '...' };
+const shape2PositionA = { type: 'path', d: '...' }
+const shape2PositionB = { type: 'path', d: '...' }
 
-const shape3PositionA = { type: 'path', d: '...' };
-const shape3PositionB = { type: 'path', d: '...' };
+const shape3PositionA = { type: 'path', d: '...' }
+const shape3PositionB = { type: 'path', d: '...' }
 
-const shape1 = shape( shape1PositionA, shape1PositionB );
-const shape2 = shape( shape2PositionA, shape2PositionB );
-const shape3 = shape( shape3PositionA, shape3PositionB );
+const shape1 = shape(shape1PositionA, shape1PositionB)
+const shape2 = shape(shape2PositionA, shape2PositionB)
+const shape3 = shape(shape3PositionA, shape3PositionB)
 
 const animation = timeline(
   { shape: shape1, name: 'FIRST_ANIMATION' },
   { shape: shape2, queue: 200 },
-  { shape: shape3, queue: [ 'FIRST_ANIMATION', -200 ]}
-);
+  { shape: shape3, queue: [ 'FIRST_ANIMATION', -200 ] }
+)
 
-render({ selector: '.svg' }, animation );
+render({ selector: '.svg' }, animation)
 
-play( animation, { duration: 1800 });
+play(animation, { duration: 1800 })
 ```
 
 Timeline:
-
 
 ```
 shape1 A------B
@@ -194,29 +193,29 @@ shape3       A------B
 ### Animate along a motion path
 
 ```js
-import { shape, render, play } from 'wilderness';
+import { shape, render, play } from 'wilderness'
 
 const circle = {
   type: 'circle',
   cx: 100,
   cy: 150,
   r: 25,
-  fill: '#E54',
-};
+  fill: '#E54'
+}
 
 const motionPath = {
   type: 'rect',
   x: 0,
   y: 0,
   width: 300,
-  height: 100,
-};
+  height: 100
+}
 
-const animation = shape( circle, { motionPath });
+const animation = shape(circle, { motionPath })
 
-render({ selector: '.svg' }, animation );
+render({ selector: '.svg' }, animation)
 
-play( animation, { duration: 1800 });
+play(animation, { duration: 1800 })
 ```
 
 A motion path is relative to the shape being animated.
@@ -232,16 +231,16 @@ to run callbacks at an animation wide level, as well as at
 a specific stage of the animation.
 
 ```js
-import { shape, render, play } from 'wilderness';
+import { shape, render, play } from 'wilderness'
 
 const sharedProperties = {
   type: 'circle',
   r: 25,
-  fill: '#E54',
-};
+  fill: '#E54'
+}
 
-const positionA = { ...sharedProperties, cx: 100, cy: 150 };
-const positionB = { ...sharedProperties, cx: 50, cy: 200 };
+const positionA = { ...sharedProperties, cx: 100, cy: 150 }
+const positionB = { ...sharedProperties, cx: 50, cy: 200 }
 
 const positionC = {
   ...sharedProperties,
@@ -255,16 +254,16 @@ const positionC = {
   ),
   finish: () => console.log(
     'Runs when the animation between positionB and postionC finishes'
-  ),
-};
+  )
+}
 
-const positionD = { ...sharedProperties, cx: 200, cy: 50 };
+const positionD = { ...sharedProperties, cx: 200, cy: 50 }
 
-const animation = shape( positionA, positionB, positionC, positionD );
+const animation = shape(positionA, positionB, positionC, positionD)
 
-render({ selector: '.svg' }, animation );
+render({ selector: '.svg' }, animation)
 
-play( animation, {
+play(animation, {
   duration: 1800,
   start: () => console.log(
     'Runs when the entire animation starts'
@@ -274,8 +273,8 @@ play( animation, {
   ),
   finish: () => console.log(
     'Runs when the entire animation finishes'
-  ),
-});
+  )
+})
 ```
 
 ### CommonJS
@@ -284,13 +283,13 @@ This is how you get to the good stuff if you're using
 `require`.
 
 ```js
-const Wilderness = require( 'wilderness' );
-const shape = Wilderness.shape;
-const timeline = Wilderness.timeline;
-const render = Wilderness.render;
-const play = Wilderness.play;
-const pause = Wilderness.pause;
-const state = Wilderness.state;
+const Wilderness = require('wilderness')
+const shape = Wilderness.shape
+const timeline = Wilderness.timeline
+const render = Wilderness.render
+const play = Wilderness.play
+const pause = Wilderness.pause
+const state = Wilderness.state
 ```
 
 ### UMD
@@ -303,12 +302,12 @@ also covered. Drop this in place ...
 Then access it on the `Wilderness` global variable.
 
 ```js
-const shape = Wilderness.shape;
-const timeline = Wilderness.timeline;
-const render = Wilderness.render;
-const play = Wilderness.play;
-const pause = Wilderness.pause;
-const state = Wilderness.state;
+const shape = Wilderness.shape
+const timeline = Wilderness.timeline
+const render = Wilderness.render
+const play = Wilderness.play
+const pause = Wilderness.pause
+const state = Wilderness.state
 ```
 
 ## API
@@ -333,8 +332,8 @@ properties.
   cx: 10,
   cy: 10,
   r: 5,
-  fill: '#E54',
-};
+  fill: '#E54'
+}
 ```
 
 ##### Shape properties
@@ -572,16 +571,16 @@ shape(
     cx: 10,
     cy: 10,
     r: 5,
-    fill: '#E54',
+    fill: '#E54'
   },
   {
     type: 'circle',
     cx: 100,
     cy: 50,
     r: 5,
-    fill: '#E54',
+    fill: '#E54'
   }
-);
+)
 ```
 
 #### Timeline
@@ -603,8 +602,8 @@ Timelines are *playable* and can be passed into the
 timeline(
   { shape: shape1, name: 'FIRST_ANIMATION' },
   { shape: shape2, queue: 200 },
-  { shape: shape3, queue: [ 'FIRST_ANIMATION', -200 ]}
-);
+  { shape: shape3, queue: [ 'FIRST_ANIMATION', -200 ] }
+)
 ```
 
 ### `shape()` function
@@ -614,7 +613,7 @@ Creates and returns a new [shape](#shape).
 #### Syntax
 
 ```js
-shape( shape1[, shape2[, ..., shapeN ]]);
+shape(shape1[, shape2[, ..., shapeN]])
 ```
 
 Where:
@@ -645,7 +644,7 @@ Creates and returns a new [timeline](#timeline).
 #### Syntax
 
 ```js
-timeline( queueable1[, queueable2[, ..., queueableN ]]);
+timeline(queueable1[, queueable2[, ..., queueableN]])
 ```
 
 Where:
@@ -681,7 +680,7 @@ in the DOM, and appends [shape's](#shape) and
 #### Syntax
 
 ```js
-render( target, renderable1[, renderable2[, ..., renderableN ]]);
+render(target, renderable1[, renderable2[, ..., renderableN]])
 ```
 
 Where:
@@ -716,7 +715,7 @@ Starts playback of a [shape](#shape) or a
 #### Syntax
 
 ```js
-play( playable[, options ]);
+play(playable[, options])
 ```
 
 Where:
@@ -762,7 +761,7 @@ Stops playback of a [shape](#shape) or a
 #### Syntax
 
 ```js
-pause( playable );
+pause(playable)
 ```
 
 Where:
@@ -778,7 +777,7 @@ Returns the current state of a [shape](#shape).
 #### Syntax
 
 ```js
-state( shape );
+state(shape)
 ```
 
 Where:
