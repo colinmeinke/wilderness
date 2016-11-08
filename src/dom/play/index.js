@@ -1,5 +1,6 @@
 import { finished, paused } from '../../core/helpers'
 import { play as corePlay, tick as coreTick } from '../../core'
+import raf from 'raf'
 import { renderNodes } from '../render'
 
 const tick = playable => {
@@ -9,7 +10,7 @@ const tick = playable => {
   renderNodes(playable)
 
   if (!paused(animation) && !finished(animation)) {
-    window.requestAnimationFrame(() => {
+    raf(() => {
       tick(playable)
     })
   }
