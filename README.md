@@ -784,6 +784,14 @@ Where:
 
 - `shape` is a *shape*
 
+## Browser support
+
+Wilderness is packaged with Babel, and
+[makes use of `Array.from`](https://babeljs.io/docs/usage/caveats).
+If you want Wilderness to work on browsers that don't support
+this method (e.g. IE11), then you will need to
+[polyfill `Array.from`](https://github.com/zloirock/core-js).
+
 ## Help make this better
 
 [Issues](https://github.com/colinmeinke/wilderness/issues/new)
