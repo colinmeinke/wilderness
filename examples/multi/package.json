@@ -23,15 +23,15 @@
   },
   "description": "Wilderness multi example",
   "devDependencies": {
-    "babel-loader": "^6.2.7",
-    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "babel-loader": "^6.2.8",
+    "babel-plugin-transform-object-rest-spread": "^6.19.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-es2016": "^6.16.0",
-    "points": "^1.12.2",
+    "points": "^1.12.3",
     "rimraf": "^2.5.4",
     "svg-points": "^3.0.1",
     "tween-functions": "^1.2.0",
-    "webpack": "^2.1.0-beta.25"
+    "webpack": "^2.1.0-beta.27"
   },
   "license": "ISC",
   "repository": {
