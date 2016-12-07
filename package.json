@@ -42,8 +42,6 @@
     "babel-preset-es2016": "^6.16.0",
     "commitizen": "^2.8.6",
     "cz-conventional-changelog": "^1.2.0",
-    "expect": "^1.20.2",
-    "mocha": "^3.2.0",
     "rimraf": "^2.5.4",
     "semantic-release": "^6.3.2",
     "snazzy": "^5.0.0",
@@ -69,7 +67,7 @@
     "lint": "standard --verbose | snazzy",
     "prepublish": "npm run tidy && npm run build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "test": "mocha --compilers js:babel-core/register test/*.js",
+    "test": "exit 0",
     "tidy": "rimraf lib dist"
   },
   "version": "0.0.0-semantically-released"
