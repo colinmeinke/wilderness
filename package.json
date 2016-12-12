@@ -81,7 +81,7 @@
     "lint": "standard --verbose | snazzy",
     "prepublish": "npm run tidy && npm run build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "test": "jest --no-cache",
+    "test": "jest",
     "tidy": "rimraf lib dist"
   },
   "version": "0.0.0-semantically-released"
