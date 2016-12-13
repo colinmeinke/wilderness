@@ -171,7 +171,6 @@ const objToHex = obj => {
  */
 const objToRgba = ({ r, g, b, a }) => `rgba(${limit(r, 0, 255)},${limit(g, 0, 255)},${limit(b, 0, 255)},${limit(a, 0, 1)})`
 
-
 /**
  * Converts a color object to a rgb string.
  *
