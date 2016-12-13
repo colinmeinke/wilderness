@@ -56,7 +56,7 @@ const frameShapes = (animation, timing) => {
   const offset = currentProgress - timing[ keyframe1Index ]
   const duration = animation.duration * scale
   const time = duration * offset / scale
-  const easing = easingFunc(keyframe2.animation.easing, defaultEasing)
+  const easing = easingFunc(keyframe2.animation.easing || defaultEasing)
 
   return currentShapes({
     currentProgress,
@@ -74,7 +74,7 @@ const motionPathOffset = (animation, motionPath) => {
   const shape = toPoints(motionPathShape)
 
   const easing = (currentProgress > 0 && currentProgress < 1)
-    ? easingFunc(motionPath.easing, defaultEasing)
+    ? easingFunc(motionPath.easing || defaultEasing)
     : null
 
   const interval = easing ? easing(currentProgress, 0, 1, 1) : currentProgress

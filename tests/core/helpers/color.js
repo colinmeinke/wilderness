@@ -4,23 +4,28 @@ import { colorIn, colorOut } from '../../../src/core/helpers/color'
 
 describe('colorIn', () => {
   it('converts hex string to hex object', () => {
-    expect(colorIn('#ffffff')).toMatchObject({ colorType: 'hex' })
+    const { colorType } = colorIn('#ffffff')
+    expect(colorType).toBe('hex')
   })
 
   it('converts rgb string to rgb object', () => {
-    expect(colorIn('rgb(255,255,255)')).toMatchObject({ colorType: 'rgb' })
+    const { colorType } = colorIn('rgb(255,255,255)')
+    expect(colorType).toBe('rgb')
   })
 
   it('converts rgba string to rgba object', () => {
-    expect(colorIn('rgba(255,255,255,1)')).toMatchObject({ colorType: 'rgba' })
+    const { colorType } = colorIn('rgba(255,255,255,1)')
+    expect(colorType).toBe('rgba')
   })
 
   it('does not convert unknown string', () => {
-    expect(colorIn('white')).toMatchObject({ colorType: 'hex' })
+    const input = 'white'
+    expect(colorIn(input)).toBe(input)
   })
 
   it('accepts shorthand hex string', () => {
-    expect(colorIn('#fff')).toMatchObject({ colorType: 'hex' })
+    const { colorType } = colorIn('#fff')
+    expect(colorType).toBe('hex')
   })
 })
 
