@@ -27,12 +27,12 @@ describe('match', () => {
   })
 
   it('applies function correctly to nested object data', () => {
-    expect(match({ a: { b: 1 }, c: { d: { e: 2 }}}, { a: { b: 3 }, c: { d: { e: 4 }}}, add))
-      .toEqual({ a: { b: 4 }, c: { d: { e: 6 }}})
+    expect(match({ a: { b: 1 }, c: { d: { e: 2 } } }, { a: { b: 3 }, c: { d: { e: 4 } } }, add))
+      .toEqual({ a: { b: 4 }, c: { d: { e: 6 } } })
   })
 
   it('applies function correctly to nested mixed data', () => {
-    expect(match({ foo: 1, bar: [ 2, 'a' ]}, { foo: 3, bar: [ 4, 'b' ]}, add))
-      .toEqual({ foo: 4, bar: [ 6, 'ab' ]})
+    expect(match({ foo: 1, bar: [ 2, 'a' ] }, { foo: 3, bar: [ 4, 'b' ] }, add))
+      .toEqual({ foo: 4, bar: [ 6, 'ab' ] })
   })
 })
