@@ -1,7 +1,7 @@
 /**
  * Converts a color string to a color object.
  *
- * @param {string} str - A color string.
+ * @param {string} str - A potential color string.
  *
  * @returns {(object|string)}
  *
@@ -23,7 +23,7 @@ const colorIn = str => {
 /**
  * Converts a color object to a color string.
  *
- * @param {object} obj - A color object.
+ * @param {object} obj - A potential color object.
  * @param {string} obj.middleware - The middleware identifier.
  * @param {string} obj.colorType - The color type.
  *
@@ -79,7 +79,7 @@ const hexToObj = str => {
 /**
  * Is string a hex color string?
  *
- * @param {string} str - Potential hex color string.
+ * @param {string} str - A potential hex color string.
  *
  * @returns {boolean}
  *
@@ -92,7 +92,7 @@ const isHexStr = str => str.match(/^#(?:[0-9a-f]{3}){1,2}$/i) !== null
 /**
  * Is string a rgba color string?
  *
- * @param {string} str - Potential rgba color string.
+ * @param {string} str - A potential rgba color string.
  *
  * @returns {boolean}
  *
@@ -105,7 +105,7 @@ const isRgbaStr = str => str.startsWith('rgba(')
 /**
  * Is string a rgb color string?
  *
- * @param {string} str - Potential rgb color string.
+ * @param {string} str - A potential rgb color string.
  *
  * @returns {boolean}
  *

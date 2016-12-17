@@ -38,7 +38,7 @@ describe('colorOut', () => {
       g: 255,
       b: 255,
       a: 1
-    })).toEqual('#ffffff')
+    })).toBe('#ffffff')
   })
 
   it('converts rgb object to rgb string', () => {
@@ -49,7 +49,7 @@ describe('colorOut', () => {
       g: 255,
       b: 255,
       a: 1
-    })).toEqual('rgb(255,255,255)')
+    })).toBe('rgb(255,255,255)')
   })
 
   it('converts rgba object to rgba string', () => {
@@ -60,7 +60,7 @@ describe('colorOut', () => {
       g: 255,
       b: 255,
       a: 1
-    })).toEqual('rgba(255,255,255,1)')
+    })).toBe('rgba(255,255,255,1)')
   })
 
   it('does not convert other middleware', () => {
@@ -73,6 +73,6 @@ describe('colorOut', () => {
       a: 1
     }
 
-    expect(colorOut(input)).toEqual(input)
+    expect(colorOut(input)).toBe(input)
   })
 })

@@ -1,3 +1,4 @@
+/** A list of unit types to parse with unit middleware */
 const units = [
   'ch',
   'cm',
@@ -16,8 +17,18 @@ const units = [
   '%'
 ]
 
-const unitsIn = v => {
-  const parts = v.split(' ')
+/**
+ * Coverts a unit string to a unit object.
+ *
+ * @param {string} str - A potential unit string.
+ *
+ * @returns {(object|string)}
+ *
+ * @example
+ * unitsIn('20px')
+ */
+const unitsIn = str => {
+  const parts = str.split(' ')
 
   const values = parts.map(part => {
     const number = parseFloat(part)
@@ -31,18 +42,28 @@ const unitsIn = v => {
   })
 
   return values.toString() === parts.toString()
-    ? v
+    ? str
     : { middleware: 'units', values }
 }
 
-const unitsOut = v => {
-  const { middleware, values } = v
+/**
+ * Coverts a unit object to a unit string.
+ *
+ * @param {object} obj - A potential unit object.
+ *
+ * @returns {(object|string)}
+ *
+ * @example
+ * unitsOut(obj)
+ */
+const unitsOut = obj => {
+  const { middleware, values } = obj
 
   if (middleware === 'units') {
     return values.map(a => a.join('')).join(' ')
   }
 
-  return v
+  return obj
 }
 
 export { unitsIn, unitsOut }
