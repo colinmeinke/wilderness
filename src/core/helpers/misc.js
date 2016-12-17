@@ -1,11 +1,23 @@
-const filter = (props, obj) => {
+/**
+ * Filter an object for desired keys.
+ *
+ * @param {array} keys - The desired keys.
+ * @param {object} obj - The object to filter.
+ *
+ * @returns {object}
+ *
+ * @example
+ * // returns { a: 1, b: 2 }
+ * filter([ 'a', 'b' ], { a: 1, b: 2, c: 3 })
+ */
+const filter = (keys, obj) => {
   const filtered = {}
 
-  props.forEach(p => {
-    const value = obj[ p ]
+  keys.map(k => {
+    const value = obj[ k ]
 
     if (typeof value !== 'undefined') {
-      filtered[ p ] = value
+      filtered[ k ] = value
     }
   })
 
