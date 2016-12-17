@@ -1,5 +1,5 @@
 /**
- * Calls a function on each matching item from two sets of data.
+ * Calls a function on each item from two sets of data.
  *
  * @param a - The first set of data.
  * @param b - The second set of data. Must be of an identicle structure to a.
@@ -15,19 +15,13 @@
  */
 const match = (a, b, func) => {
   if (Array.isArray(a) && Array.isArray(b)) {
-    const result = []
-
-    for (let i = 0, l = a.length; i < l; i++) {
-      result.push(match(a[ i ], b[ i ], func))
-    }
-
-    return result
-  } else if (typeof a === 'object' && typeof b === 'object' && a !== null && b !== null) {
+    return a.map((item, i) => match(item, b[ i ], func))
+  } else if (a && b && typeof a === 'object' && typeof b === 'object') {
     const result = {}
 
-    for (let k of Object.keys(a)) {
+    Object.keys(a).map(k => {
       result[ k ] = match(a[ k ], b[ k ], func)
-    }
+    })
 
     return result
   }
