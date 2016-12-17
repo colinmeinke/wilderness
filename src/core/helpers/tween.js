@@ -2,12 +2,39 @@ import { colorIn, colorOut } from './color'
 import match from './match'
 import { unitsIn, unitsOut } from './units'
 
+/** Middleware to apply to tweened values */
 const middleware = [
   { name: 'color', i: colorIn, o: colorOut },
   { name: 'units', i: unitsIn, o: unitsOut }
 ]
 
-export default (shape1, shape2, time, duration, easing) => {
+/**
+ * Find current shape given a from shape, a to shape and tween data.
+ *
+ * @param {object} fromShape - The shape object to tween from.
+ * @param {object} toShape - The shape object to tween to.
+ * @param {number} time - Current time in milliseconds since the start of the tween.
+ * @param {number} duration - Total duration of the tween in milliseconds.
+ * @param {function} easing - The easing function.
+ *
+ * @returns {object}
+ *
+ * @example
+ * func(circle, square, 100, 200, easeInOutQuad)
+ */
+export default (fromShape, toShape, time, duration, easing) => {
+  /**
+   * Find current value given a from value and a to value and the
+   * enclosed tween data.
+   *
+   * @param {(number|string)} from - The value to tween from.
+   * @param {(number|string)} to - The value to tween to.
+   *
+   * @returns {(number|string)}
+   *
+   * @example
+   * tween(1, 2)
+   */
   const tween = (from, to) => {
     if (from === to) {
       return from
@@ -40,5 +67,5 @@ export default (shape1, shape2, time, duration, easing) => {
     return from
   }
 
-  return match(shape1, shape2, tween)
+  return match(fromShape, toShape, tween)
 }
