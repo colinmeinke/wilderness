@@ -2,9 +2,9 @@
  * Filter an object for desired keys.
  *
  * @param {array} keys - The desired keys.
- * @param {object} obj - The object to filter.
+ * @param {Object} obj - The object to filter.
  *
- * @returns {object}
+ * @returns {Object}
  *
  * @example
  * // returns { a: 1, b: 2 }

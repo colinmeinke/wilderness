@@ -22,7 +22,7 @@ const units = [
  *
  * @param {string} str - A potential unit string.
  *
- * @returns {(object|string)}
+ * @returns {(Object|string)}
  *
  * @example
  * unitsIn('20px')
@@ -49,9 +49,9 @@ const unitsIn = str => {
 /**
  * Coverts a unit object to a unit string.
  *
- * @param {object} obj - A potential unit object.
+ * @param {Object} obj - A potential unit object.
  *
- * @returns {(object|string)}
+ * @returns {(Object|string)}
  *
  * @example
  * unitsOut(obj)

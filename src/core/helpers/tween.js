@@ -11,13 +11,13 @@ const middleware = [
 /**
  * Find current shape given a from shape, a to shape and tween data.
  *
- * @param {object} fromShape - The shape object to tween from.
- * @param {object} toShape - The shape object to tween to.
+ * @param {Object} fromShape - The shape object to tween from.
+ * @param {Object} toShape - The shape object to tween to.
  * @param {number} time - Current time in milliseconds since the start of the tween.
  * @param {number} duration - Total duration of the tween in milliseconds.
  * @param {function} easing - The easing function.
  *
- * @returns {object}
+ * @returns {Object}
  *
  * @example
  * func(circle, square, 100, 200, easeInOutQuad)

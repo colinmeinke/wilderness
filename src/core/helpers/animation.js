@@ -18,7 +18,7 @@ const currentIteration = totalIterations => (
 /**
  * The current reverse state of the animation.
  *
- * @param {object} options
+ * @param {Object} options
  * @param {boolean} options.alternate - The animation's alternate setting.
  * @param {integer} options.iteration - The animation's current iteration.
  * @param {boolean} options.reverse - The animation's reverse setting.
@@ -40,13 +40,13 @@ const currentReverse = ({ alternate, iteration, reverse }) => (
 /**
  * The current state of the animation.
  *
- * @param {object} [animation={}] - The animation object.
+ * @param {Object} [animation={}] - The animation object.
  * @param {boolean} [animation.alternate=false] - Does the animation alternate direction?
  * @param {float} [animation.initialProgress=0] - The progress the animation started with.
  * @param {boolean} [animation.reverse=false] – Does the animation start in reverse?
  * @param {boolean} [animation.started=false] - Has the animation started playback?
  *
- * @returns {object}
+ * @returns {Object}
  *
  * @example
  * currentState(animation)
@@ -89,7 +89,7 @@ const easingFunc = easing => (
 /**
  * Has the animation finished?
  *
- * @param {object} animation - The animation object.
+ * @param {Object} animation - The animation object.
  * @param {float} animation.iterations - The number of iterations playback will last.
  *
  * @returns {boolean}
@@ -104,7 +104,7 @@ const finished = animation => (
 /**
  * The amount of iterations the animation has completed.
  *
- * @param {object} animation - The animation object.
+ * @param {Object} animation - The animation object.
  * @param {integer} animation.duration – The duration in milliseconds of one iteration of the animation.
  * @param {float} animation.iterations - The number of iterations playback will last.
  * @param {integer} [animation.now=Date.now()] - The current timestamp.
@@ -125,7 +125,7 @@ const iterationsComplete = ({ duration, iterations, now, play, pause }) => {
 /**
  * Is the animation paused?
  *
- * @param {object} animation - The animation object.
+ * @param {Object} animation - The animation object.
  * @param {integer} [animation.pause] - The timestamp at which the animation was paused.
  *
  * @returns {boolean}

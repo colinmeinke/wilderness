@@ -3,7 +3,7 @@
  *
  * @param {string} str - A potential color string.
  *
- * @returns {(object|string)}
+ * @returns {(Object|string)}
  *
  * @example
  * colorIn('#FFFFFF')
@@ -23,7 +23,7 @@ const colorIn = str => {
 /**
  * Converts a color object to a color string.
  *
- * @param {object} obj - A potential color object.
+ * @param {Object} obj - A potential color object.
  * @param {string} obj.middleware - The middleware identifier.
  * @param {string} obj.colorType - The color type.
  *
@@ -54,7 +54,7 @@ const colorOut = obj => {
  *
  * @param {string} str - A hex color string.
  *
- * @returns {object}
+ * @returns {Object}
  *
  * @example
  * hexToObj('#FFFFFF')
@@ -133,7 +133,7 @@ const limit = (num, min, max) => Math.max(min, Math.min(max, num))
 /**
  * Converts a color object to a hex string.
  *
- * @param {object} obj - A color object.
+ * @param {Object} obj - A color object.
  * @param {integer} obj.r - The red value.
  * @param {integer} obj.g - The green value.
  * @param {integer} obj.b - The blue value.
@@ -158,7 +158,7 @@ const objToHex = obj => {
 /**
  * Converts a color object to a rgba string.
  *
- * @param {object} obj - A color object.
+ * @param {Object} obj - A color object.
  * @param {integer} obj.r - The red value.
  * @param {integer} obj.g - The green value.
  * @param {integer} obj.b - The blue value.
@@ -174,7 +174,7 @@ const objToRgba = ({ r, g, b, a }) => `rgba(${limit(r, 0, 255)},${limit(g, 0, 25
 /**
  * Converts a color object to a rgb string.
  *
- * @param {object} obj - A color object.
+ * @param {Object} obj - A color object.
  * @param {integer} obj.r - The red value.
  * @param {integer} obj.g - The green value.
  * @param {integer} obj.b - The blue value.
@@ -191,7 +191,7 @@ const objToRgb = ({ r, g, b }) => `rgb(${limit(r, 0, 255)},${limit(g, 0, 255)},$
  *
  * @param {string} str - An rgba color string.
  *
- * @returns {object}
+ * @returns {Object}
  *
  * @example
  * rgbaToObj('rgba(255,255,255,1)')
@@ -216,7 +216,7 @@ const rgbaToObj = str => {
  *
  * @param {string} str - An rgb color string.
  *
- * @returns {object}
+ * @returns {Object}
  *
  * @example
  * rgbToObj('rgb(255,255,255)')
