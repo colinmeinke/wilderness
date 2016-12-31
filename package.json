@@ -5,24 +5,11 @@
     "url": "www.colinmeinke.com"
   },
   "babel": {
-    "env": {
-      "test": {
-        "presets": [
-          "es2015",
-          "es2016"
-        ]
-      }
-    },
     "plugins": [
       "transform-object-rest-spread"
     ],
     "presets": [
-      [
-        "es2015",
-        {
-          "modules": false
-        }
-      ],
+      "es2015",
       "es2016"
     ]
   },
