@@ -75,7 +75,7 @@ const currentState = (animation = {}) => {
 /**
  * An easing function.
  *
- * @param {(function|string)} easing - An easing function or the name of an easing function from tween-functions.
+ * @param {(function|string)} easing - An easing function or the name of an easing function from https://github.com/chenglou/tween-functions.
  *
  * @returns {function}
  *
