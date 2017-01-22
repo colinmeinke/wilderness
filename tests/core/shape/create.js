@@ -431,7 +431,8 @@ describe('manipulate', () => {
     const result = [
       { x: 60, y: 20, moveTo: true },
       { x: 0, y: -105 },
-      { x: 10, y: -5 }
+      { x: 10, y: -5, moveTo: true },
+      { x: 60, y: 20 }
     ]
 
     expect(manipulate({ manipulations, points })).toEqual(result)
