@@ -1676,9 +1676,9 @@ pkg-dir@^1.0.0:
   dependencies:
     find-up "^1.0.0"
 
-points@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/points/-/points-2.0.1.tgz#4f5ec00f673df41ba102fa51194e81652af0392c"
+points@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/points/-/points-2.0.2.tgz#fdc35d070f3c077448cf64db6ea8fb14fbff5a36"
 
 preserve@^0.2.0:
   version "0.2.0"

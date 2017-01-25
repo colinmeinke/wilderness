@@ -42,5 +42,8 @@
     "copy": "cp -r ../../src ./tmp",
     "tidy": "rimraf ./tmp"
   },
-  "version": "0.0.0-semantically-released"
+  "version": "0.0.0-semantically-released",
+  "dependencies": {
+    "points": "^2.0.2"
+  }
 }
