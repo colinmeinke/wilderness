@@ -794,12 +794,12 @@ If you want Wilderness to work on browsers that don't support
 this method (e.g. IE11), then you will need to
 [polyfill `Array.from`](https://github.com/zloirock/core-js).
 
-## Help make this better
+## Help make Wilderness better
 
-[Issues](https://github.com/colinmeinke/wilderness/issues/new)
-and pull requests gratefully received!
+If you would like to contribute to Wilderness please take a look at the [code of conduct](./CODE_OF_CONDUCT.md) and
+[contributing guidelines](./CONTRIBUTING.md).
 
-I'm also on twitter
+I'm on twitter
 [@colinmeinke](https://twitter.com/colinmeinke).
 
 Thanks :star2:
