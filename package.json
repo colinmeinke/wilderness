@@ -22,7 +22,7 @@
     }
   },
   "dependencies": {
-    "points": "^2.0.2",
+    "points": "^2.0.3",
     "raf": "^3.3.0",
     "svg-points": "^3.1.4",
     "tween-functions": "^1.2.0"

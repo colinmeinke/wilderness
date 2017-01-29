@@ -3234,9 +3234,9 @@ pluralize@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-1.2.1.tgz#d1a21483fd22bb41e58a12fa3421823140897c45"
 
-points@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/points/-/points-2.0.2.tgz#fdc35d070f3c077448cf64db6ea8fb14fbff5a36"
+points@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/points/-/points-2.0.3.tgz#dda6a8d5be6de71eaa00357e4e1746b5b3e87662"
 
 prelude-ls@~1.1.2:
   version "1.1.2"

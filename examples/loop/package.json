@@ -44,6 +44,6 @@
   },
   "version": "0.0.0-semantically-released",
   "dependencies": {
-    "points": "^2.0.2"
+    "points": "^2.0.3"
   }
 }
