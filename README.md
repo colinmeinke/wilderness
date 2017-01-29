@@ -415,6 +415,8 @@ The functions are defined as the following properties.
 - `reverse` is a *boolean* that when:
   - `true` reverses the order of points
   - `false` has no effect
+= `rotate` is a *number* that defines the degrees to rotate the
+  shape clockwise
 - `scale` is either:
   - a *number* that defines the scale factor, or
   - an *array* that includes:

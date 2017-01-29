@@ -23,6 +23,7 @@
  *
  * @property {integer} [moveIndex] - the amount of points by which to offset a shape's index point.
  * @property {number[]} [offset] - the amount to offset a shape's points horizontally and vertically.
+ * @property {number} [rotate] - the clockwise angle to rotate the shape.
  * @property {boolean} [reverse] - reverses the shape's points.
  * @property {(number|(number|string)[])} [scale] - scales a shape.
  */
@@ -134,7 +135,7 @@ import {
 } from './props'
 
 import { filter } from '../helpers'
-import { moveIndex, offset, reverse, scale } from 'points'
+import { moveIndex, offset, reverse, rotate, scale } from 'points'
 import { toPoints } from 'svg-points'
 
 /**
@@ -266,6 +267,9 @@ const manipulate = ({ manipulations, points }) => (
         }
 
         break
+
+      case 'rotate':
+        return rotate(nextPoints, args)
 
       case 'scale':
         const isArray = Array.isArray(args)

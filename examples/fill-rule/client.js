@@ -4,6 +4,7 @@ const from1 = {
   type: 'path',
   d: 'M20,20H80V80H20ZM30,30V70H70ZM40,40H60V60H40Z',
   fillRule: 'evenodd',
+  rotate: 45
 }
 
 const from2 = {

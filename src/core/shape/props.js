@@ -18,6 +18,7 @@ const manipulationProps = [
   'moveIndex',
   'offset',
   'reverse',
+  'rotate',
   'scale'
 ]
 

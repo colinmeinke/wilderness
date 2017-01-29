@@ -375,6 +375,28 @@ describe('manipulate', () => {
     expect(manipulate({ manipulations, points })).toEqual(result)
   })
 
+  it('should rotate points', () => {
+    const manipulations = { rotate: 90 }
+
+    const points = [
+      { x: 0, y: 0, moveTo: true },
+      { x: 100, y: 0 },
+      { x: 100, y: 100 },
+      { x: 0, y: 100 },
+      { x: 0, y: 0 }
+    ]
+
+    const result = [
+      { x: 100, y: 0, moveTo: true },
+      { x: 100, y: 100 },
+      { x: 0, y: 100 },
+      { x: 0, y: 0 },
+      { x: 100, y: 0 }
+    ]
+
+    expect(manipulate({ manipulations, points })).toEqual(result)
+  })
+
   it('should scale points', () => {
     const manipulations = { scale: 2 }
 
