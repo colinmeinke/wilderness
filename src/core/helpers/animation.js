@@ -40,18 +40,14 @@ const currentReverse = ({ alternate, iteration, reverse }) => (
 /**
  * The current state of the animation.
  *
- * @param {Object} [animation={}] - The animation object.
- * @param {boolean} [animation.alternate=false] - Does the animation alternate direction?
- * @param {float} [animation.initialProgress=0] - The progress the animation started with.
- * @param {boolean} [animation.reverse=false] – Does the animation start in reverse?
- * @param {boolean} [animation.started=false] - Has the animation started playback?
+ * @param {AnimationState} [animation={}]
  *
- * @returns {Object}
+ * @returns {AnimationProgressState}
  *
  * @example
- * currentState(animation)
+ * currentProgressState(animation)
  */
-const currentState = (animation = {}) => {
+const currentProgressState = (animation = {}) => {
   const {
     alternate = false,
     initialProgress = 0,
@@ -156,7 +152,7 @@ const previousIteration = totalIterations => (
 
 export {
   currentIteration,
-  currentState,
+  currentProgressState,
   currentReverse,
   easingFunc,
   finished,

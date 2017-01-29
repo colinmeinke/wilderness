@@ -1,21 +1,44 @@
-import { currentState, easingFunc, normalise, tween } from '../helpers'
+import { currentProgressState, easingFunc, normalise, tween } from '../helpers'
 import { offset, position, rotate } from 'points'
 import { stylePropAttrMap } from './props'
 import { toPath, toPoints } from 'svg-points'
 
-const animationState = (state, timeline) => {
+/**
+ * The current state of the animation.
+ *
+ * @param {Shape}
+ *
+ * @returns {AnimationState}
+ *
+ * @example
+ * animationState(shape)
+ */
+const animationState = ({ state, timeline }) => {
   const { keyframes, timing } = timeline
   const currentAnimation = state && state.animation ? state.animation : {}
-  const animation = { ...currentAnimation, ...currentState(currentAnimation) }
+  const animation = { ...currentAnimation, ...currentProgressState(currentAnimation) }
   const { currentProgress } = animation
 
   return {
     ...animation,
-    ...currentKeyframes(currentProgress, keyframes, timing)
+    ...currentKeyframes({ currentProgress, keyframes, timing })
   }
 }
 
-const currentKeyframes = (currentProgress, keyframes, timing) => {
+/**
+ * The keyframes at a specific point in the animation.
+ *
+ * @param {Object} options
+ * @param {number} options.currentProgress - The animation's current progress.
+ * @param {Keyframe[]} options.keyframes - The shape's keyframes.
+ * @param {Timing} options.timing
+ *
+ * @returns {Object}
+ *
+ * @example
+ * currentKeyframes({ 0.5, keyframes, timing })
+ */
+const currentKeyframes = ({ currentProgress, keyframes, timing }) => {
   const keyframe1Index = timing.reduce((a, b, i) => currentProgress > b ? i : a, 0)
   const keyframe2Index = keyframe1Index + 1
   const keyframe1 = keyframes[ keyframe1Index ]
@@ -24,15 +47,41 @@ const currentKeyframes = (currentProgress, keyframes, timing) => {
   return { keyframe1, keyframe1Index, keyframe2, keyframe2Index }
 }
 
+/**
+ * The shapes at at specific point in the animation.
+ *
+ * @param {Object} options
+ * @param {Duration} options.duration - Total duration of the tween.
+ * @param {function} options.easing - The easing function.
+ * @param {FrameShape[]} options.shapes1 - The frame shape to tween from.
+ * @param {FrameShape[]} options.shapes2 - The frame shape to tween to.
+ * @param {Duration} options.time - Time since the start of the tween.
+ *
+ * @returns {FrameShape[]}
+ *
+ * @example
+ * currentShapes({ duration, easing, shapes1, shapes2, time })
+ */
 const currentShapes = ({ duration, easing, shapes1, shapes2, time }) => {
-  const [ s1, s2 ] = normalisedShapes(shapes1, shapes2)
+  const [ fromShapes, toShapes ] = normalisedShapes(shapes1, shapes2)
 
-  return s1.map((a, i) => {
-    const b = s2[ i ]
-    return tween(a, b, time, duration, easing)
+  return fromShapes.map((fromShape, i) => {
+    const toShape = toShapes[ i ]
+    return tween(fromShape, toShape, time, duration, easing)
   })
 }
 
+/**
+ * The shapes at a specific point in the animation.
+ *
+ * @param {AnimationState} animation
+ * @param {Timing} timing
+ *
+ * @returns {FrameShape[]}
+ *
+ * @example
+ * frameShapes(animation, timing)
+ */
 const frameShapes = (animation, timing) => {
   const {
     currentProgress,
@@ -68,6 +117,17 @@ const frameShapes = (animation, timing) => {
   })
 }
 
+/**
+ * The motion path offset and angle at a specific point in the animation.
+ *
+ * @param {AnimationState} animation
+ * @param {motionPath} motionPath
+ *
+ * @returns {Object}
+ *
+ * @example
+ * motionPathOffset(animation, motionPath)
+ */
 const motionPathOffset = (animation, motionPath) => {
   const { currentProgress, easing: defaultEasing } = animation
   const { accuracy = 1, ...motionPathShape } = motionPath
@@ -82,6 +142,18 @@ const motionPathOffset = (animation, motionPath) => {
   return position(shape, interval, accuracy)
 }
 
+/**
+ * Applies a motion path to a set of shapes.
+ *
+ * @param {AnimationState} animation
+ * @param {motionPath} motionPath
+ * @param {FrameShape[]} shapes
+ *
+ * @returns {FrameShape[]}
+ *
+ * @example
+ * motionPathShapes(animation, motionPath, shapes)
+ */
 const motionPathShapes = (animation, motionPath, shapes) => {
   const { rotate: r = false } = motionPath
   const { angle, x, y } = motionPathOffset(animation, motionPath)
@@ -106,6 +178,17 @@ const motionPathShapes = (animation, motionPath, shapes) => {
   return shapes
 }
 
+/**
+ * Normalise two sets of shapes to match point lengths and types.
+ *
+ * @param {FrameShape[]} shapes1
+ * @param {FrameShape[]} shapes2
+ *
+ * @returns {FrameShape[][]}
+ *
+ * @example
+ * normalisedShapes(shapes1, shapes2)
+ */
 const normalisedShapes = (shapes1, shapes2) => {
   const a = []
   const b = []
@@ -124,6 +207,16 @@ const normalisedShapes = (shapes1, shapes2) => {
   return [ a, b ]
 }
 
+/**
+ * The shape's attributes.
+ *
+ * @param {FrameShape} shape
+ *
+ * @returns {Object}
+ *
+ * @example
+ * shapeAttributes(shape)
+ */
 const shapeAttributes = ({ points, styles }) => {
   const attributes = styleAttributes(styles)
 
@@ -134,20 +227,18 @@ const shapeAttributes = ({ points, styles }) => {
   return attributes
 }
 
-const styleAttributes = styles => {
-  const s = {}
-
-  Object.keys(styles).map(prop => {
-    const attr = stylePropAttrMap[ prop ]
-
-    if (attr) {
-      s[ attr ] = styles[ prop ]
-    }
-  })
-
-  return s
-}
-
+/**
+ * An array of shape's attributes.
+ *
+ * @param {AnimationState} animation
+ * @param {MotionPath[]} motionPaths
+ * @param {Timing} timing
+ *
+ * @returns {Object[]}
+ *
+ * @example
+ * shapeState(animation, motionPaths, timing)
+ */
 const shapeState = (animation, motionPaths, timing) => {
   const { keyframe2Index } = animation
   const motionPath = motionPaths[ keyframe2Index ]
@@ -159,6 +250,30 @@ const shapeState = (animation, motionPaths, timing) => {
   }
 
   return shapes.map(shapeAttributes)
+}
+
+/**
+ * The shape's style attributes.
+ *
+ * @param {ShapeStyleProps} styles
+ *
+ * @returns {Object}
+ *
+ * @example
+ * styleAttributes(styles)
+ */
+const styleAttributes = styles => {
+  const attributes = {}
+
+  Object.keys(styles).map(prop => {
+    const attribute = stylePropAttrMap[ prop ]
+
+    if (attribute) {
+      attributes[ attribute ] = styles[ prop ]
+    }
+  })
+
+  return attributes
 }
 
 export {
@@ -174,14 +289,16 @@ export {
   shapeState
 }
 
+/**
+ * Update the shape's state.
+ *
+ * @property {Shape} shape
+ */
 export default shape => {
-  const { state, timeline } = shape
-  const { motionPaths, timing } = timeline
-  const animation = animationState(state, timeline)
+  const { motionPaths, timing } = shape.timeline
+
+  const animation = animationState(shape)
   const shapes = shapeState(animation, motionPaths, timing)
-  const s = { animation, shapes }
 
-  shape.state = s
-
-  return s
+  shape.state = { animation, shapes }
 }

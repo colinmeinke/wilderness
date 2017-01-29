@@ -3,7 +3,7 @@
 import {
   currentIteration,
   currentReverse,
-  currentState,
+  currentProgressState,
   easingFunc,
   finished,
   iterationsComplete,
@@ -51,19 +51,19 @@ describe('currentReverse', () => {
   })
 })
 
-describe('currentState', () => {
+describe('currentProgressState', () => {
   it('is initially not in reverse', () => {
-    const { currentReverse } = currentState()
+    const { currentReverse } = currentProgressState()
     expect(currentReverse).toBe(false)
   })
 
   it('is initially in reverse when initial reverse set to true', () => {
-    const { currentReverse } = currentState({ reverse: true })
+    const { currentReverse } = currentProgressState({ reverse: true })
     expect(currentReverse).toBe(true)
   })
 
   it('matches initial reverse when alternating after odd iterations', () => {
-    const { currentReverse } = currentState({
+    const { currentReverse } = currentProgressState({
       alternate: true,
       duration: 100,
       iterations: 4,
@@ -77,7 +77,7 @@ describe('currentState', () => {
   })
 
   it('is opposite to initial reverse when alternating after even iterations', () => {
-    const { currentReverse } = currentState({
+    const { currentReverse } = currentProgressState({
       alternate: true,
       duration: 100,
       iterations: 4,
@@ -91,12 +91,12 @@ describe('currentState', () => {
   })
 
   it('initially has 0 current progress', () => {
-    const { currentProgress } = currentState()
+    const { currentProgress } = currentProgressState()
     expect(currentProgress).toBe(0)
   })
 
   it('calculates correct current progress during playback', () => {
-    const { currentProgress } = currentState({
+    const { currentProgress } = currentProgressState({
       duration: 100,
       iterations: 1,
       now: 20,
@@ -108,7 +108,7 @@ describe('currentState', () => {
   })
 
   it('calculates correct current progress when initially in reverse', () => {
-    const { currentProgress } = currentState({
+    const { currentProgress } = currentProgressState({
       duration: 100,
       iterations: 1,
       now: 20,
@@ -121,7 +121,7 @@ describe('currentState', () => {
   })
 
   it('calculates correct current progress when finished', () => {
-    const { currentProgress } = currentState({
+    const { currentProgress } = currentProgressState({
       duration: 100,
       iterations: 1,
       now: 120,
@@ -133,7 +133,7 @@ describe('currentState', () => {
   })
 
   it('calculates correct current progress after multiple iterations', () => {
-    const { currentProgress } = currentState({
+    const { currentProgress } = currentProgressState({
       duration: 100,
       iterations: 4,
       now: 330,
@@ -145,7 +145,7 @@ describe('currentState', () => {
   })
 
   it('calculates correct current progress when alternating', () => {
-    const { currentProgress } = currentState({
+    const { currentProgress } = currentProgressState({
       alternate: true,
       duration: 100,
       iterations: 4,
@@ -158,7 +158,7 @@ describe('currentState', () => {
   })
 
   it('calculates correct current progress when alternating and initial reverse', () => {
-    const { currentProgress } = currentState({
+    const { currentProgress } = currentProgressState({
       alternate: true,
       duration: 100,
       iterations: 4,
@@ -172,12 +172,12 @@ describe('currentState', () => {
   })
 
   it('initially has 0 iterations complete', () => {
-    const { iterationsComplete } = currentState()
+    const { iterationsComplete } = currentProgressState()
     expect(iterationsComplete).toBe(0)
   })
 
   it('calculates correct iterations complete during playback', () => {
-    const { iterationsComplete } = currentState({
+    const { iterationsComplete } = currentProgressState({
       duration: 100,
       iterations: 1,
       now: 20,
@@ -189,7 +189,7 @@ describe('currentState', () => {
   })
 
   it('calculates correct iterations complete after multiple iterations', () => {
-    const { iterationsComplete } = currentState({
+    const { iterationsComplete } = currentProgressState({
       alternate: true,
       duration: 100,
       iterations: 4,
@@ -203,7 +203,7 @@ describe('currentState', () => {
   })
 
   it('iterations complete does not exceed maximum iterations', () => {
-    const { iterationsComplete } = currentState({
+    const { iterationsComplete } = currentProgressState({
       alternate: true,
       duration: 100,
       iterations: 4,

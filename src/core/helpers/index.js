@@ -1,6 +1,6 @@
 import {
   currentIteration,
-  currentState,
+  currentProgressState,
   currentReverse,
   easingFunc,
   finished,
@@ -16,7 +16,7 @@ import tween from './tween'
 
 export {
   currentIteration,
-  currentState,
+  currentProgressState,
   currentReverse,
   easingFunc,
   filter,

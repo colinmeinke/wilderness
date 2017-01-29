@@ -1,4 +1,4 @@
-import { currentState } from '../helpers'
+import { currentProgressState } from '../helpers'
 import { events, state } from '../shape'
 
 const init = (playable, options) => {
@@ -23,7 +23,7 @@ const init = (playable, options) => {
     ...options
   }
 
-  let { currentProgress, currentReverse, iterationsComplete } = currentState(animation)
+  let { currentProgress, currentReverse, iterationsComplete } = currentProgressState(animation)
   let reverse = currentReverse
   let reverseChanged = false
 
