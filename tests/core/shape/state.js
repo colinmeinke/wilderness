@@ -1,24 +1,34 @@
 /* globals describe it expect */
 
-import { styleAttributes }  from '../../../src/core/shape/state'
+import {
+  shapeAttributes,
+  styleAttributes
+} from '../../../src/core/shape/state'
 
-const stylePropAttrMap = {
-  fill: 'fill',
-  fillOpacity: 'fill-opacity',
-  fillRule: 'fill-rule',
-  stroke: 'stroke',
-  strokeDasharray: 'stroke-dasharray',
-  strokeDashoffset: 'stroke-dashoffset',
-  strokeLinecap: 'stroke-linecap',
-  strokeLinejoin: 'stroke-linejoin',
-  strokeOpacity: 'stroke-opacity',
-  strokeWidth: 'stroke-width',
-  vectorEffect: 'vector-effect'
-}
+describe('shapeAttributes', () => {
+  it('converts shape to attributes', () => {
+    const shape = {
+      points: [
+        { x: 0, y: 0, moveTo: true },
+        { x: 50, y: 50 }
+      ],
+      styles: {
+        fill: '#FFF'
+      }
+    }
+
+    const attributes = {
+      d: 'M0,0L50,50',
+      fill: '#FFF'
+    }
+
+    expect(shapeAttributes(shape)).toEqual(attributes)
+  })
+})
 
 describe('styleAttributes', () => {
-  it('converts style props to correct style attributes', () => {
-    const props = {
+  it('converts styles to attributes', () => {
+    const styles = {
       fill: '#FFF',
       fillOpacity: 0.5,
       fillRule: 'evenodd',
@@ -46,7 +56,7 @@ describe('styleAttributes', () => {
       'vector-effect': 'non-scaling-shape'
     }
 
-    expect(styleAttributes(props)).toEqual(attributes)
+    expect(styleAttributes(styles)).toEqual(attributes)
   })
 
   it('filters out unrecognised keys', () => {
@@ -55,7 +65,9 @@ describe('styleAttributes', () => {
       foo: 'bar'
     }
 
-    const attributes = { fill: '#FFF' }
+    const attributes = {
+      fill: '#FFF'
+    }
 
     expect(styleAttributes(props)).toEqual(attributes)
   })
