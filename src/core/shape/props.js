@@ -44,14 +44,14 @@ const shapeProps = [
 
 const stylePropAttrMap = {
   fill: 'fill',
-  fillOpactity: 'fill-opacity',
+  fillOpacity: 'fill-opacity',
   fillRule: 'fill-rule',
   stroke: 'stroke',
   strokeDasharray: 'stroke-dasharray',
   strokeDashoffset: 'stroke-dashoffset',
   strokeLinecap: 'stroke-linecap',
   strokeLinejoin: 'stroke-linejoin',
-  strokeOpactity: 'stroke-opacity',
+  strokeOpacity: 'stroke-opacity',
   strokeWidth: 'stroke-width',
   vectorEffect: 'vector-effect'
 }

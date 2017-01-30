@@ -440,7 +440,7 @@ can also have any of the following optional style properties.
 
 - `fill` is a *string* that defines the shape's `fill`
   attribute
-- `fillOpactity` is a *number* that defines the shape's
+- `fillOpacity` is a *number* that defines the shape's
   `fill-opacity` attribute
 - `fillRule` is a *string* that defines the shape's
   `fill-rule` attribute
@@ -454,7 +454,7 @@ can also have any of the following optional style properties.
   `stroke-linecap` attribute
 - `strokeLinejoin` is a *string* that defines the shape's
   `stroke-linejoin` attribute
-- `strokeOpactity` is a *number* that defines the shape's
+- `strokeOpacity` is a *number* that defines the shape's
   `stroke-opacity` attribute
 - `strokeWidth` is a *number* that defines the shape's
   `stroke-width` attribute
