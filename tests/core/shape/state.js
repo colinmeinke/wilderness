@@ -1,9 +1,74 @@
 /* globals describe it expect */
 
 import {
+  currentKeyframes,
   shapeAttributes,
   styleAttributes
 } from '../../../src/core/shape/state'
+
+describe('currentKeyframes', () => {
+  it('does not return keyframe2 and keyframe2Index when passed a single keyframe', () => {
+    const currentProgress = 0
+    const keyframes = [ {} ]
+    const timing = [ 0 ]
+
+    const result = {
+      keyframe1: {},
+      keyframe1Index: 0
+    }
+
+    expect(currentKeyframes({ currentProgress, keyframes, timing }))
+      .toEqual(result)
+  })
+
+  it('returns correct keyframes when only two keyframes', () => {
+    const currentProgress = 0.5
+    const keyframes = [ { a: 1 }, { b: 2 } ]
+    const timing = [ 0, 1 ]
+
+    const result = {
+      keyframe1: { a: 1 },
+      keyframe1Index: 0,
+      keyframe2: { b: 2 },
+      keyframe2Index: 1
+    }
+
+    expect(currentKeyframes({ currentProgress, keyframes, timing }))
+      .toEqual(result)
+  })
+
+  it('returns correct keyframes when more than two keyframes', () => {
+    const currentProgress = 0.75
+    const keyframes = [ { a: 1 }, { b: 2 }, { c: 3 } ]
+    const timing = [ 0, 0.5, 1 ]
+
+    const result = {
+      keyframe1: { b: 2 },
+      keyframe1Index: 1,
+      keyframe2: { c: 3 },
+      keyframe2Index: 2
+    }
+
+    expect(currentKeyframes({ currentProgress, keyframes, timing }))
+      .toEqual(result)
+  })
+
+  it('returns correct keyframes when currentProgress matches a timing item', () => {
+    const currentProgress = 0.5
+    const keyframes = [ { a: 1 }, { b: 2 }, { c: 3 } ]
+    const timing = [ 0, 0.5, 1 ]
+
+    const result = {
+      keyframe1: { a: 1 },
+      keyframe1Index: 0,
+      keyframe2: { b: 2 },
+      keyframe2Index: 1
+    }
+
+    expect(currentKeyframes({ currentProgress, keyframes, timing }))
+      .toEqual(result)
+  })
+})
 
 describe('shapeAttributes', () => {
   it('converts shape to attributes', () => {

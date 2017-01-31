@@ -44,7 +44,11 @@ const currentKeyframes = ({ currentProgress, keyframes, timing }) => {
   const keyframe1 = keyframes[ keyframe1Index ]
   const keyframe2 = keyframes[ keyframe2Index ]
 
-  return { keyframe1, keyframe1Index, keyframe2, keyframe2Index }
+  return {
+    keyframe1,
+    keyframe1Index,
+    ...(keyframe2 ? { keyframe2, keyframe2Index } : {})
+  }
 }
 
 /**
