@@ -1,10 +1,78 @@
 /* globals describe it expect */
 
 import {
+  animationState,
   currentKeyframes,
   shapeAttributes,
   styleAttributes
 } from '../../../src/core/shape/state'
+
+describe('animationState', () => {
+  it('returns default state when no animation', () => {
+    const shape = {
+      timeline: {
+        keyframes: [ {} ],
+        timing: [ 0 ]
+      }
+    }
+
+    const state = {
+      currentProgress: 0,
+      currentReverse: false,
+      iterationsComplete: 0,
+      keyframe1: {},
+      keyframe1Index: 0
+    }
+
+    expect(animationState(shape)).toEqual(state)
+  })
+
+  it('returns correct state with simple animation', () => {
+    const shape = {
+      state: {
+        animation: {
+          alternate: false,
+          currentProgress: 0,
+          currentReverse: false,
+          duration: 1000,
+          finished: false,
+          initialProgress: 0,
+          iterations: 3,
+          iterationsComplete: 0,
+          now: 1500,
+          play: 0,
+          reverse: false,
+          started: true
+        }
+      },
+      timeline: {
+        keyframes: [ { a: 1 }, { b: 2 } ],
+        timing: [ 0, 1 ]
+      }
+    }
+
+    const state = {
+      alternate: false,
+      currentProgress: 0.5,
+      currentReverse: false,
+      duration: 1000,
+      finished: false,
+      initialProgress: 0,
+      iterations: 3,
+      iterationsComplete: 1.5,
+      keyframe1: { a: 1 },
+      keyframe1Index: 0,
+      keyframe2: { b: 2 },
+      keyframe2Index: 1,
+      now: 1500,
+      play: 0,
+      reverse: false,
+      started: true
+    }
+
+    expect(animationState(shape)).toEqual(state)
+  })
+})
 
 describe('currentKeyframes', () => {
   it('does not return keyframe2 and keyframe2Index when passed a single keyframe', () => {
