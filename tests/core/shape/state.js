@@ -32,13 +32,10 @@ describe('animationState', () => {
       state: {
         animation: {
           alternate: false,
-          currentProgress: 0,
-          currentReverse: false,
           duration: 1000,
           finished: false,
           initialProgress: 0,
           iterations: 3,
-          iterationsComplete: 0,
           now: 1500,
           play: 0,
           reverse: false,
@@ -65,6 +62,92 @@ describe('animationState', () => {
       keyframe2: { b: 2 },
       keyframe2Index: 1,
       now: 1500,
+      play: 0,
+      reverse: false,
+      started: true
+    }
+
+    expect(animationState(shape)).toEqual(state)
+  })
+
+  it('returns correct state with complex animation', () => {
+    const shape = {
+      state: {
+        animation: {
+          alternate: true,
+          duration: 1000,
+          finished: false,
+          initialProgress: 0.25,
+          iterations: 3,
+          now: 1500,
+          play: 0,
+          reverse: true,
+          started: true
+        }
+      },
+      timeline: {
+        keyframes: [ { a: 1 }, { b: 2 }, { c: 3 } ],
+        timing: [ 0, 0.5, 1 ]
+      }
+    }
+
+    const state = {
+      alternate: true,
+      currentProgress: 0.75,
+      currentReverse: false,
+      duration: 1000,
+      finished: false,
+      initialProgress: 0.25,
+      iterations: 3,
+      iterationsComplete: 1.5,
+      keyframe1: { b: 2 },
+      keyframe1Index: 1,
+      keyframe2: { c: 3 },
+      keyframe2Index: 2,
+      now: 1500,
+      play: 0,
+      reverse: true,
+      started: true
+    }
+
+    expect(animationState(shape)).toEqual(state)
+  })
+
+  it('returns correct state when animation finished', () => {
+    const shape = {
+      state: {
+        animation: {
+          alternate: true,
+          duration: 1000,
+          finished: false,
+          initialProgress: 0.25,
+          iterations: 3,
+          now: 5000,
+          play: 0,
+          reverse: false,
+          started: true
+        }
+      },
+      timeline: {
+        keyframes: [ { a: 1 }, { b: 2 }, { c: 3 } ],
+        timing: [ 0, 0.5, 1 ]
+      }
+    }
+
+    const state = {
+      alternate: true,
+      currentProgress: 0.75,
+      currentReverse: true,
+      duration: 1000,
+      finished: false,
+      initialProgress: 0.25,
+      iterations: 3,
+      iterationsComplete: 3,
+      keyframe1: { b: 2 },
+      keyframe1Index: 1,
+      keyframe2: { c: 3 },
+      keyframe2Index: 2,
+      now: 5000,
       play: 0,
       reverse: false,
       started: true
