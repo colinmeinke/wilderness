@@ -116,6 +116,12 @@
  */
 
 /**
+ * A shape.
+ *
+ * @typedef {Shape} Playable
+ */
+
+/**
  * Shape data as defined by https://github.com/colinmeinke/points.
  *
  * @typedef {Object[]} Points
