@@ -2,7 +2,7 @@
   "author": {
     "name": "Colin Meinke",
     "email": "hello@colinmeinke.com",
-    "url": "www.colinmeinke.com"
+    "url": "https://colinmeinke.com"
   },
   "babel": {
     "plugins": [
@@ -14,7 +14,15 @@
         { "modules": false }
       ],
       "es2016"
-    ]
+    ],
+    "env": {
+      "test": {
+        "presets": [
+          "es2015",
+          "es2016"
+        ]
+      }
+    }
   },
   "bugs": {
     "url": "https://github.com/colinmeinke/wilderness/issues"
