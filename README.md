@@ -564,7 +564,7 @@ Shapes are *queueable* and can be passed into the
 
 Shapes are *playable* and can be passed into the
 [`play()` function](#play-function) and
-[`pause()` function](#play-function).
+[`pause()` function](#pause-function).
 
 ```js
 shape(
@@ -598,7 +598,7 @@ Timelines are *renderable* and can be passed into the
 
 Timelines are *playable* and can be passed into the
 [`play()` function](#play-function) and
-[`pause()` function](#play-function).
+[`pause()` function](#pause-function).
 
 ```
 timeline(
