@@ -1,4 +1,6 @@
 cjs/
 dist/
+examples/*/dist.js
 modules/
 node_modules/
+yarn-error.log

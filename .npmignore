@@ -1,0 +1,6 @@
+.gitignore
+.travis.yml
+bundle.js
+src/
+tests/
+yarn.lock
