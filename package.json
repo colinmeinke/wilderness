@@ -4,85 +4,16 @@
     "email": "hello@colinmeinke.com",
     "url": "https://colinmeinke.com"
   },
-  "babel": {
-    "plugins": [
-      "transform-object-rest-spread"
-    ],
-    "presets": [
-      [
-        "es2015",
-        {
-          "modules": false
-        }
-      ],
-      "es2016"
-    ],
-    "env": {
-      "test": {
-        "presets": [
-          "es2015",
-          "es2016"
-        ]
-      }
-    }
-  },
   "bugs": {
     "url": "https://github.com/colinmeinke/wilderness/issues"
   },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    }
-  },
-  "dependencies": {
-    "points": "^2.0.3",
-    "raf": "^3.3.0",
-    "svg-points": "^3.1.4",
-    "tween-functions": "^1.2.0"
-  },
-  "description": "A Javascript API for building and animating SVG",
-  "devDependencies": {
-    "babel-cli": "^6.24.0",
-    "babel-core": "^6.24.0",
-    "babel-jest": "^19.0.0",
-    "babel-loader": "^6.4.1",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-polyfill": "^6.23.0",
-    "babel-preset-es2015": "^6.24.0",
-    "babel-preset-es2016": "^6.22.0",
-    "commitizen": "^2.9.6",
-    "cz-conventional-changelog": "^2.0.0",
-    "jest": "^19.0.2",
-    "rimraf": "^2.6.1",
-    "semantic-release": "^6.3.2",
-    "snazzy": "^6.0.0",
-    "standard": "^9.0.2",
-    "webpack": "^2.2.1"
-  },
-  "homepage": "https://github.com/colinmeinke/wilderness#readme",
+  "homepage": "https://wilderness.now.sh",
   "license": "ISC",
-  "main": "lib/index.js",
-  "jest": {
-    "testRegex": "/tests/.*.js"
-  },
+  "main": "cjs/index.js",
   "name": "wilderness",
   "repository": {
     "type": "git",
     "url": "https://github.com/colinmeinke/wilderness.git"
   },
-  "scripts": {
-    "build": "npm run build:lib && npm run build:umd",
-    "build:lib": "babel src --out-dir lib",
-    "build:umd": "npm run build:umd:dev && npm run build:umd:pro",
-    "build:umd:dev": "webpack ./src/index.js ./dist/wilderness.js --output-library Wilderness --output-library-target umd --config ./webpack.config.babel.js",
-    "build:umd:pro": "webpack -p --optimize-minimize ./src/index.js ./dist/wilderness.min.js --output-library Wilderness --output-library-target umd --config ./webpack.config.babel.js",
-    "commit": "git-cz",
-    "fix": "standard --fix",
-    "lint": "standard --verbose | snazzy",
-    "prepublish": "npm run tidy && npm run build",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "test": "jest",
-    "tidy": "rimraf lib dist"
-  },
-  "version": "0.0.0-semantically-released"
+  "version": "0.0.0-development"
 }

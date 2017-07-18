@@ -1,8 +1,4 @@
+cjs/
 dist/
-examples/*/client.dist.js
-examples/*/node_modules/
-examples/*/npm-debug.log
-examples/*/tmp/
-lib/
+modules/
 node_modules/
-npm-debug.log
