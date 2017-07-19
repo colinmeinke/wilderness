@@ -2933,9 +2933,9 @@ wilderness-core@^1.1.0:
     svg-points "^6.0.0"
     tween-functions "^1.2.0"
 
-wilderness-dom-node@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/wilderness-dom-node/-/wilderness-dom-node-1.0.0.tgz#e0c4dd9f16e45a011b74e1e100274b87e36827c9"
+wilderness-dom-node@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/wilderness-dom-node/-/wilderness-dom-node-1.1.1.tgz#c5fdc8f13352a723e26b64ae4a32328e33d2e9af"
   dependencies:
     svg-points "^6.0.0"
 
