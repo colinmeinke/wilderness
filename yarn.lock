@@ -2925,13 +2925,19 @@ wide-align@^1.1.0:
   dependencies:
     string-width "^1.0.2"
 
-wilderness-core@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/wilderness-core/-/wilderness-core-1.0.0.tgz#c2b710ff2efc7309621d93e6378749818fb55069"
+wilderness-core@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/wilderness-core/-/wilderness-core-1.1.0.tgz#23308f7adb5a58235fe177b26de554f361076049"
   dependencies:
     points "^3.1.0"
     svg-points "^6.0.0"
     tween-functions "^1.2.0"
+
+wilderness-dom-node@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/wilderness-dom-node/-/wilderness-dom-node-1.0.0.tgz#e0c4dd9f16e45a011b74e1e100274b87e36827c9"
+  dependencies:
+    svg-points "^6.0.0"
 
 word-wrap@^1.0.3:
   version "1.2.3"
