@@ -29,7 +29,10 @@ Promise.resolve(console.log('Creating UMD development bundle ...'))
       }),
       commonJs(),
       resolve({ module: true }),
-      replace({ '__DEV__': true })
+      replace({
+        '__DEV__': true,
+        "process.env.NODE_ENV !== 'production'": true
+      })
     ]
   }))
   .then(() => Promise.resolve(console.log('UMD development bundle complete')))
@@ -46,7 +49,10 @@ Promise.resolve(console.log('Creating UMD development bundle ...'))
       }),
       commonJs(),
       resolve({ module: true }),
-      replace({ '__DEV__': false }),
+      replace({
+        '__DEV__': false,
+        "process.env.NODE_ENV !== 'production'": false
+      }),
       uglify()
     ]
   }))
@@ -67,7 +73,10 @@ Promise.resolve(console.log('Creating UMD development bundle ...'))
         }),
         commonJs(),
         resolve({ module: true }),
-        replace({ '__DEV__': true })
+        replace({
+          '__DEV__': true,
+          "process.env.NODE_ENV !== 'production'": true
+        })
       ]
     })
   ))))
