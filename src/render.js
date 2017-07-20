@@ -4,28 +4,17 @@ import { frame } from 'wilderness-core'
 import { node } from 'wilderness-dom-node'
 import { tick } from './timeline'
 
-const createNode = (shape, frameShape) => {
-  shape.node = node(frameShape)
+const appendNode = (container, shape) => {
+  if (shape.replace) {
+    shape.replace.parentNode.replaceChild(shape.node, shape.replace)
+    delete shape.replace
+  } else {
+    container.appendChild(shape.node)
+  }
 }
 
-const split = shapesAndTimelines => {
-  const shapes = []
-  const timelines = []
-
-  shapesAndTimelines.map(x => {
-    if (x.keyframes) {
-      if (__DEV__ && x.timeline) {
-        throw new Error(`You cannot render a shape that has been placed on a timeline, instead render the timeline`)
-      }
-
-      shapes.push(x)
-    } else {
-      // @todo validate timeline
-      timelines.push(x)
-    }
-  })
-
-  return { shapes, timelines }
+const createNode = (shape, frameShape) => {
+  shape.node = node(frameShape)
 }
 
 const render = (container, ...shapesAndTimelines) => {
@@ -49,19 +38,34 @@ const render = (container, ...shapesAndTimelines) => {
     })
   })
 
-  shapes.map(shape => {
-    container.appendChild(shape.node)
-  })
+  shapes.map(shape => appendNode(container, shape))
 
   timelines.map(timeline => {
-    timeline.timelineShapes.map(({ shape }) => {
-      container.appendChild(shape.node)
-    })
-
+    timeline.timelineShapes.map(({ shape }) => appendNode(container, shape))
     timeline.state.rendered = true
   })
 
   tick()
+}
+
+const split = shapesAndTimelines => {
+  const shapes = []
+  const timelines = []
+
+  shapesAndTimelines.map(x => {
+    if (x.keyframes) {
+      if (__DEV__ && x.timeline) {
+        throw new Error(`You cannot render a shape that has been placed on a timeline, instead render the timeline`)
+      }
+
+      shapes.push(x)
+    } else {
+      // @todo validate timeline
+      timelines.push(x)
+    }
+  })
+
+  return { shapes, timelines }
 }
 
 export default render
