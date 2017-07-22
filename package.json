@@ -71,8 +71,8 @@
     }
   },
   "dependencies": {
-    "wilderness-core": "^1.1.0",
-    "wilderness-dom-node": "^1.1.1"
+    "wilderness-core": "^2.0.0",
+    "wilderness-dom-node": "^1.1.2"
   },
   "description": "A javascript API for making SVG animations",
   "devDependencies": {
