@@ -2,21 +2,25 @@ import { shape, render, timeline, play } from '../../src'
 
 const el = document.querySelector('rect')
 
-const square = shape(
-  { el },
-  {
-    el,
-    fill: 'yellow',
-    transforms: [[ 'offset', 70, 70 ]]
-  },
-  { replace: el }
-)
+const keyframe1 = { el }
 
-const animation = timeline(square, {
+const keyframe2 = {
+  el,
+  fill: 'yellow',
+  transforms: [[ 'offset', 70, 70 ]]
+}
+
+const shapeOptions = { replace: el }
+
+const square = shape(keyframe1, keyframe2, shapeOptions)
+
+const playbackOptions = {
   alternate: true,
   duration: 2000,
   iterations: Infinity
-})
+}
+
+const animation = timeline(square, playbackOptions)
 
 render(document.querySelector('svg'), animation)
 
