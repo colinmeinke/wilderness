@@ -7,7 +7,7 @@ It's pretty much there. Remaining tasks before it is released:
 
 - Timeline events
 - Testing the DOM libraries
-- Adding code comments to the DOM libraries
+- ~~Adding code comments to the DOM libraries~~
 - Creating documentation
 
 If you'd like to give it a spin right now, download this repo and run:
