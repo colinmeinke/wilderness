@@ -36,27 +36,34 @@ const play = (t, playbackOptions, at) => {
  * Call recursively until there are no longer any active Timelines.
  *
  * @param {Object} opts
+ * @param {number} [at]
  * @param {boolean} [bypassTickingCheck=false]
+ * @param {boolean} [recurse=true]
  *
  * @example
  * tick()
  */
-const tick = ({ bypassTickingCheck = false } = {}) => {
+const tick = ({ at, bypassTickingCheck = false, recurse = true } = {}) => {
   if (!ticking || bypassTickingCheck) {
+    if (__DEV__ && typeof at !== 'undefined' && typeof at !== 'number') {
+      throw new TypeError(`The tick functions at option must be of type number`)
+    }
+
     ticking = true
 
     window.requestAnimationFrame(() => {
+      const a = typeof at !== 'undefined' ? at : Date.now()
       const activeTimelines = timelines.filter(active)
 
       activeTimelines.map(t => {
-        const frameShapes = frame(t)
+        const frameShapes = frame(t, a)
 
         t.timelineShapes.map(({ shape }, i) => {
           updateNode(shape.node, frameShapes[ i ])
         })
       })
 
-      if (activeTimelines.length) {
+      if (activeTimelines.length && recurse) {
         tick({ bypassTickingCheck: true })
       } else {
         ticking = false
