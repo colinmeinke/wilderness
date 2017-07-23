@@ -1,3 +1,5 @@
+/* globals __DEV__ */
+
 import { plainShapeObject } from 'wilderness-dom-node'
 import { shape as coreShape } from 'wilderness-core'
 
@@ -34,6 +36,10 @@ const shape = (...props) => {
     : {}
 
   if (replace) {
+    if (__DEV__ && (typeof replace !== 'object' || !replace.nodeName)) {
+      throw new TypeError(`The replace option must be a DOM node`)
+    }
+
     s.replace = replace
   }
 

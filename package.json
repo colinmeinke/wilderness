@@ -38,27 +38,6 @@
             }
           ]
         ]
-      },
-      "test": {
-        "plugins": [
-          "transform-object-rest-spread",
-          [
-            "inline-replace-variables",
-            {
-              "__DEV__": true
-            }
-          ]
-        ],
-        "presets": [
-          [
-            "env",
-            {
-              "targets": {
-                "node": "current"
-              }
-            }
-          ]
-        ]
       }
     }
   },
@@ -72,7 +51,7 @@
   },
   "dependencies": {
     "wilderness-core": "^2.0.0",
-    "wilderness-dom-node": "^1.1.2"
+    "wilderness-dom-node": "^1.2.1"
   },
   "description": "A javascript API for making SVG animations",
   "devDependencies": {

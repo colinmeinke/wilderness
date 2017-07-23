@@ -37,8 +37,8 @@ module.exports = config => {
         commonJs(),
         resolve({ module: true }),
         replace({
-          '__DEV__': false,
-          "process.env.NODE_ENV !== 'production'": false
+          '__DEV__': true,
+          "process.env.NODE_ENV !== 'production'": true
         })
       ],
       sourceMap: 'inline'
