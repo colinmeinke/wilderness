@@ -1,3 +1,5 @@
+/* globals __DEV__ */
+
 import { frame, play as corePlay, timeline as coreTimeline } from 'wilderness-core'
 import { updateNode } from 'wilderness-dom-node'
 
