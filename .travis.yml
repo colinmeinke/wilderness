@@ -7,10 +7,14 @@ notifications:
 node_js:
   - '7'
   - '6'
+dist: trusty
+addons:
+  chrome: stable
 before_script:
   - npm prune
 script:
   - npm run lint
+  - npm test
 after_success:
   - npm run semantic-release
 branches:

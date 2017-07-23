@@ -1,6 +1,18 @@
 import { plainShapeObject } from 'wilderness-dom-node'
 import { shape as coreShape } from 'wilderness-core'
 
+/**
+ * Extends the Wilderness core shape function.
+ * Adds the ability to pull keyframe attributes and points from a SVG DOM node.
+ * Adds an optional replace property to a Shape, which is used during render.
+ *
+ * @param {(PlainShapeObject|Object)[]} props
+ *
+ * @returns {Shape}
+ *
+ * @example
+ * shape({ el, style: '' }, { replace: el })
+ */
 const shape = (...props) => {
   const s = coreShape(...props.map(prop => {
     if (prop.el) {
