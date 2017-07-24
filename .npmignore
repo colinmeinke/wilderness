@@ -1,6 +1,7 @@
 .gitignore
 .travis.yml
 bundle.js
+coverage/
 src/
 tests/
 yarn.lock

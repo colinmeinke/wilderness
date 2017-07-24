@@ -9,6 +9,15 @@ module.exports = config => {
     browsers: [ 'ChromeHeadless' ],
     colors: true,
     concurrency: Infinity,
+    coverageReporter: {
+      reporters: [
+        { type: 'lcov' },
+        { type: 'json' },
+        { type: 'clover' },
+        { type: 'text-summary' }
+      ],
+      subdir: '.'
+    },
     files: [
       { pattern: 'src/**/*.js', included: false },
       'tests/**/*.js'
@@ -23,7 +32,7 @@ module.exports = config => {
       'src/**/*.js': [ 'rollup' ],
       'tests/**/*.js': [ 'rollup' ]
     },
-    reporters: [ 'mocha' ],
+    reporters: [ 'mocha', 'coverage' ],
     rollupPreprocessor: {
       exports: 'named',
       format: 'iife',
@@ -31,7 +40,11 @@ module.exports = config => {
       plugins: [
         babel({
           exclude: 'node_modules/**',
-          plugins: [ 'transform-object-rest-spread', 'external-helpers' ],
+          plugins: [
+            'transform-object-rest-spread',
+            'external-helpers',
+            [ 'istanbul', { 'exclude': [ 'node_modules/**', 'tests/**/*.js' ] } ]
+          ],
           presets: [[ 'es2015', { 'modules': false } ]]
         }),
         commonJs(),
