@@ -1,6 +1,6 @@
 /* globals __DEV__ */
 
-import { frame, play as corePlay, timeline as coreTimeline } from 'wilderness-core'
+import { events, frame, play as corePlay, timeline as coreTimeline } from 'wilderness-core'
 import { updateNode } from 'wilderness-dom-node'
 
 /**
@@ -63,6 +63,8 @@ const tick = ({ at, bypassTickingCheck = false, recurse = true } = {}) => {
         t.timelineShapes.map(({ shape }, i) => {
           updateNode(shape.node, frameShapes[ i ])
         })
+
+        events(t)
       })
 
       if (activeTimelines.length && recurse) {
