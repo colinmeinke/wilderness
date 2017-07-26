@@ -4067,9 +4067,9 @@ wide-align@^1.1.0:
   dependencies:
     string-width "^1.0.2"
 
-wilderness-core@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/wilderness-core/-/wilderness-core-2.1.0.tgz#3f3fe49cff925acc3a95a89c22b56fd6dd819efd"
+wilderness-core@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/wilderness-core/-/wilderness-core-2.2.0.tgz#cf616e9052a234a3911ecfbec80e21bd0c4ab09a"
   dependencies:
     points "^3.1.0"
     svg-points "^6.0.0"

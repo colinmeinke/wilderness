@@ -5,7 +5,7 @@ This is the **next** version on Wilderness, built on top of
 
 It's pretty much there. Remaining tasks before it is released:
 
-- Timeline events
+- ~~Timeline events~~
 - ~~Testing the DOM libraries~~
 - ~~Adding code comments to the DOM libraries~~
 - Creating documentation
