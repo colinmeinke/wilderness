@@ -9,8 +9,8 @@ As well as all the things that you would expect an SVG animation library to
 include, Wilderness has some very powerful features:
 
 - **Shape morphing**. Morph from anything, to anything.
-- **Full timeline control**. Sequence multiple shapes on a timeline. Control
-  playback how you want.
+- **Full timeline control**. Sequence multiple shapes on a timeline. Use the
+  powerful playback controls.
 - **Middleware**. Create your own functions to transform shapes during animation.
 
 Here is a quick example that shows just how simple it is to morph between two
@@ -24,7 +24,6 @@ const square = svg.querySelector('.square')
 const circle = svg.querySelector('.circle')
 
 // 1. Create a shape
-// This will create a shape with two keyframes
 const morph = shape({ el: square }, { el: circle })
 
 // 2. Place the shape on a timeline
@@ -39,13 +38,13 @@ play(animation)
 ```
 
 Full documentation will appear shortly at
-[wilderness.now.sh](https://wilderness.now.sh). In the meantime check out the [examples directory](./examples) in this repository.
+[wilderness.now.sh](https://wilderness.now.sh). In the meantime check out the [examples directory](./examples).
 
 ## Installation
 
 Wilderness can be used as [an ES2015 module](#es2015-module),
 [required with commonjs](#commonjs) or
-[loaded with an HTML script element](#umd).
+[loaded with a script element](#umd).
 
 First, get a copy of Wilderness by installing the npm distribution:
 
