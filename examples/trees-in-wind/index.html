@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+  <title>Trees in wind</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+    }
+
+    svg {
+      display: block;
+      height: 40%;
+      overflow: visible;
+      width: 40%;
+    }
+  </style>
+</head>
+<body>
+  <svg height="64" preserveAspectRatio="xMidYMid meet" width="48" viewBox="0 0 48 64">
+    <g class="tree" style="display:none">
+      <polygon fill="#594E3F" points="20 23 24 25 28 23 28 61 24 63 20 61"/>
+      <polygon fill="#423A2F" points="20 23 24 25 24 63 20 61"/>
+      <polygon fill="#58A45A" points="0 37 0 13 24 1 48 13 48 37 24 49"/>
+      <polygon fill="#60B363" points="0 13 24 1 48 13 24 25"/>
+      <polygon fill="#4D8F4F" points="0 13 24 25 24 49 0 37"/>
+    </g>
+    <g class="tree-in-wind" style="display:none">
+      <polygon fill="#594E3F" points="22 23 26 25 30 23 28 61 24 63 20 61"/>
+      <polygon fill="#423A2F" points="22 23 26 25 24 63 20 61"/>
+      <polygon fill="#5CAB5E" points="1 37 2 12 30 0 48 12 48 34 24 48"/>
+      <polygon fill="#63B866" points="2 12 30 0 48 12 25 23"/>
+      <polygon fill="#539955" points="2 12 25 23 24 48 1 37"/>
+    </g>
+  </svg>
+  <script src="dist.js"></script>
+</body>

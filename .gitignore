@@ -1,8 +1,7 @@
+coverage/
+cjs/
 dist/
-examples/*/client.dist.js
-examples/*/node_modules/
-examples/*/npm-debug.log
-examples/*/tmp/
-lib/
+examples/*/dist.js
+modules/
 node_modules/
-npm-debug.log
+yarn-error.log

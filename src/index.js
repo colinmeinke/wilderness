@@ -1,4 +1,16 @@
-import { pause, state } from './core'
-import { play, render, shape, timeline } from './dom'
+import render from './render'
+import shape from './shape'
+import timeline, { play } from './timeline'
+import { colorMiddleware, motionPath, pause, plainShapeObject, unitMiddleware } from 'wilderness-core'
 
-export { pause, play, render, shape, state, timeline }
+export {
+  colorMiddleware,
+  motionPath,
+  pause,
+  plainShapeObject,
+  play,
+  render,
+  shape,
+  timeline,
+  unitMiddleware
+}
