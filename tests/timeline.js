@@ -3,7 +3,29 @@
 import { node } from 'wilderness-dom-node'
 import render from '../src/render'
 import shape from '../src/shape'
-import timeline, { play, tick } from '../src/timeline'
+import timeline, { active, play, tick } from '../src/timeline'
+
+describe('active', () => {
+  it('should return false if not started', () => {
+    const state = { started: false, finished: false, rendered: true }
+    expect(active({ state })).to.equal(false)
+  })
+
+  it('should return false if finished', () => {
+    const state = { started: true, finished: true, rendered: true }
+    expect(active({ state })).to.equal(false)
+  })
+
+  it('should return false if not rendered', () => {
+    const state = { started: true, finished: false, rendered: false }
+    expect(active({ state })).to.equal(false)
+  })
+
+  it('should return true if started, not finished and rendered', () => {
+    const state = { started: true, finished: false, rendered: true }
+    expect(active({ state })).to.equal(true)
+  })
+})
 
 describe('timeline', () => {
   it('should not change core timeline behaviour', () => {

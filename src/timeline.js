@@ -98,5 +98,5 @@ const timeline = (...props) => {
  */
 const timelines = []
 
-export { play, tick }
+export { active, play, tick }
 export default timeline
