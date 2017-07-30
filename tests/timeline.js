@@ -90,4 +90,43 @@ describe('tick', () => {
 
     expect(s.node.toString()).to.eql(postTickExpectedEl.toString())
   })
+
+  it('should update timeline until complete', done => {
+    let currentAx = 0
+    let currentBx = 10
+
+    const started = Date.now()
+
+    const s = shape({ type: 'path', d: `M${currentAx},0H10` }, { type: 'path', d: `M${currentBx},0H20` })
+    const t = timeline(s, { duration: 50, started })
+
+    const xVals = s => {
+      const [ a, bx ] = s.node.getAttribute('d').substr(1).split('H')
+      const [ ax ] = a.split(',')
+      return [ parseFloat(ax), parseFloat(bx) ]
+    }
+
+    render(document.createElementNS('http://www.w3.org/2000/svg', 'svg'), t)
+
+    tick()
+
+    const i = setInterval(() => {
+      const now = Date.now()
+      const d = Math.min(50, now - started)
+      const p = d / 50
+      const [ ax, bx ] = xVals(s)
+
+      expect(ax >= currentAx).to.equal(true)
+      expect(bx >= currentBx).to.equal(true)
+      expect(bx - ax).to.be.closeTo(10, 0.0000001)
+
+      if (ax === 10 && bx === 20) {
+        clearInterval(i)
+        done()
+      }
+
+      currentAx = ax
+      currentBx = bx
+    }, 10)
+  })
 })
