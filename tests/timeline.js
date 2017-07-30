@@ -111,9 +111,6 @@ describe('tick', () => {
     tick()
 
     const i = setInterval(() => {
-      const now = Date.now()
-      const d = Math.min(50, now - started)
-      const p = d / 50
       const [ ax, bx ] = xVals(s)
 
       expect(ax >= currentAx).to.equal(true)
