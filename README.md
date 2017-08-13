@@ -2,6 +2,12 @@
 
 An SVG animation API.
 
+Documentation is a over at [wilderness.now.sh](https://wilderness.now.sh).
+
+You can also check out the [examples directory](./examples).
+
+---
+
 Wilderness combines a simple API, with the ability to create complex SVG
 animations.
 
@@ -35,58 +41,4 @@ render(svg, animation)
 
 // 4. Start playback of the timeline
 play(animation)
-```
-
-Full documentation will appear shortly at
-[wilderness.now.sh](https://wilderness.now.sh). In the meantime check out the [examples directory](./examples).
-
-## Installation
-
-Wilderness can be used as [an ES2015 module](#es2015-module),
-[required with commonjs](#commonjs) or
-[loaded with a script element](#umd).
-
-First, get a copy of Wilderness by installing the npm distribution:
-
-```
-yarn add wilderness
-```
-
-or
-
-```
-npm --save wilderness
-```
-
-Alternatively, you can find the distribution on the [unpkg CDN](https://unpkg.com/wilderness-core/).
-
-### ES2015 module
-
-```js
-import { shape, timeline, render, play } from 'wilderness'
-```
-
-### commonjs
-
-```js
-const { shape, timeline, render, play } = require('wilderness')
-```
-
-### UMD
-
-If you just want to drop a javascript file onto a page, then this is the method
-for you.
-
-Look in the `dist` directory of the distribution and select either the [development](https://unpkg.com/wilderness/dist/wilderness.development.js)
-or [production](https://unpkg.com/wilderness/dist/wilderness.production.js)
-file.
-
-Add a `script` tag linking to the file into your HTML layout, and you will then
-have access to the global `Wilderness` object.
-
-```js
-const shape = Wilderness.shape
-const timeline = Wilderness.timeline
-const render = Wilderness.render
-const play = Wilderness.play
 ```
