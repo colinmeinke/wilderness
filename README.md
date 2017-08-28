@@ -1,6 +1,6 @@
 # Wilderness
 
-An SVG animation API.
+An SVG animation API &middot; [https://wilderness.now.sh](https://wilderness.now.sh)
 
 [![gzip size](http://img.badgesize.io/https://unpkg.com/wilderness/dist/wilderness.production.js?compression=gzip&label=gzip%20size&style=flat&cache=false)](https://unpkg.com/wilderness/dist/wilderness.production.js) [![test coverage](https://img.shields.io/coveralls/colinmeinke/wilderness/master.svg?style=flat)](https://coveralls.io/github/colinmeinke/wilderness) [![travisci](https://img.shields.io/travis/colinmeinke/wilderness.svg?style=flat)](https://travis-ci.org/colinmeinke/wilderness) [![npm version](https://img.shields.io/npm/v/wilderness.svg?style=flat)](https://www.npmjs.com/package/wilderness)
 
@@ -31,5 +31,7 @@ render(document.querySelector('svg'), animation)
 
 play(animation)
 ```
+
+<br />
 
 [Learn Wilderness](https://wilderness.now.sh/getting-started) &middot; [View examples](./examples)
