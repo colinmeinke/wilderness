@@ -1,44 +1,37 @@
-# Wilderness &middot; [![gzip size](http://img.badgesize.io/https://unpkg.com/wilderness/dist/wilderness.production.js?compression=gzip&label=gzip%20size&style=flat&cache=false)](https://unpkg.com/wilderness/dist/wilderness.production.js) [![test coverage](https://img.shields.io/coveralls/colinmeinke/wilderness/master.svg?style=flat)](https://coveralls.io/github/colinmeinke/wilderness) [![travisci](https://img.shields.io/travis/colinmeinke/wilderness.svg?style=flat)](https://travis-ci.org/colinmeinke/wilderness) [![npm version](https://img.shields.io/npm/v/wilderness.svg?style=flat)](https://www.npmjs.com/package/wilderness)
+# Wilderness
 
 An SVG animation API.
 
-Documentation is a over at [wilderness.now.sh](https://wilderness.now.sh).
-
-You can also check out the [examples directory](./examples).
+[![gzip size](http://img.badgesize.io/https://unpkg.com/wilderness/dist/wilderness.production.js?compression=gzip&label=gzip%20size&style=flat&cache=false)](https://unpkg.com/wilderness/dist/wilderness.production.js) [![test coverage](https://img.shields.io/coveralls/colinmeinke/wilderness/master.svg?style=flat)](https://coveralls.io/github/colinmeinke/wilderness) [![travisci](https://img.shields.io/travis/colinmeinke/wilderness.svg?style=flat)](https://travis-ci.org/colinmeinke/wilderness) [![npm version](https://img.shields.io/npm/v/wilderness.svg?style=flat)](https://www.npmjs.com/package/wilderness)
 
 ---
 
-Wilderness combines a simple API, with the ability to create complex SVG
-animations.
+## Summary
 
-As well as all the things that you would expect an SVG animation library to
-include, Wilderness has some very powerful features:
+- 🎉 Small file size (14.7kb minified + gzip)
+- 🌟 Simple, functional API
+- 🐣 Morph from anything, to anything
+- ⏱️ Queue multiple animations on a timeline
+- 🚀 Powerful playback control
 
-- **Shape morphing**. Morph from anything, to anything.
-- **Full timeline control**. Sequence multiple shapes on a timeline. Use the
-  powerful playback controls.
-- **Middleware**. Create your own functions to transform shapes during animation.
-
-Here is a quick example that shows just how simple it is to morph between two
-shapes with Wilderness:
+## Hello world
 
 ```js
-import { shape, timeline, render, play } from 'wilderness'
+import { shape, render, timeline, play } from 'wilderness'
 
-const svg = document.querySelector('.svg')
-const square = svg.querySelector('.square')
-const circle = svg.querySelector('.circle')
+const morph = shape(
+  { el: document.querySelector('circle') },
+  { el: document.querySelector('rect') },
+)
 
-// 1. Create a shape
-const morph = shape({ el: square }, { el: circle })
+const animation = timeline(morph, {
+  iterations: Infinity,
+  alternate: true
+})
 
-// 2. Place the shape on a timeline
-const playbackOptions = { alternate: true, iterations: Infinity }
-const animation = timeline(morph, playbackOptions)
+render(document.querySelector('svg'), animation)
 
-// 3. Render the timeline to the SVG
-render(svg, animation)
-
-// 4. Start playback of the timeline
 play(animation)
 ```
+
+[Learn Wilderness](https://wilderness.now.sh/getting-started) &middot; [View examples](./examples)
