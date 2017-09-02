@@ -9,17 +9,17 @@ const uglify = require('rollup-plugin-uglify')
 
 Promise.promisifyAll(fs)
 
-const build = ({ dest, entry, format, plugins }) => new Promise((resolve, reject) => {
-  rollup({ entry, plugins })
-    .then(bundle => bundle.write({ dest, format, moduleName: 'Wilderness' })
+const build = ({ file, input, format, plugins }) => new Promise((resolve, reject) => {
+  rollup({ input, plugins })
+    .then(bundle => bundle.write({ file, format, name: 'Wilderness' })
     .then(resolve))
     .catch(reject)
 })
 
 Promise.resolve(console.log('Creating UMD development bundle ...'))
   .then(() => build({
-    dest: 'dist/wilderness.development.js',
-    entry: 'src/index.js',
+    file: 'dist/wilderness.development.js',
+    input: 'src/index.js',
     format: 'umd',
     plugins: [
       babel({
@@ -38,8 +38,8 @@ Promise.resolve(console.log('Creating UMD development bundle ...'))
   .then(() => Promise.resolve(console.log('UMD development bundle complete')))
   .then(() => Promise.resolve(console.log('Creating UMD production bundle ...')))
   .then(() => build({
-    dest: 'dist/wilderness.production.js',
-    entry: 'src/index.js',
+    file: 'dist/wilderness.production.js',
+    input: 'src/index.js',
     format: 'umd',
     plugins: [
       babel({
@@ -62,8 +62,8 @@ Promise.resolve(console.log('Creating UMD development bundle ...'))
   .then(files => Promise.filter(files, f => fs.lstatAsync(`examples/${f}`).then(x => Promise.resolve(x.isDirectory()))))
   .then(directories => Promise.all(directories.map(dir => (
     build({
-      dest: `examples/${dir}/dist.js`,
-      entry: `examples/${dir}/src.js`,
+      file: `examples/${dir}/dist.js`,
+      input: `examples/${dir}/src.js`,
       format: 'iife',
       plugins: [
         babel({
