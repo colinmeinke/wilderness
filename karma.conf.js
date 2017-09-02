@@ -36,7 +36,7 @@ module.exports = config => {
     rollupPreprocessor: {
       exports: 'named',
       format: 'iife',
-      moduleName: 'wilderness',
+      name: 'wilderness',
       plugins: [
         babel({
           exclude: 'node_modules/**',
@@ -54,7 +54,7 @@ module.exports = config => {
           "process.env.NODE_ENV !== 'production'": true
         })
       ],
-      sourceMap: 'inline'
+      sourcemap: 'inline'
     }
   })
 }
