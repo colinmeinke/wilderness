@@ -6,7 +6,7 @@ An SVG animation API &middot; [https://wilderness.now.sh](https://wilderness.now
 
 ## Summary
 
-- 🎉 Small file size (14.7kb minified + gzip)
+- 🎉 Small file size (15.1kb minified + gzip)
 - 🌟 Simple, functional API
 - 🐣 Morph from anything, to anything
 - ⏱️ Queue multiple animations on a timeline
