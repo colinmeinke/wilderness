@@ -64,7 +64,7 @@ describe('play', () => {
 
 describe('tick', () => {
   it('should throw if passed an invalid at option', () => {
-    expect(() => tick({ at: 'potato', bypassTickingCheck: true }))
+    expect(() => tick(true, true, 'potato'))
       .to.throw('The tick functions at option must be of type number')
   })
 
@@ -86,7 +86,7 @@ describe('tick', () => {
 
     expect(s.node.toString()).to.eql(preTickExpectedEl.toString())
 
-    tick({ at: 500, recurse: false })
+    tick(false, false, 500)
 
     expect(s.node.toString()).to.eql(postTickExpectedEl.toString())
   })

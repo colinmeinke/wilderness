@@ -98,10 +98,11 @@ const render = (container, ...shapesAndTimelines) => {
  * split([ shape, timeline ])
  */
 const split = shapesAndTimelines => {
-  const shapes = []
-  const timelines = []
+  const result = { shapes: [], timelines: [] }
 
-  shapesAndTimelines.map(x => {
+  for (let i = 0, l = shapesAndTimelines.length; i < l; i++) {
+    const x = shapesAndTimelines[ i ]
+
     if (typeof x === 'object' && x.keyframes) {
       if (__DEV__) {
         if (x.timeline) {
@@ -113,19 +114,19 @@ const split = shapesAndTimelines => {
         }
       }
 
-      shapes.push(x)
+      result.shapes.push(x)
     } else if (typeof x === 'object' && x.middleware && x.playbackOptions && x.state && x.timelineShapes) {
       if (__DEV__ && x.state.rendered) {
         throw new Error(`You cannot render the same timeline twice`)
       }
 
-      timelines.push(x)
+      result.timelines.push(x)
     } else if (__DEV__) {
       throw new Error(`The render function only takes shapes and timelines from the second argument onwards`)
     }
-  })
+  }
 
-  return { shapes, timelines }
+  return result
 }
 
 export default render

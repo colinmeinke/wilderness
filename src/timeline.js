@@ -37,15 +37,14 @@ const play = (t, playbackOptions, at) => {
  * Calculate the active Timeline Shapes and update the corresponding Nodes.
  * Call recursively until there are no longer any active Timelines.
  *
- * @param {Object} opts
- * @param {number} [at]
  * @param {boolean} [bypassTickingCheck=false]
  * @param {boolean} [recurse=true]
+ * @param {number} [at]
  *
  * @example
  * tick()
  */
-const tick = ({ at, bypassTickingCheck = false, recurse = true } = {}) => {
+const tick = (bypassTickingCheck = false, recurse = true, at) => {
   if (!ticking || bypassTickingCheck) {
     if (__DEV__ && typeof at !== 'undefined' && typeof at !== 'number') {
       throw new TypeError(`The tick functions at option must be of type number`)
@@ -57,7 +56,8 @@ const tick = ({ at, bypassTickingCheck = false, recurse = true } = {}) => {
       const a = typeof at !== 'undefined' ? at : Date.now()
       const activeTimelines = timelines.filter(active)
 
-      activeTimelines.map(t => {
+      for (let i = 0, l = activeTimelines.length; i < l; i++) {
+        const t = activeTimelines[ i ]
         const frameShapes = frame(t, a)
 
         t.timelineShapes.map(({ shape }, i) => {
@@ -65,10 +65,10 @@ const tick = ({ at, bypassTickingCheck = false, recurse = true } = {}) => {
         })
 
         events(t)
-      })
+      }
 
       if (activeTimelines.length && recurse) {
-        tick({ bypassTickingCheck: true })
+        tick(true)
       } else {
         ticking = false
       }
