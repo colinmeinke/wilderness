@@ -2,6 +2,7 @@
 .travis.yml
 bundle.js
 coverage/
+performance-tests/
 src/
 tests/
 yarn.lock
