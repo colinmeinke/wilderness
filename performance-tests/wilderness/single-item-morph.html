@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+  <title>Wilderness signle item morph</title>
+</head>
+<body>
+  <svg height="500" width="500" viewBox="0 0 500 500"></svg>
+  <button type="button">Play</button>
+
+  <script src="wilderness.production.js"></script>
+
+  <script>
+    (function () {
+      const { shape, render, timeline, play } = Wilderness
+
+      const keyframe1 = {
+        type: 'rect',
+        x: 0,
+        y: 0,
+        width: 50,
+        height: 50
+      }
+
+      const keyframe2 = {
+        type: 'circle',
+        cx: 475,
+        cy: 475,
+        r: 25,
+        duration: 3000
+      }
+
+      const morph = shape(keyframe1, keyframe2)
+
+      const animation = timeline(morph)
+
+      render(document.querySelector('svg'), animation)
+
+      document.querySelector('button').addEventListener('click', () => {
+        play(animation, { initialIterations: 0, iterations: 1 })
+      })
+    })()
+  </script>
+</body>

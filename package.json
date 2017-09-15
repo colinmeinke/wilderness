@@ -105,6 +105,7 @@
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "fix": "standard --fix",
     "lint": "standard --verbose | snazzy",
+    "performance": "cp dist/wilderness.production.js performance-tests/wilderness/wilderness.production.js",
     "prepublish": "npm run tidy && npm run build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "karma start --single-run --browsers ChromeHeadless karma.conf.js",

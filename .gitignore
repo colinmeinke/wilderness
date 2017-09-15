@@ -4,4 +4,5 @@ dist/
 examples/*/dist.js
 modules/
 node_modules/
+performance-tests/*/*.js
 yarn-error.log

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+  <title>GSAP single item morph</title>
+</head>
+<body>
+  <svg height="500" width="500" viewBox="0 0 500 500"></svg>
+  <button type="button">Play</button>
+
+  <script src="TweenMax.min.js"></script>
+  <script src="MorphSVGPlugin.min.js"></script>
+
+  <script>
+    (function () {
+      const tl = new TimelineMax()
+
+      const el = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+
+      const from = 'M0,0h50v50h-50z'
+      const to = 'M475,450C488.80711874576986,450,500,461.19288125423014,500,475C500,488.80711874576986,488.80711874576986,500,475,500C461.19288125423014,500,450,488.80711874576986,450,475C450,461.19288125423014,461.19288125423014,450,475,450Z'
+
+      el.setAttribute('d', from)
+
+      document.querySelector('svg').appendChild(el)
+
+      document.querySelector('button').addEventListener('click', () => {
+        tl.set(el, { morphSVG: from }).to(el, 3, { morphSVG: to })
+      })
+    })()
+  </script>
+</body>
