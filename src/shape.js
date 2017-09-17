@@ -16,7 +16,11 @@ import { shape as coreShape } from 'wilderness-core'
  * shape({ el, style: '' }, { replace: el })
  */
 const shape = (...props) => {
-  const s = coreShape(...props.map(prop => {
+  const args = []
+
+  for (let i = 0, l = props.length; i < l; i++) {
+    const prop = props[ i ]
+
     if (prop.el) {
       const p = {
         ...plainShapeObject(prop.el),
@@ -25,15 +29,19 @@ const shape = (...props) => {
 
       delete p.el
 
-      return p
+      args.push(p)
     }
 
-    return prop
-  }))
+    args.push(prop)
+  }
 
-  const { replace } = props.length > 1 && typeof props[ props.length - 1 ].type === 'undefined'
+  const s = coreShape(...args)
+
+  const options = props.length > 1 && typeof props[ props.length - 1 ].type === 'undefined'
     ? props[ props.length - 1 ]
     : {}
+
+  const replace = options.replace
 
   if (replace) {
     if (__DEV__ && (typeof replace !== 'object' || !replace.nodeName)) {

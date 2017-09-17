@@ -50,8 +50,8 @@
     }
   },
   "dependencies": {
-    "wilderness-core": "^2.2.1",
-    "wilderness-dom-node": "^1.3.1"
+    "wilderness-core": "^2.2.2",
+    "wilderness-dom-node": "^1.3.2"
   },
   "description": "An SVG animation API",
   "devDependencies": {

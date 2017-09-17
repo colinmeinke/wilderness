@@ -6,19 +6,7 @@ import { updateNode } from 'wilderness-dom-node'
 /**
  * Is the tick function running?
  */
-let ticking = false
-
-/**
- * Is the Timeline rendered and playing?
- *
- * @param {Timeline} timeline
- *
- * @returns {boolean}
- *
- * @example
- * active(timeline)
- */
-const active = ({ state }) => state.started && !state.finished && state.rendered
+let ticks = 0
 
 /**
  * Extends the Wilderness core play function.
@@ -37,40 +25,47 @@ const play = (t, playbackOptions, at) => {
  * Calculate the active Timeline Shapes and update the corresponding Nodes.
  * Call recursively until there are no longer any active Timelines.
  *
- * @param {boolean} [bypassTickingCheck=false]
- * @param {boolean} [recurse=true]
  * @param {number} [at]
  *
  * @example
  * tick()
  */
-const tick = (bypassTickingCheck = false, recurse = true, at) => {
-  if (!ticking || bypassTickingCheck) {
+const tick = at => {
+  if (!ticks) {
+
     if (__DEV__ && typeof at !== 'undefined' && typeof at !== 'number') {
       throw new TypeError(`The tick functions at option must be of type number`)
     }
 
-    ticking = true
-
     window.requestAnimationFrame(() => {
       const a = typeof at !== 'undefined' ? at : Date.now()
-      const activeTimelines = timelines.filter(active)
 
-      for (let i = 0, l = activeTimelines.length; i < l; i++) {
-        const t = activeTimelines[ i ]
-        const frameShapes = frame(t, a)
+      let retick = false
 
-        t.timelineShapes.map(({ shape }, i) => {
-          updateNode(shape.node, frameShapes[ i ])
-        })
+      ticks++
 
-        events(t)
+      for (let i = 0, l = timelines.length; i < l; i++) {
+        const t = timelines[ i ]
+        const state = t.state
+
+        if (state.started && !state.finished && state.rendered) {
+          const timelineShapes = t.timelineShapes
+          const frameShapes = frame(t, a)
+
+          for (let _i = 0, _l = timelineShapes.length; _i < _l; _i++) {
+            updateNode(timelineShapes[ _i ].shape.node, frameShapes[ _i ])
+          }
+
+          events(t)
+
+          retick = true
+        }
       }
 
-      if (activeTimelines.length && recurse) {
-        tick(true)
-      } else {
-        ticking = false
+      ticks--
+
+      if (retick) {
+        tick()
       }
     })
   }
@@ -98,5 +93,5 @@ const timeline = (...props) => {
  */
 const timelines = []
 
-export { active, play, tick }
+export { play, tick }
 export default timeline

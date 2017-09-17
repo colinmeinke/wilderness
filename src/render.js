@@ -14,37 +14,6 @@ import { tick } from './timeline'
  */
 
 /**
- * Appends or replaces a Shape Node within a container Node.
- *
- * @param {Node} container
- * @param {Shape} shape
- *
- * @example
- * appendNode(svg, shape)
- */
-const appendNode = (container, shape) => {
-  if (shape.replace) {
-    shape.replace.parentNode.replaceChild(shape.node, shape.replace)
-    delete shape.replace
-  } else {
-    container.appendChild(shape.node)
-  }
-}
-
-/**
- * Creates a Node for a Shape given a FrameShape.
- *
- * @param {Shape} shape
- * @param {FrameShape} frameShape
- *
- * @example
- * createNode(shape, frameShape)
- */
-const createNode = (shape, frameShape) => {
-  shape.node = node(frameShape)
-}
-
-/**
  * Renders Shapes or Timelines to a container Node.
  *
  * @param {Node} container
@@ -60,29 +29,42 @@ const render = (container, ...shapesAndTimelines) => {
     }
   }
 
-  const { shapes, timelines } = split(shapesAndTimelines)
+  const shapesToRender = []
+  const result = split(shapesAndTimelines)
+  const shapes = result.shapes
+  const timelines = result.timelines
 
-  shapes.map(shape => {
-    createNode(shape, shape.keyframes[ 0 ].frameShape)
-  })
+  for (let i = 0, l = shapes.length; i < l; i++) {
+    const shape = shapes[ i ]
+    shape.node = node(shape.keyframes[ 0 ].frameShape)
+    shapesToRender.push(shape)
+    shape.rendered = true
+  }
 
-  timelines.map(timeline => {
+  for (let i = 0, l = timelines.length; i < l; i++) {
+    const timeline = timelines[ i ]
+    const timelineShapes = timeline.timelineShapes
     const frameShapes = frame(timeline)
 
-    timeline.timelineShapes.map(({ shape }, i) => {
-      createNode(shape, frameShapes[ i ])
-    })
-  })
+    for (let _i = 0, _l = timelineShapes.length; _i < _l; _i++) {
+      const shape = timelineShapes[ _i ].shape
+      shape.node = node(frameShapes[ _i ])
+      shapesToRender.push(shape)
+    }
 
-  shapes.map(shape => {
-    appendNode(container, shape)
-    shape.rendered = true
-  })
-
-  timelines.map(timeline => {
-    timeline.timelineShapes.map(({ shape }) => appendNode(container, shape))
     timeline.state.rendered = true
-  })
+  }
+
+  for (let i = 0, l = shapesToRender.length; i < l; i++) {
+    const shape = shapesToRender[ i ]
+
+    if (shape.replace) {
+      shape.replace.parentNode.replaceChild(shape.node, shape.replace)
+      delete shape.replace
+    } else {
+      container.appendChild(shape.node)
+    }
+  }
 
   tick()
 }

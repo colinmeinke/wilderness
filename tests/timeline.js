@@ -3,29 +3,7 @@
 import { node } from 'wilderness-dom-node'
 import render from '../src/render'
 import shape from '../src/shape'
-import timeline, { active, play, tick } from '../src/timeline'
-
-describe('active', () => {
-  it('should return false if not started', () => {
-    const state = { started: false, finished: false, rendered: true }
-    expect(active({ state })).to.equal(false)
-  })
-
-  it('should return false if finished', () => {
-    const state = { started: true, finished: true, rendered: true }
-    expect(active({ state })).to.equal(false)
-  })
-
-  it('should return false if not rendered', () => {
-    const state = { started: true, finished: false, rendered: false }
-    expect(active({ state })).to.equal(false)
-  })
-
-  it('should return true if started, not finished and rendered', () => {
-    const state = { started: true, finished: false, rendered: true }
-    expect(active({ state })).to.equal(true)
-  })
-})
+import timeline, { play, tick } from '../src/timeline'
 
 describe('timeline', () => {
   it('should not change core timeline behaviour', () => {
@@ -64,7 +42,7 @@ describe('play', () => {
 
 describe('tick', () => {
   it('should throw if passed an invalid at option', () => {
-    expect(() => tick(true, true, 'potato'))
+    expect(() => tick('potato'))
       .to.throw('The tick functions at option must be of type number')
   })
 
@@ -86,7 +64,7 @@ describe('tick', () => {
 
     expect(s.node.toString()).to.eql(preTickExpectedEl.toString())
 
-    tick(false, false, 500)
+    tick(500)
 
     expect(s.node.toString()).to.eql(postTickExpectedEl.toString())
   })
