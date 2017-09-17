@@ -32,7 +32,6 @@ const play = (t, playbackOptions, at) => {
  */
 const tick = at => {
   if (!ticks) {
-
     if (__DEV__ && typeof at !== 'undefined' && typeof at !== 'number') {
       throw new TypeError(`The tick functions at option must be of type number`)
     }
