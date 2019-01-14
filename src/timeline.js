@@ -1,6 +1,6 @@
 /* globals __DEV__ */
 
-import { events, frame, play as corePlay, timeline as coreTimeline } from 'wilderness-core'
+import { flushEvents, frame, play as corePlay, timeline as coreTimeline } from 'wilderness-core'
 import { updateNode } from 'wilderness-dom-node'
 
 /**
@@ -55,7 +55,9 @@ const tick = at => {
             updateNode(timelineShapes[ _i ].shape.node, frameShapes[ _i ])
           }
 
-          events(t)
+          if (t.events) {
+            flushEvents(t)
+          }
 
           retick = true
         }

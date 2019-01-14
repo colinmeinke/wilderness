@@ -30,7 +30,7 @@
 
       const morph = shape(keyframe1, keyframe2)
 
-      const animation = timeline(morph)
+      const animation = timeline(morph, { middleware: [] })
 
       render(document.querySelector('svg'), animation)
 
